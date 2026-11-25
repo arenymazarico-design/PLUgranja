@@ -6,16 +6,16 @@ export const config = { path: "/api" };
 
 /* ---------- constants ---------- */
 const ROLES = ["admin", "enginyer", "vetlog", "vet", "granger"];
-const MODS = ["destete", "escorxador", "gastos", "hidrolisi", "granges"];
+const MODS = ["destete", "escorxador", "gastos", "hidrolisi", "aigua", "granges"];
+const FUNCS = ["destete", "escorxador", "gastos", "hidrolisi", "aigua"];
 const FLAGS = ["validar", "retornar", "exportar", "tancaExport", "gestHidro"];
-const SCOPES = ["all", "own", "notown"];
 const CATS = ["electricitat", "lampisteria", "recanvis", "gasoil", "pellet", "pinso", "veterinari", "neteja", "manteniment", "transport", "altres"];
 const DEF_PERMS = {
-  admin:    { destete: 2, escorxador: 2, gastos: 2, hidrolisi: 2, granges: 2, validar: true,  retornar: true,  exportar: true,  tancaExport: true,  gestHidro: true },
-  enginyer: { destete: 1, escorxador: 1, gastos: 2, hidrolisi: 2, granges: 2, validar: false, retornar: false, exportar: true,  tancaExport: false, gestHidro: true },
-  vetlog:   { destete: 2, escorxador: 2, gastos: 1, hidrolisi: 1, granges: 1, validar: true,  retornar: true,  exportar: true,  tancaExport: true,  gestHidro: false },
-  vet:      { destete: 2, escorxador: 2, gastos: 0, hidrolisi: 1, granges: 1, validar: true,  retornar: false, exportar: true,  tancaExport: false, gestHidro: false },
-  granger:  { destete: 2, escorxador: 2, gastos: 2, hidrolisi: 2, granges: 0, validar: false, retornar: false, exportar: false, tancaExport: false, gestHidro: false },
+  admin:    { destete: 2, escorxador: 2, gastos: 2, hidrolisi: 2, aigua: 2, granges: 2, validar: true,  retornar: true,  exportar: true,  tancaExport: true,  gestHidro: true },
+  enginyer: { destete: 1, escorxador: 1, gastos: 2, hidrolisi: 2, aigua: 2, granges: 2, validar: false, retornar: false, exportar: true,  tancaExport: false, gestHidro: true },
+  vetlog:   { destete: 2, escorxador: 2, gastos: 1, hidrolisi: 1, aigua: 0, granges: 1, validar: true,  retornar: true,  exportar: true,  tancaExport: true,  gestHidro: false },
+  vet:      { destete: 2, escorxador: 2, gastos: 0, hidrolisi: 1, aigua: 0, granges: 1, validar: true,  retornar: false, exportar: true,  tancaExport: false, gestHidro: false },
+  granger:  { destete: 2, escorxador: 2, gastos: 2, hidrolisi: 2, aigua: 2, granges: 0, validar: false, retornar: false, exportar: false, tancaExport: false, gestHidro: false },
 };
 
 /* ---------- helpers ---------- */
@@ -40,13 +40,14 @@ function readTok(t) {
   return o.exp > Date.now() ? o : null;
 }
 
+function madridNow() { const p = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Madrid", year: "numeric", month: "numeric", day: "numeric" }).formatToParts(new Date()); const g = (t) => +p.find((x) => x.type === t).value; return { y: g("year"), m: g("month"), d: g("day") }; }
 function weeksInYear(y) { const d = new Date(Date.UTC(y, 11, 28)); return isoWeek(d).w; }
 function isoWeek(d) { const x = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())); const day = x.getUTCDay() || 7; x.setUTCDate(x.getUTCDate() + 4 - day); const y = x.getUTCFullYear(); return { y, w: Math.ceil(((x - new Date(Date.UTC(y, 0, 1))) / 864e5 + 1) / 7) }; }
 const nextWeek = (y, w) => (w >= weeksInYear(y) ? { y: y + 1, w: 1 } : { y, w: w + 1 });
 
 /* ---------- storage ---------- */
 const st = () => globalThis.__PLUG_STORE || getStore({ name: "plugranja", consistency: "strong" });
-const DEFAULTS = { users: [], farms: [], perms: DEF_PERMS, destete: [], escorxador: [], gastos: [], hidrolisi: [], locks: {}, settings: { scope: {} } };
+const DEFAULTS = { users: [], farms: [], perms: DEF_PERMS, destete: [], escorxador: [], gastos: [], hidrolisi: [], aigua: [], locks: {} };
 async function read(k) { const r = await st().getWithMetadata(k, { type: "json" }); return r && r.data != null ? r : { data: structuredClone(DEFAULTS[k]), etag: null }; }
 async function get(k) { return (await read(k)).data; }
 async function update(k, fn) {
@@ -151,8 +152,9 @@ export default async (req) => {
     const myFarmIds = new Set(myFarms.map((f) => f.id));
     const need = (mod, lvl) => { if ((P[mod] || 0) < lvl) fail("forbidden", 403); };
     const needFlag = (f) => { if (!P[f]) fail("forbidden", 403); };
-    const settings = await get("settings"); const scope = settings.scope || {};
-    const farmOk = (mod, id) => { if (!myFarmIds.has(id)) return false; const s = scope[mod] || "all"; if (s === "all") return true; const f = farmsAll.find((x) => x.id === id); return s === "own" ? !!(f && f.own) : !(f && f.own); };
+    const funcOn = (f, mod) => !!f && (!f.funcs || f.funcs[mod] !== false);
+    const farmOk = (mod, id) => myFarmIds.has(id) && funcOn(farmsAll.find((x) => x.id === id), mod);
+    const nowM = madridNow();
     const needFarm = (id, mod) => { if (!farmOk(mod, id)) fail("forbidden_farm", 403); };
     const isAdmin = me.role === "admin";
     const stamp = () => ({ by: me.id, byName: me.name, at: Date.now() });
@@ -160,14 +162,20 @@ export default async (req) => {
     switch (action) {
       /* ---- session ---- */
       case "boot": {
-        const out = { me: publicUser(me), perms: P, farms: myFarms, scope, cats: CATS, names: Object.fromEntries(users.map((u) => [u.id, u.name])) };
+        const out = { me: publicUser(me), perms: P, farms: myFarms, ym: nowM, cats: CATS, names: Object.fromEntries(users.map((u) => [u.id, u.name])) };
         if (isAdmin) { out.users = users.map(publicUser); out.allPerms = Object.fromEntries(ROLES.map((r) => [r, permsFor(allPerms, r)])); out.allFarms = farmsAll; }
         if ((P.granges || 0) >= 1) out.allFarms = farmsAll;
+        out.aiguaPend = [];
+        if ((P.aigua || 0) >= 2) {
+          const rd = await get("aigua");
+          for (const f of myFarms) if (funcOn(f, "aigua")) for (const m of f.meters || [])
+            if (!rd.some((r) => r.farm === f.id && r.meter === m.id && r.year === nowM.y && r.month === nowM.m)) out.aiguaPend.push({ farm: f.id, meter: m.id });
+        }
         return json(out);
       }
       case "list": {
         const col = body.col;
-        if (!["destete", "escorxador", "gastos", "hidrolisi"].includes(col)) fail("bad_col");
+        if (!FUNCS.includes(col)) fail("bad_col");
         need(col, 1);
         let rows = (await get(col)).filter((r) => farmOk(col, r.farm));
         if (col === "gastos") rows = rows.map(({ ...r }) => r);
@@ -366,20 +374,56 @@ export default async (req) => {
         return json({ ok: true });
       }
 
+      /* ---- AIGUA ---- */
+      case "aigua.save": {
+        need("aigua", 2);
+        const r = body.rec || {};
+        const res = await update("aigua", (rows) => {
+          const ex = r.id ? rows.find((x) => x.id === r.id) : null;
+          if (r.id && !ex) fail("not_found", 404);
+          const farm = ex ? ex.farm : r.farm; needFarm(farm, "aigua");
+          const f = farmsAll.find((x) => x.id === farm);
+          const meter = ex ? ex.meter : str(r.meter, 60);
+          if (!(f.meters || []).some((m) => m.id === meter)) fail("not_found", 404);
+          const year = ex ? ex.year : +r.year || nowM.y, month = ex ? ex.month : +r.month || nowM.m;
+          if (!(month >= 1 && month <= 12)) fail("fill");
+          if (me.role === "granger" && !(year === nowM.y && month === nowM.m)) fail("past_month");
+          const lectura = num(r.lectura); if (lectura === null) fail("fill");
+          const data = /^\d{4}-\d{2}-\d{2}$/.test(r.data || "") ? r.data : new Date().toISOString().slice(0, 10);
+          if (!ex && rows.some((x) => x.farm === farm && x.meter === meter && x.year === year && x.month === month)) fail("dup");
+          const v = { lectura, data, obs: str(r.obs, 200) };
+          if (ex) { Object.assign(ex, v, { upd: stamp() }); return ex; }
+          const n = { id: uid(), farm, meter, year, month, ...v, created: stamp() }; rows.push(n); return n;
+        });
+        return json({ rec: res });
+      }
+      case "aigua.delete": {
+        need("aigua", 2);
+        if (me.role === "granger") fail("forbidden", 403);
+        await update("aigua", (rows) => { const i = rows.findIndex((x) => x.id === body.id); if (i < 0) fail("not_found", 404); needFarm(rows[i].farm, "aigua"); rows.splice(i, 1); });
+        return json({ ok: true });
+      }
+
       /* ---- GRANGES ---- */
       case "farms.save": {
         need("granges", 2);
         const r = body.rec || {};
         const list = (a, key) => (Array.isArray(a) ? a : []).map((x) => ({ id: str(x.id, 40) || uid(), [key]: str(x[key], 80) })).filter((x) => x[key]);
-        const v = { ref: str(r.ref, 40), name: str(r.name), rega: str(r.rega, 40), marca: str(r.marca, 40), address: str(r.address, 300), own: !!r.own, naus: list(r.naus, "name"), conts: list(r.conts, "code") };
+        const v = { ref: str(r.ref, 40), name: str(r.name), rega: str(r.rega, 40), marca: str(r.marca, 40), address: str(r.address, 300), own: !!r.own, naus: list(r.naus, "name"), conts: list(r.conts, "code"), meters: list(r.meters, "code") };
         if (!v.name) fail("fill");
         const res = await update("farms", (rows) => {
           const ex = r.id ? rows.find((x) => x.id === r.id) : null;
           if (r.id && !ex) fail("not_found", 404);
           if (ex) { Object.assign(ex, v); return ex; }
-          const n = { id: uid(), ...v }; rows.push(n); return n;
+          const n = { id: uid(), ...v, funcs: Object.fromEntries(FUNCS.map((m) => [m, true])) }; rows.push(n); return n;
         });
         return json({ rec: res });
+      }
+      case "farms.funcs": {
+        if (!isAdmin) fail("forbidden", 403);
+        const F = body.funcs || {};
+        await update("farms", (rows) => rows.forEach((f) => { if (F[f.id]) f.funcs = Object.fromEntries(FUNCS.map((m) => [m, !!F[f.id][m]])); }));
+        return json({ ok: true });
       }
       case "farms.delete": {
         if (!isAdmin) fail("forbidden", 403);
@@ -427,12 +471,6 @@ export default async (req) => {
             for (const f of FLAGS) cur[r][f] = !!p[r]?.[f];
           }
         });
-        return json({ ok: true });
-      }
-      case "settings.save": {
-        if (!isAdmin) fail("forbidden", 403);
-        const sc = body.scope || {};
-        await update("settings", (cur) => { cur.scope = {}; for (const m of ["destete", "escorxador", "gastos", "hidrolisi"]) cur.scope[m] = SCOPES.includes(sc[m]) ? sc[m] : "all"; });
         return json({ ok: true });
       }
       case "pin.change": {

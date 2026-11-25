@@ -87,6 +87,11 @@ th.tl,td.tl{text-align:left}tr.click{cursor:pointer}tr.click:hover{background:#f
 .chip{display:inline-flex;align-items:center;gap:4px;background:var(--nl);color:var(--n);border-radius:20px;padding:5px 6px 5px 12px;font-size:14px;font-weight:600}.chip button{width:24px;height:24px;border-radius:50%;color:var(--mu)}
 .chk{display:flex;gap:10px;align-items:center;margin:8px 0;font-size:15px}
 .big3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.big2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.bigin{font-size:26px;font-weight:700;text-align:center;min-height:60px;color:var(--n)}.big3 .l,.big2 .l{text-align:center;min-height:32px;display:flex;align-items:flex-end;justify-content:center}
+.alert{display:flex;gap:12px;align-items:center;background:#fff3e0;border:2px solid var(--org);color:#7a3d00;border-radius:12px;padding:12px 14px;margin-bottom:16px;cursor:pointer}
+.badge{display:inline-block;min-width:18px;height:18px;border-radius:9px;background:var(--org);color:#fff;font-size:11px;font-weight:700;line-height:18px;text-align:center;padding:0 5px;margin-left:auto}
+.nb{position:relative}@media(max-width:800px){.nb .badge{position:absolute;top:2px;right:calc(50% - 22px);margin:0}}
+.steps-box{background:var(--nl);border-radius:10px;padding:12px 14px;line-height:1.9;font-size:15px}
+.fx{width:22px;height:22px}
 .photo{width:100%;border-radius:10px;border:1px solid var(--bd);background:#f0f0f0;min-height:120px;display:block}
 .sel{width:auto;min-height:36px;padding:6px 8px;font-size:14px}
 @media(min-width:801px){.modal{align-items:center}.modal>.card{border-radius:18px}}
@@ -129,11 +134,12 @@ th.tl,td.tl{text-align:left}tr.click{cursor:pointer}tr.click:hover{background:#f
   <div class="err" id="lErr"></div>
   <button class="btn w" id="lBtn" onclick="doLogin()" data-t="enter"></button>
   <div class="langsw"><button data-lang="ca" onclick="setLang('ca')">Català</button><button data-lang="es" onclick="setLang('es')">Castellano</button></div>
+  <button class="btn sec w" style="margin-top:14px" onclick="shareModal(true)">📲 <span data-t="installApp"></span></button>
  </div>
 </div>
 
 <div id="app" class="hidden">
- <header class="top"><img src="logo-white.png" alt="PLU"><div class="row"><button class="btn sm" onclick="setLang(lang==='ca'?'es':'ca')" id="hLang"></button><button class="btn sm" onclick="logout()" data-t="logout"></button></div></header>
+ <header class="top"><img src="logo-white.png" alt="PLU"><div class="row"><button class="btn sm" onclick="shareModal()" aria-label="share">📲</button><button class="btn sm" onclick="setLang(lang==='ca'?'es':'ca')" id="hLang"></button><button class="btn sm" onclick="logout()" data-t="logout"></button></div></header>
  <nav id="nav"></nav>
  <main id="main"></main>
 </div>
@@ -169,7 +175,7 @@ naus:"Naus",newFarm:"Nova granja",add:"Afegir",noFarms:"No hi ha granges",
 users:"Usuaris",newUser:"Nou usuari",login:"Usuari (accés)",role:"Perfil",pinNew:"PIN (deixa'l buit per no canviar-lo)",assigned:"Granges assignades",assignedHint:"Si no en marques cap: el granger no en veu cap; la resta de perfils les veuen totes.",
 perms:"Permisos per perfil",lvl0:"—",lvl1:"Consulta",lvl2:"Edició",
 validar:"Validar",retornar:"Retornar escorxador",exportar:"Exportar llistats",gestHidro:"Gestionar historial hidròlisi",
-tancaExport:"Exportar i tancar escorxador",exported:"Exportat",farmFuncs:"Funcions per tipus de granja",farmFuncsHint:"Tria a quines granges s'aplica cada funció.",sc_all:"Totes les granges",sc_own:"Només granges pròpies",sc_notown:"Només granges no pròpies",thisWeek:"Aquesta setmana",lockedInfo:"Validat pel veterinari · només consulta",exportedInfo:"Exportat per logística · només consulta",otherWeek:"Corregir una altra setmana",expClose:"Exportar i tancar",confirmExp:"S'exportaran i es tancaran {n} setmanes (validades o no). Després ningú les podrà modificar si no es retornen. Continuar?",pendVal:"Pendent de validar",valEdit:"Validat (editable)",enterAnimals:"Apunta els animals d'aquesta setmana",waitVal:"Desat. Pendent que el veterinari el validi.",escEditHint:"Pots corregir-lo fins que logística l'exporti.",language:"Idioma",changePin:"Canviar PIN",oldPin:"PIN actual",newPin:"PIN nou",
+aigua:"Aigua",meters:"Comptadors d'aigua",meter:"Comptador",lectura:"Lectura (m³)",consum:"Consum (m³)",month:"Mes",prev:"Anterior",aiguaPend1:"Falta 1 lectura del comptador d'aigua de {mes}",aiguaPend:"Falten {n} lectures dels comptadors d'aigua de {mes}",aiguaPendT:"Lectures d'aigua pendents",tapRecord:"Toca aquí per gravar-les",recordNow:"Gravar ara",later:"Més tard",readingOf:"Lectura de {mes}",recorded:"Gravada",noMeters:"Aquesta granja no té comptadors. Afegeix-los a Granges.",lowerQ:"La lectura és més baixa que l'anterior ({p} m³). És correcta (comptador canviat)?",e_past_month:"Només es pot modificar la lectura del mes actual",funcsFarm:"Funcions actives per granja",funcsHint:"Desmarca les funcions que una granja no fa servir. En aquella granja no sortiran ni per registrar ni per consultar.",quick:"Aplicar a…",q_all:"Totes",q_own:"Pròpies",q_notown:"No pròpies",q_none:"Cap",funcsOn:"Funcions",share:"Compartir i instal·lar",installHere:"Instal·lar en aquest dispositiu",installBtn:"Instal·lar PLUgranja",installed:"Ja tens l'app instal·lada en aquest dispositiu",iosSteps:"1. Obre l'enllaç amb <b>Safari</b><br>2. Prem el botó <b>Compartir</b> (quadrat amb fletxa ⬆️)<br>3. Tria <b>Afegir a la pantalla d'inici</b>",otherSteps:"Al menú del navegador (⋮ o ⋯) tria <b>Instal·lar aplicació</b> o <b>Afegir a la pantalla d'inici</b>.",sendOthers:"Enviar l'app a altres persones",scanQr:"Escaneja el codi amb la càmera del mòbil",shareBtn:"Compartir",copyLink:"Copiar",copied:"Enllaç copiat",shareTxt:"Hola! T'envio l'app PLUgranja de PLU. Obre l'enllaç i instal·la-la al mòbil:",installApp:"Instal·lar l'app",tancaExport:"Exportar i tancar escorxador",exported:"Exportat",farmFuncs:"Funcions per tipus de granja",farmFuncsHint:"Tria a quines granges s'aplica cada funció.",sc_all:"Totes les granges",sc_own:"Només granges pròpies",sc_notown:"Només granges no pròpies",thisWeek:"Aquesta setmana",lockedInfo:"Validat pel veterinari · només consulta",exportedInfo:"Exportat per logística · només consulta",otherWeek:"Corregir una altra setmana",expClose:"Exportar i tancar",confirmExp:"S'exportaran i es tancaran {n} setmanes (validades o no). Després ningú les podrà modificar si no es retornen. Continuar?",pendVal:"Pendent de validar",valEdit:"Validat (editable)",enterAnimals:"Apunta els animals d'aquesta setmana",waitVal:"Desat. Pendent que el veterinari el validi.",escEditHint:"Pots corregir-lo fins que logística l'exporti.",language:"Idioma",changePin:"Canviar PIN",oldPin:"PIN actual",newPin:"PIN nou",
 fill:"Omple els camps obligatoris",
 e_bad_login:"Usuari o PIN incorrecte",e_locked_out:"Massa intents. Torna-ho a provar d'aquí 10 minuts.",e_locked:"El registre està validat i bloquejat",e_locked_dup:"Aquesta setmana ja està validada i bloquejada",e_dup:"Ja hi ha un registre d'aquesta granja i setmana",e_dup_open:"Ja hi ha una setmana oberta per a aquesta granja",e_forbidden:"No tens permís",e_forbidden_farm:"No tens accés a aquesta granja",e_fill:"Omple els camps obligatoris",e_bad_number:"Hi ha un valor numèric incorrecte",e_pin_len:"El PIN ha de tenir de 4 a 8 xifres",e_login_taken:"Aquest usuari ja existeix",e_last_admin:"Ha d'haver-hi almenys un administrador",e_self:"No et pots eliminar a tu mateix",e_wrong_step:"Algú altre ja ha registrat aquest pas. Actualitzant…",e_bad_order:"Les dates no segueixen l'ordre del cicle",e_no_ai_key:"Falta configurar la clau d'Anthropic al servidor",e_conflict:"Conflicte d'escriptura, torna-ho a provar",e_net:"Sense connexió amb el servidor",e_server:"Error del servidor",e_auth:"Sessió caducada",e_exported:"Registre exportat: només consulta"},
 es:{user:"Usuario",pin:"PIN",enter:"Entrar",logout:"Salir",
@@ -198,7 +204,7 @@ naus:"Naves",newFarm:"Nueva granja",add:"Añadir",noFarms:"No hay granjas",
 users:"Usuarios",newUser:"Nuevo usuario",login:"Usuario (acceso)",role:"Perfil",pinNew:"PIN (déjalo vacío para no cambiarlo)",assigned:"Granjas asignadas",assignedHint:"Si no marcas ninguna: el granjero no ve ninguna; el resto de perfiles las ven todas.",
 perms:"Permisos por perfil",lvl0:"—",lvl1:"Consulta",lvl2:"Edición",
 validar:"Validar",retornar:"Retornar matadero",exportar:"Exportar listados",gestHidro:"Gestionar historial hidrólisis",
-tancaExport:"Exportar y cerrar matadero",exported:"Exportado",farmFuncs:"Funciones por tipo de granja",farmFuncsHint:"Elige a qué granjas se aplica cada función.",sc_all:"Todas las granjas",sc_own:"Solo granjas propias",sc_notown:"Solo granjas no propias",thisWeek:"Esta semana",lockedInfo:"Validado por el veterinario · solo consulta",exportedInfo:"Exportado por logística · solo consulta",otherWeek:"Corregir otra semana",expClose:"Exportar y cerrar",confirmExp:"Se exportarán y se cerrarán {n} semanas (validadas o no). Después nadie podrá modificarlas si no se retornan. ¿Continuar?",pendVal:"Pendiente de validar",valEdit:"Validado (editable)",enterAnimals:"Apunta los animales de esta semana",waitVal:"Guardado. Pendiente de que el veterinario lo valide.",escEditHint:"Puedes corregirlo hasta que logística lo exporte.",language:"Idioma",changePin:"Cambiar PIN",oldPin:"PIN actual",newPin:"PIN nuevo",
+aigua:"Agua",meters:"Contadores de agua",meter:"Contador",lectura:"Lectura (m³)",consum:"Consumo (m³)",month:"Mes",prev:"Anterior",aiguaPend1:"Falta 1 lectura del contador de agua de {mes}",aiguaPend:"Faltan {n} lecturas de los contadores de agua de {mes}",aiguaPendT:"Lecturas de agua pendientes",tapRecord:"Toca aquí para grabarlas",recordNow:"Grabar ahora",later:"Más tarde",readingOf:"Lectura de {mes}",recorded:"Grabada",noMeters:"Esta granja no tiene contadores. Añádelos en Granjas.",lowerQ:"La lectura es más baja que la anterior ({p} m³). ¿Es correcta (contador cambiado)?",e_past_month:"Solo se puede modificar la lectura del mes actual",funcsFarm:"Funciones activas por granja",funcsHint:"Desmarca las funciones que una granja no usa. En esa granja no aparecerán ni para registrar ni para consultar.",quick:"Aplicar a…",q_all:"Todas",q_own:"Propias",q_notown:"No propias",q_none:"Ninguna",funcsOn:"Funciones",share:"Compartir e instalar",installHere:"Instalar en este dispositivo",installBtn:"Instalar PLUgranja",installed:"Ya tienes la app instalada en este dispositivo",iosSteps:"1. Abre el enlace con <b>Safari</b><br>2. Pulsa el botón <b>Compartir</b> (cuadrado con flecha ⬆️)<br>3. Elige <b>Añadir a pantalla de inicio</b>",otherSteps:"En el menú del navegador (⋮ o ⋯) elige <b>Instalar aplicación</b> o <b>Añadir a pantalla de inicio</b>.",sendOthers:"Enviar la app a otras personas",scanQr:"Escanea el código con la cámara del móvil",shareBtn:"Compartir",copyLink:"Copiar",copied:"Enlace copiado",shareTxt:"¡Hola! Te envío la app PLUgranja de PLU. Abre el enlace e instálala en el móvil:",installApp:"Instalar la app",tancaExport:"Exportar y cerrar matadero",exported:"Exportado",farmFuncs:"Funciones por tipo de granja",farmFuncsHint:"Elige a qué granjas se aplica cada función.",sc_all:"Todas las granjas",sc_own:"Solo granjas propias",sc_notown:"Solo granjas no propias",thisWeek:"Esta semana",lockedInfo:"Validado por el veterinario · solo consulta",exportedInfo:"Exportado por logística · solo consulta",otherWeek:"Corregir otra semana",expClose:"Exportar y cerrar",confirmExp:"Se exportarán y se cerrarán {n} semanas (validadas o no). Después nadie podrá modificarlas si no se retornan. ¿Continuar?",pendVal:"Pendiente de validar",valEdit:"Validado (editable)",enterAnimals:"Apunta los animales de esta semana",waitVal:"Guardado. Pendiente de que el veterinario lo valide.",escEditHint:"Puedes corregirlo hasta que logística lo exporte.",language:"Idioma",changePin:"Cambiar PIN",oldPin:"PIN actual",newPin:"PIN nuevo",
 fill:"Rellena los campos obligatorios",
 e_bad_login:"Usuario o PIN incorrecto",e_locked_out:"Demasiados intentos. Vuelve a probar en 10 minutos.",e_locked:"El registro está validado y bloqueado",e_locked_dup:"Esta semana ya está validada y bloqueada",e_dup:"Ya existe un registro de esta granja y semana",e_dup_open:"Ya hay una semana abierta para esta granja",e_forbidden:"No tienes permiso",e_forbidden_farm:"No tienes acceso a esta granja",e_fill:"Rellena los campos obligatorios",e_bad_number:"Hay un valor numérico incorrecto",e_pin_len:"El PIN debe tener de 4 a 8 cifras",e_login_taken:"Este usuario ya existe",e_last_admin:"Debe haber al menos un administrador",e_self:"No puedes eliminarte a ti mismo",e_wrong_step:"Otra persona ya ha registrado este paso. Actualizando…",e_bad_order:"Las fechas no siguen el orden del ciclo",e_no_ai_key:"Falta configurar la clave de Anthropic en el servidor",e_conflict:"Conflicto de escritura, vuelve a intentarlo",e_net:"Sin conexión con el servidor",e_server:"Error del servidor",e_auth:"Sesión caducada",e_exported:"Registro exportado: solo consulta"}};
 let lang='ca';try{lang=localStorage.getItem('plug_lang')||'ca'}catch(e){}
@@ -235,7 +241,7 @@ const fmtD=s=>s?s.split('-').reverse().join('/'):'';
 function isoWeek(d=new Date()){const x=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const day=x.getUTCDay()||7;x.setUTCDate(x.getUTCDate()+4-day);const y=x.getUTCFullYear();return{y,w:Math.ceil(((x-new Date(Date.UTC(y,0,1)))/864e5+1)/7)}}
 function weekRange(y,w){const s=new Date(Date.UTC(y,0,4));const d=s.getUTCDay()||7;s.setUTCDate(s.getUTCDate()-d+1+(w-1)*7);const e=new Date(s);e.setUTCDate(s.getUTCDate()+6);const f=x=>String(x.getUTCDate()).padStart(2,'0')+'/'+String(x.getUTCMonth()+1).padStart(2,'0');return f(s)+'–'+f(e)}
 function csv(rows,name){const s='﻿'+rows.map(r=>r.map(c=>`"${String(c??'').replace(/"/g,'""')}"`).join(';')).join('\r\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([s],{type:'text/csv'}));a.download=name+'_'+new Date().toISOString().slice(0,10)+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
-const farmsFor=m=>{const s=(B.scope||{})[m]||'all';return B.farms.filter(f=>s==='all'||(s==='own'?f.own:!f.own))};
+const farmsFor=m=>B.farms.filter(f=>!f.funcs||f.funcs[m]!==false);
 const isGr=()=>B.me.role==='granger';
 const farmSel=(val,on,allowAll=true,id='',L=B.farms)=>`<select ${id?`id="${id}"`:''} class="grow" onchange="${on}">${allowAll&&L.length>1?`<option value="">${t('allF')}</option>`:''}${L.map(f=>`<option value="${f.id}" ${val===f.id?'selected':''}>${esc(f.name)}</option>`).join('')}</select>`;
 const wkOpts=(w,now)=>Array.from({length:53},(_,i)=>i+1).map(i=>`<option value="${i}" ${i===w?'selected':''}>${i}${i===now.w?' ('+t('current')+')':''}</option>`).join('');
@@ -248,20 +254,20 @@ async function doLogin(){$('lErr').textContent='';$('lBtn').disabled=true;
  catch(e){$('lErr').textContent=errMsg(e)}finally{$('lBtn').disabled=false}}
 function logout(){TOKEN='';B=null;for(const k in D)D[k]=null;try{localStorage.removeItem('plug_tok')}catch(e){}closeModal();$('app').classList.add('hidden');$('login').classList.remove('hidden');applyT()}
 $('lPin').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
-const MODS=[{id:'animals',ic:'🐖',ok:()=>lv('destete')||lv('escorxador')},{id:'gastos',ic:'🧾',ok:()=>lv('gastos')},{id:'hidrolisi',ic:'🛢️',ok:()=>lv('hidrolisi')},{id:'granges',ic:'🏠',ok:()=>lv('granges')},{id:'config',ic:'⚙️',ok:()=>isAdmin()}];
+const MODS=[{id:'animals',ic:'🐖',ok:()=>(lv('destete')&&farmsFor('destete').length)||(lv('escorxador')&&farmsFor('escorxador').length)},{id:'gastos',ic:'🧾',ok:()=>lv('gastos')&&farmsFor('gastos').length},{id:'hidrolisi',ic:'🛢️',ok:()=>lv('hidrolisi')&&farmsFor('hidrolisi').length},{id:'aigua',ic:'💧',ok:()=>lv('aigua')&&farmsFor('aigua').length},{id:'granges',ic:'🏠',ok:()=>lv('granges')},{id:'config',ic:'⚙️',ok:()=>isAdmin()}];
 async function start(){
  B=await api('boot');for(const k in D)D[k]=null;
  $('login').classList.add('hidden');$('app').classList.remove('hidden');
  if(!MODS.find(m=>m.id===VIEW&&m.ok()))VIEW=(MODS.find(m=>m.ok())||{}).id||'';
  if(!lv('destete')&&lv('escorxador'))TAB='escorxador';
- render()}
+ render();setTimeout(aiguaPopup,3000)}
 
 /* ================= SHELL ================= */
 function render(){applyT();
- $('nav').innerHTML=`<div class="brand"><img src="logo-white.png" alt="PLU"><div>PLUgranja</div></div>`+MODS.filter(m=>m.ok()).map(m=>`<button class="nb ${VIEW===m.id?'on':''}" onclick="go('${m.id}')"><span class="ic">${m.ic}</span>${t(m.id)}</button>`).join('')
- +`<div class="who"><b>${esc(B.me.name)}</b>${t(B.me.role)}<div class="row"><button class="btn sm" onclick="setLang('${lang==='ca'?'es':'ca'}')">${lang==='ca'?'ES':'CA'}</button><button class="btn sm" onclick="pinForm()">PIN</button><button class="btn sm" onclick="logout()">${t('logout')}</button></div></div>`;
- const fn={animals:vAnimals,gastos:vGastos,hidrolisi:vHidro,granges:vGranges,config:vConfig}[VIEW];
- if(fn)fn().then(labelTables).catch(e=>{$('main').innerHTML=`<div class="card empty">${esc(errMsg(e))}</div>`})}
+ $('nav').innerHTML=`<div class="brand"><img src="logo-white.png" alt="PLU"><div>PLUgranja</div></div>`+MODS.filter(m=>m.ok()).map(m=>`<button class="nb ${VIEW===m.id?'on':''}" onclick="go('${m.id}')"><span class="ic">${m.ic}</span>${t(m.id)}${m.id==='aigua'&&lv('aigua')>=2&&(B.aiguaPend||[]).length?`<span class="badge">${B.aiguaPend.length}</span>`:''}</button>`).join('')
+ +`<div class="who"><b>${esc(B.me.name)}</b>${t(B.me.role)}<div class="row"><button class="btn sm" onclick="setLang('${lang==='ca'?'es':'ca'}')">${lang==='ca'?'ES':'CA'}</button><button class="btn sm" onclick="pinForm()">PIN</button><button class="btn sm" onclick="logout()">${t('logout')}</button></div><button class="btn sm w" style="margin-top:8px" onclick="shareModal()">📲 ${t('share')}</button></div>`;
+ const fn={animals:vAnimals,gastos:vGastos,hidrolisi:vHidro,aigua:vAigua,granges:vGranges,config:vConfig}[VIEW];
+ if(fn)fn().then(()=>{labelTables();const b=aiguaBanner();if(b)$('main').insertAdjacentHTML('afterbegin',b)}).catch(e=>{$('main').innerHTML=`<div class="card empty">${esc(errMsg(e))}</div>`})}
 function labelTables(){document.querySelectorAll('#main .tw table:not(.nort)').forEach(tb=>{const h=tb.querySelector('tr');if(!h||!h.querySelector('th'))return;tb.classList.add('rt');const L=[...h.children].map(x=>x.textContent.trim());tb.querySelectorAll('tr').forEach((tr,i)=>{if(!i)return;[...tr.children].forEach((td,j)=>{if(L[j])td.dataset.l=L[j]})})})}
 function go(v){
  // Despeses: el granger obre directament la càmera en tocar la pestanya
@@ -481,17 +487,92 @@ function expHidro(){const cName=(fid,cid)=>((B.farms.find(f=>f.id===fid)||{}).co
  const rows=D.hidrolisi.filter(r=>!F.farm||r.farm===F.farm).sort((a,b)=>a.ini<b.ini?-1:1);
  csv([[t('farm'),t('cont'),t('st_ini'),t('st_tanc'),t('st_buid'),t('pes')],...rows.map(r=>[farmName(r.farm),cName(r.farm,r.cont),fmtDT(r.ini),fmtDT(r.tanc),fmtDT(r.buid),r.pes??''])],'PLUgranja_'+t('hidrolisi'))}
 
+/* ================= AIGUA ================= */
+const MESOS={ca:['gener','febrer','març','abril','maig','juny','juliol','agost','setembre','octubre','novembre','desembre'],es:['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre']};
+const mes=m=>MESOS[lang][m-1];
+const meterName=(fid,mid)=>(((B.allFarms||B.farms).find(f=>f.id===fid)||{}).meters||[]).find(x=>x.id===mid)?.code||'?';
+const ym=r=>r.year*12+r.month;
+function prevReading(all,r){return all.filter(x=>x.farm===r.farm&&x.meter===r.meter&&ym(x)<ym(r)).sort((a,b)=>ym(b)-ym(a))[0]}
+async function vAigua(){
+ $('main').innerHTML=`<h1>💧 ${t('aigua')}</h1><div id="sub">${loadingHTML()}</div>`;
+ const all=await need('aigua');AF=farmsFor('aigua');if(F.farm&&!AF.some(f=>f.id===F.farm))F.farm='';if(AF.length===1)F.farm=AF[0].id;
+ const canEd=lv('aigua')>=2;const {y,m}=B.ym;
+ const farms=F.farm?AF.filter(f=>f.id===F.farm):AF;
+ const cards=farms.map(f=>{const ms=f.meters||[];return `<div style="margin-bottom:16px">${AF.length>1?`<h2>${esc(f.name)}</h2>`:''}
+  ${ms.length?`<div class="conts">${ms.map(mt=>{const cur=all.find(r=>r.farm===f.id&&r.meter===mt.id&&r.year===y&&r.month===m);
+   const prev=prevReading(all,{farm:f.id,meter:mt.id,year:y,month:m});
+   if(cur){const c=prev?cur.lectura-prev.lectura:null;return `<div class="cont"><div class="hd" style="background:#1565c0"><div class="code">${esc(mt.code)}</div><div class="stt">✔ ${t('recorded')} · ${mes(m)}</div></div>
+    <div class="bd" style="text-align:center"><div style="font-size:26px;font-weight:800;color:var(--n)">${fmtN(cur.lectura)} m³</div>${c!=null?`<div class="muted">${t('consum')}: <b>${fmtN(c)} m³</b></div>`:''}
+    ${canEd?`<button class="btn sm sec" onclick="aiguaForm('${cur.id}')">✎ ${t('edit')}</button>`:''}</div></div>`}
+   return `<div class="cont" style="border:2px solid var(--org)"><div class="hd" style="background:var(--org)"><div class="code">${esc(mt.code)}</div><div class="stt">${t('readingOf',{mes:mes(m)})}</div>${prev?`<div style="font-size:12px;opacity:.9">${t('prev')}: ${fmtN(prev.lectura)} m³</div>`:''}</div>
+    ${canEd?`<div class="bd"><input class="bigin" id="aw_${mt.id}" type="number" inputmode="decimal" min="0" step="0.01" placeholder="m³"><button class="btn w ok" onclick="saveAiguaQuick('${f.id}','${mt.id}')">✔ ${t('save')}</button></div>`:`<div class="bd muted" style="text-align:center">${t('pending')}</div>`}</div>`}).join('')}</div>`:`<div class="card empty">${t('noMeters')}</div>`}</div>`}).join('');
+ const rows=all.filter(r=>AF.some(f=>f.id===r.farm)&&(!F.farm||r.farm===F.farm)).sort((a,b)=>ym(b)-ym(a)||meterName(a.farm,a.meter).localeCompare(meterName(b.farm,b.meter)));
+ const canEdRow=r=>canEd&&(!isGr()||(r.year===y&&r.month===m));
+ $('sub').innerHTML=`${AF.length>1?`<div class="row" style="margin-bottom:14px">${farmSel(F.farm,"F.farm=this.value;render()",true,'',AF)}</div>`:''}${cards}
+ <div class="card"><div class="row sp" style="margin-bottom:6px"><h2 style="margin:0">${t('history')}</h2>${P().exportar&&rows.length?`<button class="btn sm sec" onclick="expAigua()">⬇ ${t('exportCsv')}</button>`:''}</div>
+ ${rows.length?`<div class="tw"><table><tr><th class="tl">${t('month')}</th>${F.farm?'':`<th class="tl">${t('farm')}</th>`}<th class="tl">${t('meter')}</th><th>${t('lectura')}</th><th>${t('consum')}</th><th class="tl">${t('data')}</th><th></th></tr>
+ ${rows.map(r=>{const p=prevReading(all,r);return `<tr><td class="tl"><b>${mes(r.month)}</b> <span class="muted">${r.year}</span></td>${F.farm?'':`<td class="tl">${esc(farmName(r.farm))}</td>`}<td class="tl">${esc(meterName(r.farm,r.meter))}</td><td>${fmtN(r.lectura)}</td><td><b>${p?fmtN(r.lectura-p.lectura):'—'}</b></td><td class="tl">${fmtD(r.data)} <span class="muted">${esc(r.created.byName)}</span></td><td>${canEdRow(r)?`<button class="btn sm sec" onclick="aiguaForm('${r.id}')">✎</button>`:''}</td></tr>`}).join('')}</table></div>`:`<div class="empty">${t('noRecords')}</div>`}</div>`}
+async function aiguaCheckLower(farm,meter,y,m,val){const p=prevReading(D.aigua,{farm,meter,year:y,month:m});return !p||+val>=p.lectura||confirm(t('lowerQ',{p:fmtN(p.lectura)}))}
+async function saveAiguaQuick(farm,meter){const v=$('aw_'+meter).value;if(v===''){toast(t('fill'));$('aw_'+meter).focus();return}
+ const {y,m}=B.ym;if(!await aiguaCheckLower(farm,meter,y,m,v))return;
+ try{await run(()=>api('aigua.save',{rec:{farm,meter,year:y,month:m,lectura:v,data:new Date().toISOString().slice(0,10)}}),t('saved'));B.aiguaPend=B.aiguaPend.filter(x=>!(x.farm===farm&&x.meter===meter))}catch(e){}refresh('aigua')}
+function aiguaForm(id){const r=D.aigua.find(x=>x.id===id);
+ modal(`<h2>💧 ${esc(meterName(r.farm,r.meter))} · ${mes(r.month)} ${r.year}</h2><div class="muted" style="margin-bottom:12px">${esc(farmName(r.farm))}</div>
+ <div class="f"><label class="l">${t('lectura')}</label><input class="bigin" id="awL" type="number" inputmode="decimal" step="0.01" value="${r.lectura}"></div>
+ <div class="f"><label class="l">${t('data')}</label><input id="awD" type="date" value="${r.data}"></div>
+ <div class="f"><label class="l">${t('concepte')}</label><input id="awO" value="${esc(r.obs||'')}"></div>
+ <div class="err" id="mErr"></div><button class="btn w ok" onclick="saveAigua('${id}')">✔ ${t('save')}</button>
+ <div class="row" style="margin-top:10px;flex-wrap:nowrap"><button class="btn sec grow" onclick="closeModal()">${t('cancel')}</button>${!isGr()?`<button class="btn red grow" onclick="delAigua('${id}')">${t('del')}</button>`:''}</div>`)}
+async function saveAigua(id){const r=D.aigua.find(x=>x.id===id);const v=$('awL').value;if(v===''){$('mErr').textContent=t('fill');return}
+ if(!await aiguaCheckLower(r.farm,r.meter,r.year,r.month,v))return;
+ try{await api('aigua.save',{rec:{id,lectura:v,data:$('awD').value,obs:$('awO').value}});closeModal();toast(t('saved'));refresh('aigua')}catch(e){$('mErr').textContent=errMsg(e)}}
+async function delAigua(id){if(!confirm(t('confirmDel')))return;try{await api('aigua.delete',{id});closeModal();toast(t('deleted'));B=await api('boot');refresh('aigua')}catch(e){$('mErr').textContent=errMsg(e)}}
+function expAigua(){const all=D.aigua;const rows=all.filter(r=>AF.some(f=>f.id===r.farm)&&(!F.farm||r.farm===F.farm)).sort((a,b)=>ym(a)-ym(b));
+ csv([[t('farm'),t('meter'),t('year'),t('month'),t('lectura'),t('consum'),t('data'),t('by')],...rows.map(r=>{const p=prevReading(all,r);return[farmName(r.farm),meterName(r.farm,r.meter),r.year,r.month,String(r.lectura).replace('.',','),p?String(r.lectura-p.lectura).replace('.',','):'',fmtD(r.data),r.created.byName]})],'PLUgranja_'+t('aigua'))}
+function aiguaBanner(){const n=(B.aiguaPend||[]).length;if(!n||lv('aigua')<2||VIEW==='aigua')return'';return `<div class="alert" onclick="go('aigua')"><span style="font-size:22px">💧</span><div><b>${t(n===1?'aiguaPend1':'aiguaPend',{n,mes:mes(B.ym.m)})}</b><div style="font-size:13px;opacity:.9">${t('tapRecord')}</div></div><span style="margin-left:auto;font-size:20px">›</span></div>`}
+function aiguaPopup(){const n=(B.aiguaPend||[]).length;if(!n||lv('aigua')<2)return;let k='plug_ap_'+B.me.id;try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,'1')}catch(e){}
+ const list=B.aiguaPend.map(p=>`<li>${esc(farmName(p.farm))} · <b>${esc(meterName(p.farm,p.meter))}</b></li>`).join('');
+ modal(`<div style="text-align:center;font-size:44px">💧</div><h2 style="text-align:center">${t('aiguaPendT')}</h2><p style="text-align:center;margin-bottom:10px">${t(n===1?'aiguaPend1':'aiguaPend',{n,mes:mes(B.ym.m)})}</p><ul style="margin:0 0 16px 20px;line-height:1.8">${list}</ul>
+ <button class="btn w ok" onclick="closeModal();go('aigua')">${t('recordNow')}</button><button class="btn sec w" style="margin-top:10px" onclick="closeModal()">${t('later')}</button>`)}
+
+/* ================= COMPARTIR / INSTAL·LAR ================= */
+let DEFER=null;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();DEFER=e});
+window.addEventListener('appinstalled',()=>{DEFER=null;toast('✔')});
+const isStandalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+const isIOS=()=>/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const appURL=()=>location.origin+'/?install=1';
+function loadQR(){return window.qrcode?Promise.resolve():new Promise((res,rej)=>{const s=document.createElement('script');s.src='qrcode.js';s.onload=res;s.onerror=rej;document.head.appendChild(s)})}
+function installHTML(){
+ if(isStandalone())return `<div class="tag lock" style="font-size:14px;padding:8px 12px">✔ ${t('installed')}</div>`;
+ if(DEFER)return `<button class="btn w ok" style="padding:15px;font-size:17px" onclick="doInstall()">⬇ ${t('installBtn')}</button>`;
+ if(isIOS())return `<div class="steps-box">${t('iosSteps')}</div>`;
+ return `<div class="steps-box">${t('otherSteps')}</div>`}
+async function doInstall(){if(!DEFER)return;DEFER.prompt();await DEFER.userChoice.catch(()=>{});DEFER=null;closeModal()}
+async function shareModal(onlyInstall){
+ const url=appURL();
+ modal(`<h2>📲 ${onlyInstall?t('installApp'):t('share')}</h2>
+ <h3 style="margin-top:6px">${t('installHere')}</h3><div style="margin-bottom:18px">${installHTML()}</div>
+ ${onlyInstall?'':`<h3>${t('sendOthers')}</h3>
+ <div style="text-align:center"><div id="qrBox" style="display:inline-block;background:#fff;padding:10px;border:1px solid var(--bd);border-radius:12px;min-width:200px;min-height:200px"></div><div class="muted" style="margin:6px 0 12px">${t('scanQr')}</div></div>
+ <div class="row" style="flex-wrap:nowrap">${navigator.share?`<button class="btn grow" onclick="shareNative()">↗ ${t('shareBtn')}</button>`:''}<a class="btn grow" style="background:#25d366;text-decoration:none" target="_blank" href="https://wa.me/?text=${encodeURIComponent(t('shareTxt')+' '+url)}">WhatsApp</a></div>
+ <div class="row" style="margin-top:10px;flex-wrap:nowrap"><input readonly value="${url}" onclick="this.select()"><button class="btn sec" onclick="copyLink()">${t('copyLink')}</button></div>`}
+ <button class="btn sec w" style="margin-top:16px" onclick="closeModal()">${t('close')}</button>`);
+ if(!onlyInstall){try{await loadQR();const q=qrcode(0,'M');q.addData(url);q.make();$('qrBox')&&($('qrBox').innerHTML=q.createSvgTag({cellSize:6,margin:0,scalable:true}).replace('<svg','<svg style="width:200px;height:200px"'))}catch(e){}}}
+async function shareNative(){try{await navigator.share({title:'PLUgranja',text:t('shareTxt'),url:appURL()})}catch(e){}}
+async function copyLink(){try{await navigator.clipboard.writeText(appURL());toast(t('copied'))}catch(e){toast(appURL())}}
+
 /* ================= GRANGES ================= */
 async function vGranges(){
  const farms=B.allFarms||B.farms;const canEd=lv('granges')>=2;
  $('main').innerHTML=`<h1>🏠 ${t('granges')}</h1>${canEd?`<button class="btn w" style="margin-bottom:14px" onclick="farmForm()">＋ ${t('newFarm')}</button>`:''}
  ${farms.length?`<div class="flist">${farms.map(f=>`<div class="card" style="margin:0"><div class="row sp"><h2 style="margin:0">${esc(f.name)}</h2><span class="tag ${f.own?'lock':''}">${f.own?t('own'):t('notOwn')}</span></div>
  <div class="muted" style="margin:8px 0;line-height:1.6">${f.ref?`${t('ref')}: <b>${esc(f.ref)}</b><br>`:''}${f.rega?`REGA: <b>${esc(f.rega)}</b><br>`:''}${f.marca?`${t('marca')}: <b>${esc(f.marca)}</b><br>`:''}${f.address?`📍 ${esc(f.address)}`:''}</div>
- <div class="muted">${t('naus')}: ${(f.naus||[]).map(n=>esc(n.name)).join(', ')||'—'}</div><div class="muted">${t('conts')}: ${(f.conts||[]).map(n=>esc(n.code)).join(', ')||'—'}</div>
+ <div class="muted">${t('naus')}: ${(f.naus||[]).map(n=>esc(n.name)).join(', ')||'—'}</div><div class="muted">${t('conts')}: ${(f.conts||[]).map(n=>esc(n.code)).join(', ')||'—'}</div><div class="muted">${t('meters')}: ${(f.meters||[]).map(n=>esc(n.code)).join(', ')||'—'}</div>
+ <div class="chips" style="margin-top:8px">${FUNCS.filter(m=>!f.funcs||f.funcs[m]!==false).map(m=>`<span class="tag">${t(m)}</span>`).join('')}</div>
  ${canEd?`<button class="btn sm sec" style="margin-top:10px" onclick="farmForm('${f.id}')">✎ ${t('edit')}</button>`:''}</div>`).join('')}</div>`:`<div class="card empty">${t('noFarms')}</div>`}`}
 let FT=null;
-function farmForm(id){const f=id?(B.allFarms||B.farms).find(x=>x.id===id):{name:'',ref:'',rega:'',marca:'',address:'',own:true,naus:[],conts:[]};
- FT={naus:structuredClone(f.naus||[]),conts:structuredClone(f.conts||[])};
+function farmForm(id){const f=id?(B.allFarms||B.farms).find(x=>x.id===id):{name:'',ref:'',rega:'',marca:'',address:'',own:true,naus:[],conts:[],meters:[]};
+ FT={naus:structuredClone(f.naus||[]),conts:structuredClone(f.conts||[]),meters:structuredClone(f.meters||[])};
  modal(`<h2>🏠 ${id?t('edit'):t('newFarm')}</h2>
  <div class="row f" style="flex-wrap:nowrap"><div style="flex:1"><label class="l">${t('ref')}</label><input id="fRef" value="${esc(f.ref)}"></div><div style="flex:2"><label class="l">${t('name')} *</label><input id="fName" value="${esc(f.name)}"></div></div>
  <div class="row f" style="flex-wrap:nowrap"><div class="grow"><label class="l">${t('rega')}</label><input id="fRega" value="${esc(f.rega)}"></div><div class="grow"><label class="l">${t('marca')}</label><input id="fMarca" value="${esc(f.marca)}"></div></div>
@@ -499,18 +580,19 @@ function farmForm(id){const f=id?(B.allFarms||B.farms).find(x=>x.id===id):{name:
  <label class="chk"><input type="checkbox" id="fOwn" ${f.own?'checked':''}> ${t('own')}</label>
  <div class="f"><label class="l">${t('naus')}</label><div class="chips" id="chN"></div><div class="row" style="margin-top:6px;flex-wrap:nowrap"><input id="nNau" placeholder="Nau 1"><button class="btn sm" onclick="addChip('naus','name','nNau')">${t('add')}</button></div></div>
  <div class="f"><label class="l">${t('conts')} (${t('hidrolisi')})</label><div class="chips" id="chC"></div><div class="row" style="margin-top:6px;flex-wrap:nowrap"><input id="nCont" placeholder="C-01"><button class="btn sm" onclick="addChip('conts','code','nCont')">${t('add')}</button></div></div>
+ <div class="f"><label class="l">${t('meters')}</label><div class="chips" id="chM"></div><div class="row" style="margin-top:6px;flex-wrap:nowrap"><input id="nMet" placeholder="${t('meter')} 1"><button class="btn sm" onclick="addChip('meters','code','nMet')">${t('add')}</button></div></div>
  <div class="err" id="mErr"></div><button class="btn w" onclick="saveFarm('${id||''}')">${t('save')}</button>
  <div class="row" style="margin-top:10px;flex-wrap:nowrap"><button class="btn sec grow" onclick="closeModal()">${t('cancel')}</button>${id&&isAdmin()?`<button class="btn red grow" onclick="delFarm('${id}')">${t('del')}</button>`:''}</div>`);drawChips()}
-function drawChips(){$('chN').innerHTML=FT.naus.map((n,i)=>`<span class="chip">${esc(n.name)}<button onclick="FT.naus.splice(${i},1);drawChips()">✕</button></span>`).join('');$('chC').innerHTML=FT.conts.map((n,i)=>`<span class="chip">${esc(n.code)}<button onclick="if(confirm('${t('confirmDel')}')){FT.conts.splice(${i},1);drawChips()}">✕</button></span>`).join('')}
+function drawChips(){$('chN').innerHTML=FT.naus.map((n,i)=>`<span class="chip">${esc(n.name)}<button onclick="FT.naus.splice(${i},1);drawChips()">✕</button></span>`).join('');$('chC').innerHTML=FT.conts.map((n,i)=>`<span class="chip">${esc(n.code)}<button onclick="if(confirm('${t('confirmDel')}')){FT.conts.splice(${i},1);drawChips()}">✕</button></span>`).join('');$('chM').innerHTML=FT.meters.map((n,i)=>`<span class="chip">${esc(n.code)}<button onclick="if(confirm('${t('confirmDel')}')){FT.meters.splice(${i},1);drawChips()}">✕</button></span>`).join('')}
 function addChip(k,f,inp){const v=$(inp).value.trim();if(!v)return;FT[k].push({id:'',[f]:v});$(inp).value='';drawChips();$(inp).focus()}
-['keydown'].forEach(()=>document.addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.target.id==='nNau'||e.target.id==='nCont')){e.preventDefault();e.target.nextElementSibling.click()}}));
-async function saveFarm(id){const rec={id:id||undefined,ref:$('fRef').value,name:$('fName').value,rega:$('fRega').value,marca:$('fMarca').value,address:$('fAddr').value,own:$('fOwn').checked,naus:FT.naus,conts:FT.conts};
+['keydown'].forEach(()=>document.addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.target.id==='nNau'||e.target.id==='nCont'||e.target.id==='nMet')){e.preventDefault();e.target.nextElementSibling.click()}}));
+async function saveFarm(id){const rec={id:id||undefined,ref:$('fRef').value,name:$('fName').value,rega:$('fRega').value,marca:$('fMarca').value,address:$('fAddr').value,own:$('fOwn').checked,naus:FT.naus,conts:FT.conts,meters:FT.meters};
  if(!rec.name.trim()){$('mErr').textContent=t('fill');return}
  try{await api('farms.save',{rec});closeModal();toast(t('saved'));await start()}catch(e){$('mErr').textContent=errMsg(e)}}
 async function delFarm(id){if(!confirm(t('confirmDel')))return;try{await api('farms.delete',{id});closeModal();toast(t('deleted'));await start()}catch(e){$('mErr').textContent=errMsg(e)}}
 
 /* ================= CONFIGURACIÓ ================= */
-const ROLES=['admin','enginyer','vetlog','vet','granger'];const PM=['destete','escorxador','gastos','hidrolisi','granges'];const PF=['validar','retornar','exportar','tancaExport','gestHidro'];const SM=['destete','escorxador','gastos','hidrolisi'];
+const ROLES=['admin','enginyer','vetlog','vet','granger'];const PM=['destete','escorxador','gastos','hidrolisi','aigua','granges'];const PF=['validar','retornar','exportar','tancaExport','gestHidro'];const FUNCS=['destete','escorxador','gastos','hidrolisi','aigua'];
 async function vConfig(){
  const ap=B.allPerms;
  $('main').innerHTML=`<h1>⚙️ ${t('config')}</h1>
@@ -520,10 +602,13 @@ async function vConfig(){
  <div class="card"><h2>${t('perms')}</h2><div class="tw"><table class="nort"><tr><th class="tl">${t('role')}</th>${PM.map(m=>`<th>${t(m)}</th>`).join('')}${PF.map(f=>`<th style="white-space:normal;min-width:80px">${t(f)}</th>`).join('')}</tr>
  ${ROLES.map(r=>`<tr><td class="tl"><b>${t(r)}</b></td>${PM.map(m=>`<td><select class="sel pm" data-r="${r}" data-m="${m}" ${r==='admin'?'disabled':''}>${[0,1,2].map(l=>`<option value="${l}" ${ap[r][m]===l?'selected':''}>${t('lvl'+l)}</option>`).join('')}</select></td>`).join('')}${PF.map(f=>`<td style="text-align:center"><input type="checkbox" class="pf" data-r="${r}" data-f="${f}" ${ap[r][f]?'checked':''} ${r==='admin'?'disabled':''}></td>`).join('')}</tr>`).join('')}</table></div>
  <button class="btn" style="margin-top:12px" onclick="savePerms()">${t('save')}</button></div>
- <div class="card"><h2>${t('farmFuncs')}</h2><div class="muted" style="margin-bottom:10px">${t('farmFuncsHint')}</div><div class="tw"><table>${SM.map(m=>`<tr><td class="tl"><b>${t(m)}</b></td><td style="width:60%"><select class="sm2" data-m="${m}">${['all','own','notown'].map(v=>`<option value="${v}" ${((B.scope||{})[m]||'all')===v?'selected':''}>${t('sc_'+v)}</option>`).join('')}</select></td></tr>`).join('')}</table></div>
- <button class="btn" style="margin-top:12px" onclick="saveScope()">${t('save')}</button></div>
+ <div class="card"><h2>${t('funcsFarm')}</h2><div class="muted" style="margin-bottom:10px">${t('funcsHint')}</div><div class="tw"><table class="nort"><tr><th class="tl">${t('farm')}</th>${FUNCS.map(m=>`<th>${t(m)}</th>`).join('')}</tr>
+ <tr><td class="tl muted">${t('quick')}</td>${FUNCS.map(m=>`<td><select class="sel" onchange="quickFuncs('${m}',this.value);this.value=''"><option value=""></option>${['all','own','notown','none'].map(v=>`<option value="${v}">${t('q_'+v)}</option>`).join('')}</select></td>`).join('')}</tr>
+ ${(B.allFarms||[]).map(f=>`<tr><td class="tl"><b>${esc(f.name)}</b> ${f.own?`<span class="tag lock">${t('own')}</span>`:''}</td>${FUNCS.map(m=>`<td style="text-align:center"><input type="checkbox" class="fx" data-f="${f.id}" data-m="${m}" data-own="${f.own?1:0}" ${!f.funcs||f.funcs[m]!==false?'checked':''}></td>`).join('')}</tr>`).join('')}</table></div>
+ <button class="btn" style="margin-top:12px" onclick="saveFuncs()">${t('save')}</button></div>
  <div class="card"><h2>${t('language')}</h2><div class="row"><button class="btn sm ${lang==='ca'?'':'sec'}" onclick="setLang('ca')">Català</button><button class="btn sm ${lang==='es'?'':'sec'}" onclick="setLang('es')">Castellano</button></div></div>`}
-async function saveScope(){const sc={};document.querySelectorAll('.sm2').forEach(s=>sc[s.dataset.m]=s.value);await run(()=>api('settings.save',{scope:sc}),t('saved'));await start()}
+function quickFuncs(m,v){if(!v)return;document.querySelectorAll(`.fx[data-m="${m}"]`).forEach(c=>{const o=c.dataset.own==='1';c.checked=v==='all'||(v==='own'&&o)||(v==='notown'&&!o)})}
+async function saveFuncs(){const F2={};document.querySelectorAll('.fx').forEach(c=>{(F2[c.dataset.f]||={})[c.dataset.m]=c.checked});await run(()=>api('farms.funcs',{funcs:F2}),t('saved'));await start()}
 async function savePerms(){const p={};ROLES.forEach(r=>p[r]={});document.querySelectorAll('.pm').forEach(s=>p[s.dataset.r][s.dataset.m]=+s.value);document.querySelectorAll('.pf').forEach(c=>p[c.dataset.r][c.dataset.f]=c.checked);
  await run(()=>api('perms.save',{perms:p}),t('saved'));await start()}
 function userForm(id){const u=id?B.users.find(x=>x.id===id):{name:'',login:'',role:'granger',farms:[]};const farms=B.allFarms||B.farms;
@@ -546,7 +631,8 @@ applyT();
 try{$('lUser').value=localStorage.getItem('plug_last')||''}catch(e){}
 const SPL0=Date.now();
 function hideSplash(){const w=Math.max(0,2800-(Date.now()-SPL0));setTimeout(()=>{const e=$('splash');if(!e)return;e.classList.add('out');setTimeout(()=>e.remove(),650)},w)}
-(async()=>{if(TOKEN){try{await start();hideSplash();return}catch(e){}}$('login').classList.remove('hidden');hideSplash()})();
+const WANT_INSTALL=/[?&]install=1/.test(location.search)&&!isStandalone();if(WANT_INSTALL)history.replaceState(null,'','/');
+(async()=>{if(TOKEN){try{await start();hideSplash();return}catch(e){}}$('login').classList.remove('hidden');hideSplash();if(WANT_INSTALL)setTimeout(()=>shareModal(true),3000)})();
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body>
