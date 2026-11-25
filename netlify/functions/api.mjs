@@ -196,8 +196,49 @@ export default async (req) => {
           if (ex && !farmOk("destete", ex.farm)) fail("forbidden_farm", 403);
           const dup = rows.find((x) => x.farm === v.farm && x.year === v.year && x.week === v.week && x.id !== r.id);
           if (dup) fail(dup.locked ? "locked_dup" : "dup");
+          if (ex && ex.lines && ex.lines.length) fail("has_lines");
           if (ex) { Object.assign(ex, v, { upd: stamp() }); return ex; }
           const n = { id: uid(), ...v, baix: 0, baixes: [], locked: false, created: stamp() }; rows.push(n); return n;
+        });
+        return json({ rec: res });
+      }
+      case "destete.line.save": {
+        need("destete", 2);
+        const r = body.rec || {}, L = r.line || {};
+        const res = await update("destete", (rows) => {
+          let ex = r.id ? rows.find((x) => x.id === r.id) : rows.find((x) => x.farm === r.farm && x.year === +r.year && x.week === +r.week);
+          if (r.id && !ex) fail("not_found", 404);
+          const farmId = ex ? ex.farm : r.farm; needFarm(farmId, "destete");
+          const f = farmsAll.find((x) => x.id === farmId); const cfg = f.destCfg || {};
+          const lot = cfg.lot ? str(L.lot, 30) : "", sala = cfg.sala ? str(L.sala, 60) : "";
+          if (cfg.lot && !lot) fail("fill");
+          if (cfg.sala && !(f.sales || []).some((x) => x.id === sala)) fail("fill");
+          const dest = num(L.dest), carr = num(L.carr); if (dest === null && carr === null) fail("fill");
+          if (!ex) { const y = +r.year, w = +r.week; if (!y || !(w >= 1 && w <= 53)) fail("fill");
+            ex = { id: uid(), farm: farmId, year: y, week: w, dest: null, carr: null, baix: 0, baixes: [], lines: [], locked: false, created: stamp() }; rows.push(ex); }
+          if (ex.locked) fail("locked");
+          ex.lines ||= [];
+          if (ex.lines.some((x) => x.id !== L.id && x.lot === lot && x.sala === sala)) fail("dup_line");
+          const ln = L.id ? ex.lines.find((x) => x.id === L.id) : null;
+          if (L.id && !ln) fail("not_found", 404);
+          if (ln) Object.assign(ln, { lot, sala, dest, carr, upd: stamp() }); else ex.lines.push({ id: uid(), lot, sala, dest, carr, ...stamp() });
+          const sm = (k) => { const v = ex.lines.map((x) => x[k]).filter((x) => x != null); return v.length ? v.reduce((a, b) => a + b, 0) : null; };
+          ex.dest = sm("dest"); ex.carr = sm("carr"); ex.upd = stamp();
+          return ex;
+        });
+        return json({ rec: res });
+      }
+      case "destete.line.del": {
+        need("destete", 2);
+        const res = await update("destete", (rows) => {
+          const ex = rows.find((x) => x.id === body.id); if (!ex) fail("not_found", 404);
+          if (!farmOk("destete", ex.farm)) fail("forbidden_farm", 403);
+          if (ex.locked) fail("locked");
+          const i = (ex.lines || []).findIndex((x) => x.id === body.lid); if (i < 0) fail("not_found", 404);
+          ex.lines.splice(i, 1);
+          const sm = (k) => { const v = ex.lines.map((x) => x[k]).filter((x) => x != null); return v.length ? v.reduce((a, b) => a + b, 0) : null; };
+          ex.dest = sm("dest"); ex.carr = sm("carr"); ex.upd = stamp();
+          return ex;
         });
         return json({ rec: res });
       }
@@ -217,7 +258,7 @@ export default async (req) => {
           if (!farmOk("destete", ex.farm)) fail("forbidden_farm", 403);
           if (ex.locked) fail("locked");
           if (!ex.baixes) ex.baixes = ex.baix ? [{ id: uid(), n: ex.baix, data: "", motiu: "", by: "", byName: "" }] : [];
-          ex.baixes.push({ id: uid(), n, data: when, motiu: str(r.motiu, 60), ...stamp() });
+          ex.baixes.push({ id: uid(), n, data: when, motiu: str(r.motiu, 60), lot: str(r.lot, 30), sala: str(r.sala, 60), ...stamp() });
           ex.baix = ex.baixes.reduce((a, b) => a + b.n, 0); ex.upd = stamp();
           return ex;
         });
@@ -455,7 +496,7 @@ export default async (req) => {
         need("granges", 2);
         const r = body.rec || {};
         const list = (a, key) => (Array.isArray(a) ? a : []).map((x) => ({ id: str(x.id, 40) || uid(), [key]: str(x[key], 80) })).filter((x) => x[key]);
-        const v = { ref: str(r.ref, 40), name: str(r.name), rega: str(r.rega, 40), marca: str(r.marca, 40), address: str(r.address, 300), own: !!r.own, naus: list(r.naus, "name"), conts: list(r.conts, "code"), meters: list(r.meters, "code") };
+        const v = { ref: str(r.ref, 40), name: str(r.name), rega: str(r.rega, 40), marca: str(r.marca, 40), address: str(r.address, 300), own: !!r.own, naus: list(r.naus, "name"), conts: list(r.conts, "code"), meters: list(r.meters, "code"), sales: list(r.sales, "name"), destCfg: { lot: !!(r.destCfg && r.destCfg.lot), sala: !!(r.destCfg && r.destCfg.sala) } };
         if (!v.name) fail("fill");
         const res = await update("farms", (rows) => {
           const ex = r.id ? rows.find((x) => x.id === r.id) : null;
