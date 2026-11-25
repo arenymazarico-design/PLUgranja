@@ -119,6 +119,41 @@ th.tl,td.tl{text-align:left}tr.click{cursor:pointer}tr.click:hover{background:#f
 #splash .ft{position:absolute;bottom:calc(24px + env(safe-area-inset-bottom));color:rgba(255,255,255,.45);font-size:11px;letter-spacing:3px;opacity:0;animation:up .6s ease 1.7s forwards}
 @keyframes up{to{opacity:1;transform:none}}@keyframes ld{0%{transform:translateX(-110%)}100%{transform:translateX(260%)}}
 @media(prefers-reduced-motion:reduce){#splash *{animation-duration:.01s!important;animation-delay:0s!important}}
+
+/* ---- mode granger ---- */
+body.gr{font-size:19px}
+body.gr nav{display:none!important}
+body.gr header.top{display:flex;justify-content:space-between;align-items:center;background:var(--n);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;position:sticky;top:0;z-index:30}
+body.gr header.top img{height:34px}body.gr header.top .btn{background:rgba(255,255,255,.14);color:#fff;min-height:44px;font-size:16px}
+body.gr #app{flex-direction:column}
+body.gr main{max-width:680px;margin:0 auto;padding:18px 16px 50px}
+body.gr h1{font-size:28px;margin:6px 0 18px}body.gr h2{font-size:22px}body.gr h3{font-size:19px}
+body.gr .btn{min-height:58px;font-size:19px;border-radius:14px;padding:14px 18px}
+body.gr .btn.sm{min-height:50px;font-size:18px;padding:10px 16px}
+body.gr input,body.gr select,body.gr textarea{min-height:58px;font-size:20px;border-radius:12px;border-width:2px}
+body.gr label.l{font-size:17px;color:var(--tx)}
+body.gr .muted{font-size:16px}body.gr .tag{font-size:16px;padding:5px 11px}
+body.gr .bigin{font-size:36px;min-height:80px}
+body.gr .kpi .v{font-size:32px}body.gr .kpi .k{font-size:16px}
+body.gr .wk{font-size:17px;padding:6px 12px}
+body.gr table.rt td{font-size:18px}body.gr th,body.gr td{font-size:17px}
+body.gr .card{padding:20px;border-radius:16px}
+body.gr .tabs{display:none}
+body.gr .cont .code{font-size:34px}body.gr .cont .stt{font-size:16px}
+body.gr .toast{font-size:18px;padding:14px 22px;bottom:30px}
+body.gr .alert{font-size:18px}
+.hello{font-size:20px;color:var(--mu);margin-top:4px}
+.tiles{display:grid;gap:14px;margin-bottom:22px}
+.tile{display:flex;align-items:center;gap:16px;background:#fff;border:2px solid var(--bd);border-radius:18px;padding:18px 16px;text-align:left;width:100%;min-height:100px;box-shadow:0 2px 6px rgba(12,42,67,.06)}
+.tile:active{transform:scale(.98);background:var(--nl)}
+.tile .ti{font-size:42px;width:58px;text-align:center;flex-shrink:0}
+.tile .tt{display:block;font-size:24px;font-weight:800;color:var(--n);line-height:1.2}
+.tile .ts{display:block;font-size:17px;margin-top:5px;color:var(--mu)}
+.tile .ts.warn{color:#b45309;font-weight:700}.tile .ts.ok{color:var(--grn);font-weight:700}
+.tile.warn{border-color:var(--org);background:#fff8ef}
+.tile .arr{margin-left:auto;font-size:36px;color:var(--mu);padding-left:6px}
+.backbtn{margin-bottom:14px;justify-content:flex-start;font-size:20px}
+.grfoot{display:grid;gap:12px;margin-top:30px;padding-top:20px;border-top:2px solid var(--bd)}
 </style>
 </head>
 <body>
@@ -175,7 +210,7 @@ naus:"Naus",newFarm:"Nova granja",add:"Afegir",noFarms:"No hi ha granges",
 users:"Usuaris",newUser:"Nou usuari",login:"Usuari (accés)",role:"Perfil",pinNew:"PIN (deixa'l buit per no canviar-lo)",assigned:"Granges assignades",assignedHint:"Si no en marques cap: el granger no en veu cap; la resta de perfils les veuen totes.",
 perms:"Permisos per perfil",lvl0:"—",lvl1:"Consulta",lvl2:"Edició",
 validar:"Validar",retornar:"Retornar escorxador",exportar:"Exportar llistats",gestHidro:"Gestionar historial hidròlisi",
-aigua:"Aigua",meters:"Comptadors d'aigua",meter:"Comptador",lectura:"Lectura (m³)",consum:"Consum (m³)",month:"Mes",prev:"Anterior",aiguaPend1:"Falta 1 lectura del comptador d'aigua de {mes}",aiguaPend:"Falten {n} lectures dels comptadors d'aigua de {mes}",aiguaPendT:"Lectures d'aigua pendents",tapRecord:"Toca aquí per gravar-les",recordNow:"Gravar ara",later:"Més tard",readingOf:"Lectura de {mes}",recorded:"Gravada",noMeters:"Aquesta granja no té comptadors. Afegeix-los a Granges.",lowerQ:"La lectura és més baixa que l'anterior ({p} m³). És correcta (comptador canviat)?",e_past_month:"Només es pot modificar la lectura del mes actual",funcsFarm:"Funcions actives per granja",funcsHint:"Desmarca les funcions que una granja no fa servir. En aquella granja no sortiran ni per registrar ni per consultar.",quick:"Aplicar a…",q_all:"Totes",q_own:"Pròpies",q_notown:"No pròpies",q_none:"Cap",funcsOn:"Funcions",share:"Compartir i instal·lar",installHere:"Instal·lar en aquest dispositiu",installBtn:"Instal·lar PLUgranja",installed:"Ja tens l'app instal·lada en aquest dispositiu",iosSteps:"1. Obre l'enllaç amb <b>Safari</b><br>2. Prem el botó <b>Compartir</b> (quadrat amb fletxa ⬆️)<br>3. Tria <b>Afegir a la pantalla d'inici</b>",otherSteps:"Al menú del navegador (⋮ o ⋯) tria <b>Instal·lar aplicació</b> o <b>Afegir a la pantalla d'inici</b>.",sendOthers:"Enviar l'app a altres persones",scanQr:"Escaneja el codi amb la càmera del mòbil",shareBtn:"Compartir",copyLink:"Copiar",copied:"Enllaç copiat",shareTxt:"Hola! T'envio l'app PLUgranja de PLU. Obre l'enllaç i instal·la-la al mòbil:",installApp:"Instal·lar l'app",tancaExport:"Exportar i tancar escorxador",exported:"Exportat",farmFuncs:"Funcions per tipus de granja",farmFuncsHint:"Tria a quines granges s'aplica cada funció.",sc_all:"Totes les granges",sc_own:"Només granges pròpies",sc_notown:"Només granges no pròpies",thisWeek:"Aquesta setmana",lockedInfo:"Validat pel veterinari · només consulta",exportedInfo:"Exportat per logística · només consulta",otherWeek:"Corregir una altra setmana",expClose:"Exportar i tancar",confirmExp:"S'exportaran i es tancaran {n} setmanes (validades o no). Després ningú les podrà modificar si no es retornen. Continuar?",pendVal:"Pendent de validar",valEdit:"Validat (editable)",enterAnimals:"Apunta els animals d'aquesta setmana",waitVal:"Desat. Pendent que el veterinari el validi.",escEditHint:"Pots corregir-lo fins que logística l'exporti.",language:"Idioma",changePin:"Canviar PIN",oldPin:"PIN actual",newPin:"PIN nou",
+hello:"Hola, {n} 👋",chooseFarm:"Tria la granja",allOk:"✔ Tot al dia",nPend:"⚠ {n} coses per fer",nPend1:"⚠ 1 cosa per fer",st_toDo:"⚠ Aquesta setmana: pendent d'apuntar",st_doneWait:"Apuntat · pendent de validar",st_valid:"✔ Aquesta setmana validada",st_escOpen:"⚠ Setmana {w}: pendent d'apuntar",st_escDone:"Setmana {w}: apuntada",st_escNew:"⚠ Pendent d'apuntar",photoTile:"📷 Fer foto de l'albarà",aiguaToDo:"⚠ Falta la lectura de {mes}",aiguaOk:"✔ Lectura de {mes} feta",noMetersShort:"Sense comptadors",nConts:"{n} contenidors",aigua:"Aigua",meters:"Comptadors d'aigua",meter:"Comptador",lectura:"Lectura (m³)",consum:"Consum (m³)",month:"Mes",prev:"Anterior",aiguaPend1:"Falta 1 lectura del comptador d'aigua de {mes}",aiguaPend:"Falten {n} lectures dels comptadors d'aigua de {mes}",aiguaPendT:"Lectures d'aigua pendents",tapRecord:"Toca aquí per gravar-les",recordNow:"Gravar ara",later:"Més tard",readingOf:"Lectura de {mes}",recorded:"Gravada",noMeters:"Aquesta granja no té comptadors. Afegeix-los a Granges.",lowerQ:"La lectura és més baixa que l'anterior ({p} m³). És correcta (comptador canviat)?",e_past_month:"Només es pot modificar la lectura del mes actual",funcsFarm:"Funcions actives per granja",funcsHint:"Desmarca les funcions que una granja no fa servir. En aquella granja no sortiran ni per registrar ni per consultar.",quick:"Aplicar a…",q_all:"Totes",q_own:"Pròpies",q_notown:"No pròpies",q_none:"Cap",funcsOn:"Funcions",share:"Compartir i instal·lar",installHere:"Instal·lar en aquest dispositiu",installBtn:"Instal·lar PLUgranja",installed:"Ja tens l'app instal·lada en aquest dispositiu",iosSteps:"1. Obre l'enllaç amb <b>Safari</b><br>2. Prem el botó <b>Compartir</b> (quadrat amb fletxa ⬆️)<br>3. Tria <b>Afegir a la pantalla d'inici</b>",otherSteps:"Al menú del navegador (⋮ o ⋯) tria <b>Instal·lar aplicació</b> o <b>Afegir a la pantalla d'inici</b>.",sendOthers:"Enviar l'app a altres persones",scanQr:"Escaneja el codi amb la càmera del mòbil",shareBtn:"Compartir",copyLink:"Copiar",copied:"Enllaç copiat",shareTxt:"Hola! T'envio l'app PLUgranja de PLU. Obre l'enllaç i instal·la-la al mòbil:",installApp:"Instal·lar l'app",tancaExport:"Exportar i tancar escorxador",exported:"Exportat",farmFuncs:"Funcions per tipus de granja",farmFuncsHint:"Tria a quines granges s'aplica cada funció.",sc_all:"Totes les granges",sc_own:"Només granges pròpies",sc_notown:"Només granges no pròpies",thisWeek:"Aquesta setmana",lockedInfo:"Validat pel veterinari · només consulta",exportedInfo:"Exportat per logística · només consulta",otherWeek:"Corregir una altra setmana",expClose:"Exportar i tancar",confirmExp:"S'exportaran i es tancaran {n} setmanes (validades o no). Després ningú les podrà modificar si no es retornen. Continuar?",pendVal:"Pendent de validar",valEdit:"Validat (editable)",enterAnimals:"Apunta els animals d'aquesta setmana",waitVal:"Desat. Pendent que el veterinari el validi.",escEditHint:"Pots corregir-lo fins que logística l'exporti.",language:"Idioma",changePin:"Canviar PIN",oldPin:"PIN actual",newPin:"PIN nou",
 fill:"Omple els camps obligatoris",
 e_bad_login:"Usuari o PIN incorrecte",e_locked_out:"Massa intents. Torna-ho a provar d'aquí 10 minuts.",e_locked:"El registre està validat i bloquejat",e_locked_dup:"Aquesta setmana ja està validada i bloquejada",e_dup:"Ja hi ha un registre d'aquesta granja i setmana",e_dup_open:"Ja hi ha una setmana oberta per a aquesta granja",e_forbidden:"No tens permís",e_forbidden_farm:"No tens accés a aquesta granja",e_fill:"Omple els camps obligatoris",e_bad_number:"Hi ha un valor numèric incorrecte",e_pin_len:"El PIN ha de tenir de 4 a 8 xifres",e_login_taken:"Aquest usuari ja existeix",e_last_admin:"Ha d'haver-hi almenys un administrador",e_self:"No et pots eliminar a tu mateix",e_wrong_step:"Algú altre ja ha registrat aquest pas. Actualitzant…",e_bad_order:"Les dates no segueixen l'ordre del cicle",e_no_ai_key:"Falta configurar la clau d'Anthropic al servidor",e_conflict:"Conflicte d'escriptura, torna-ho a provar",e_net:"Sense connexió amb el servidor",e_server:"Error del servidor",e_auth:"Sessió caducada",e_exported:"Registre exportat: només consulta"},
 es:{user:"Usuario",pin:"PIN",enter:"Entrar",logout:"Salir",
@@ -204,7 +239,7 @@ naus:"Naves",newFarm:"Nueva granja",add:"Añadir",noFarms:"No hay granjas",
 users:"Usuarios",newUser:"Nuevo usuario",login:"Usuario (acceso)",role:"Perfil",pinNew:"PIN (déjalo vacío para no cambiarlo)",assigned:"Granjas asignadas",assignedHint:"Si no marcas ninguna: el granjero no ve ninguna; el resto de perfiles las ven todas.",
 perms:"Permisos por perfil",lvl0:"—",lvl1:"Consulta",lvl2:"Edición",
 validar:"Validar",retornar:"Retornar matadero",exportar:"Exportar listados",gestHidro:"Gestionar historial hidrólisis",
-aigua:"Agua",meters:"Contadores de agua",meter:"Contador",lectura:"Lectura (m³)",consum:"Consumo (m³)",month:"Mes",prev:"Anterior",aiguaPend1:"Falta 1 lectura del contador de agua de {mes}",aiguaPend:"Faltan {n} lecturas de los contadores de agua de {mes}",aiguaPendT:"Lecturas de agua pendientes",tapRecord:"Toca aquí para grabarlas",recordNow:"Grabar ahora",later:"Más tarde",readingOf:"Lectura de {mes}",recorded:"Grabada",noMeters:"Esta granja no tiene contadores. Añádelos en Granjas.",lowerQ:"La lectura es más baja que la anterior ({p} m³). ¿Es correcta (contador cambiado)?",e_past_month:"Solo se puede modificar la lectura del mes actual",funcsFarm:"Funciones activas por granja",funcsHint:"Desmarca las funciones que una granja no usa. En esa granja no aparecerán ni para registrar ni para consultar.",quick:"Aplicar a…",q_all:"Todas",q_own:"Propias",q_notown:"No propias",q_none:"Ninguna",funcsOn:"Funciones",share:"Compartir e instalar",installHere:"Instalar en este dispositivo",installBtn:"Instalar PLUgranja",installed:"Ya tienes la app instalada en este dispositivo",iosSteps:"1. Abre el enlace con <b>Safari</b><br>2. Pulsa el botón <b>Compartir</b> (cuadrado con flecha ⬆️)<br>3. Elige <b>Añadir a pantalla de inicio</b>",otherSteps:"En el menú del navegador (⋮ o ⋯) elige <b>Instalar aplicación</b> o <b>Añadir a pantalla de inicio</b>.",sendOthers:"Enviar la app a otras personas",scanQr:"Escanea el código con la cámara del móvil",shareBtn:"Compartir",copyLink:"Copiar",copied:"Enlace copiado",shareTxt:"¡Hola! Te envío la app PLUgranja de PLU. Abre el enlace e instálala en el móvil:",installApp:"Instalar la app",tancaExport:"Exportar y cerrar matadero",exported:"Exportado",farmFuncs:"Funciones por tipo de granja",farmFuncsHint:"Elige a qué granjas se aplica cada función.",sc_all:"Todas las granjas",sc_own:"Solo granjas propias",sc_notown:"Solo granjas no propias",thisWeek:"Esta semana",lockedInfo:"Validado por el veterinario · solo consulta",exportedInfo:"Exportado por logística · solo consulta",otherWeek:"Corregir otra semana",expClose:"Exportar y cerrar",confirmExp:"Se exportarán y se cerrarán {n} semanas (validadas o no). Después nadie podrá modificarlas si no se retornan. ¿Continuar?",pendVal:"Pendiente de validar",valEdit:"Validado (editable)",enterAnimals:"Apunta los animales de esta semana",waitVal:"Guardado. Pendiente de que el veterinario lo valide.",escEditHint:"Puedes corregirlo hasta que logística lo exporte.",language:"Idioma",changePin:"Cambiar PIN",oldPin:"PIN actual",newPin:"PIN nuevo",
+hello:"Hola, {n} 👋",chooseFarm:"Elige la granja",allOk:"✔ Todo al día",nPend:"⚠ {n} cosas por hacer",nPend1:"⚠ 1 cosa por hacer",st_toDo:"⚠ Esta semana: pendiente de apuntar",st_doneWait:"Apuntado · pendiente de validar",st_valid:"✔ Esta semana validada",st_escOpen:"⚠ Semana {w}: pendiente de apuntar",st_escDone:"Semana {w}: apuntada",st_escNew:"⚠ Pendiente de apuntar",photoTile:"📷 Hacer foto del albarán",aiguaToDo:"⚠ Falta la lectura de {mes}",aiguaOk:"✔ Lectura de {mes} hecha",noMetersShort:"Sin contadores",nConts:"{n} contenedores",aigua:"Agua",meters:"Contadores de agua",meter:"Contador",lectura:"Lectura (m³)",consum:"Consumo (m³)",month:"Mes",prev:"Anterior",aiguaPend1:"Falta 1 lectura del contador de agua de {mes}",aiguaPend:"Faltan {n} lecturas de los contadores de agua de {mes}",aiguaPendT:"Lecturas de agua pendientes",tapRecord:"Toca aquí para grabarlas",recordNow:"Grabar ahora",later:"Más tarde",readingOf:"Lectura de {mes}",recorded:"Grabada",noMeters:"Esta granja no tiene contadores. Añádelos en Granjas.",lowerQ:"La lectura es más baja que la anterior ({p} m³). ¿Es correcta (contador cambiado)?",e_past_month:"Solo se puede modificar la lectura del mes actual",funcsFarm:"Funciones activas por granja",funcsHint:"Desmarca las funciones que una granja no usa. En esa granja no aparecerán ni para registrar ni para consultar.",quick:"Aplicar a…",q_all:"Todas",q_own:"Propias",q_notown:"No propias",q_none:"Ninguna",funcsOn:"Funciones",share:"Compartir e instalar",installHere:"Instalar en este dispositivo",installBtn:"Instalar PLUgranja",installed:"Ya tienes la app instalada en este dispositivo",iosSteps:"1. Abre el enlace con <b>Safari</b><br>2. Pulsa el botón <b>Compartir</b> (cuadrado con flecha ⬆️)<br>3. Elige <b>Añadir a pantalla de inicio</b>",otherSteps:"En el menú del navegador (⋮ o ⋯) elige <b>Instalar aplicación</b> o <b>Añadir a pantalla de inicio</b>.",sendOthers:"Enviar la app a otras personas",scanQr:"Escanea el código con la cámara del móvil",shareBtn:"Compartir",copyLink:"Copiar",copied:"Enlace copiado",shareTxt:"¡Hola! Te envío la app PLUgranja de PLU. Abre el enlace e instálala en el móvil:",installApp:"Instalar la app",tancaExport:"Exportar y cerrar matadero",exported:"Exportado",farmFuncs:"Funciones por tipo de granja",farmFuncsHint:"Elige a qué granjas se aplica cada función.",sc_all:"Todas las granjas",sc_own:"Solo granjas propias",sc_notown:"Solo granjas no propias",thisWeek:"Esta semana",lockedInfo:"Validado por el veterinario · solo consulta",exportedInfo:"Exportado por logística · solo consulta",otherWeek:"Corregir otra semana",expClose:"Exportar y cerrar",confirmExp:"Se exportarán y se cerrarán {n} semanas (validadas o no). Después nadie podrá modificarlas si no se retornan. ¿Continuar?",pendVal:"Pendiente de validar",valEdit:"Validado (editable)",enterAnimals:"Apunta los animales de esta semana",waitVal:"Guardado. Pendiente de que el veterinario lo valide.",escEditHint:"Puedes corregirlo hasta que logística lo exporte.",language:"Idioma",changePin:"Cambiar PIN",oldPin:"PIN actual",newPin:"PIN nuevo",
 fill:"Rellena los campos obligatorios",
 e_bad_login:"Usuario o PIN incorrecto",e_locked_out:"Demasiados intentos. Vuelve a probar en 10 minutos.",e_locked:"El registro está validado y bloqueado",e_locked_dup:"Esta semana ya está validada y bloqueada",e_dup:"Ya existe un registro de esta granja y semana",e_dup_open:"Ya hay una semana abierta para esta granja",e_forbidden:"No tienes permiso",e_forbidden_farm:"No tienes acceso a esta granja",e_fill:"Rellena los campos obligatorios",e_bad_number:"Hay un valor numérico incorrecto",e_pin_len:"El PIN debe tener de 4 a 8 cifras",e_login_taken:"Este usuario ya existe",e_last_admin:"Debe haber al menos un administrador",e_self:"No puedes eliminarte a ti mismo",e_wrong_step:"Otra persona ya ha registrado este paso. Actualizando…",e_bad_order:"Las fechas no siguen el orden del ciclo",e_no_ai_key:"Falta configurar la clave de Anthropic en el servidor",e_conflict:"Conflicto de escritura, vuelve a intentarlo",e_net:"Sin conexión con el servidor",e_server:"Error del servidor",e_auth:"Sesión caducada",e_exported:"Registro exportado: solo consulta"}};
 let lang='ca';try{lang=localStorage.getItem('plug_lang')||'ca'}catch(e){}
@@ -241,7 +276,8 @@ const fmtD=s=>s?s.split('-').reverse().join('/'):'';
 function isoWeek(d=new Date()){const x=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const day=x.getUTCDay()||7;x.setUTCDate(x.getUTCDate()+4-day);const y=x.getUTCFullYear();return{y,w:Math.ceil(((x-new Date(Date.UTC(y,0,1)))/864e5+1)/7)}}
 function weekRange(y,w){const s=new Date(Date.UTC(y,0,4));const d=s.getUTCDay()||7;s.setUTCDate(s.getUTCDate()-d+1+(w-1)*7);const e=new Date(s);e.setUTCDate(s.getUTCDate()+6);const f=x=>String(x.getUTCDate()).padStart(2,'0')+'/'+String(x.getUTCMonth()+1).padStart(2,'0');return f(s)+'–'+f(e)}
 function csv(rows,name){const s='﻿'+rows.map(r=>r.map(c=>`"${String(c??'').replace(/"/g,'""')}"`).join(';')).join('\r\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([s],{type:'text/csv'}));a.download=name+'_'+new Date().toISOString().slice(0,10)+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
-const farmsFor=m=>B.farms.filter(f=>!f.funcs||f.funcs[m]!==false);
+let GF=null,GV=null;
+const farmsFor=m=>B.farms.filter(f=>(!f.funcs||f.funcs[m]!==false)&&(!(B.me.role==='granger'&&GF)||f.id===GF));
 const isGr=()=>B.me.role==='granger';
 const farmSel=(val,on,allowAll=true,id='',L=B.farms)=>`<select ${id?`id="${id}"`:''} class="grow" onchange="${on}">${allowAll&&L.length>1?`<option value="">${t('allF')}</option>`:''}${L.map(f=>`<option value="${f.id}" ${val===f.id?'selected':''}>${esc(f.name)}</option>`).join('')}</select>`;
 const wkOpts=(w,now)=>Array.from({length:53},(_,i)=>i+1).map(i=>`<option value="${i}" ${i===w?'selected':''}>${i}${i===now.w?' ('+t('current')+')':''}</option>`).join('');
@@ -252,7 +288,7 @@ async function need(col){if(!D[col])D[col]=(await api('list',{col})).rows;return
 async function doLogin(){$('lErr').textContent='';$('lBtn').disabled=true;
  try{const login=$('lUser').value.trim();const r=await api('login',{login,pin:$('lPin').value});TOKEN=r.token;try{localStorage.setItem('plug_tok',TOKEN);localStorage.setItem('plug_last',login)}catch(e){}$('lPin').value='';await start()}
  catch(e){$('lErr').textContent=errMsg(e)}finally{$('lBtn').disabled=false}}
-function logout(){TOKEN='';B=null;for(const k in D)D[k]=null;try{localStorage.removeItem('plug_tok')}catch(e){}closeModal();$('app').classList.add('hidden');$('login').classList.remove('hidden');applyT()}
+function logout(){TOKEN='';B=null;GF=null;GV=null;document.body.classList.remove('gr');for(const k in D)D[k]=null;try{localStorage.removeItem('plug_tok')}catch(e){}closeModal();$('app').classList.add('hidden');$('login').classList.remove('hidden');applyT()}
 $('lPin').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
 const MODS=[{id:'animals',ic:'🐖',ok:()=>(lv('destete')&&farmsFor('destete').length)||(lv('escorxador')&&farmsFor('escorxador').length)},{id:'gastos',ic:'🧾',ok:()=>lv('gastos')&&farmsFor('gastos').length},{id:'hidrolisi',ic:'🛢️',ok:()=>lv('hidrolisi')&&farmsFor('hidrolisi').length},{id:'aigua',ic:'💧',ok:()=>lv('aigua')&&farmsFor('aigua').length},{id:'granges',ic:'🏠',ok:()=>lv('granges')},{id:'config',ic:'⚙️',ok:()=>isAdmin()}];
 async function start(){
@@ -260,16 +296,20 @@ async function start(){
  $('login').classList.add('hidden');$('app').classList.remove('hidden');
  if(!MODS.find(m=>m.id===VIEW&&m.ok()))VIEW=(MODS.find(m=>m.ok())||{}).id||'';
  if(!lv('destete')&&lv('escorxador'))TAB='escorxador';
+ if(isGr()){GF=null;GV=null;try{history.replaceState({gr:1,gf:null,gv:null},'')}catch(e){}}
  render();setTimeout(aiguaPopup,3000)}
 
 /* ================= SHELL ================= */
 function render(){applyT();
+ if(isGr())return renderGr();
+ document.body.classList.remove('gr');
  $('nav').innerHTML=`<div class="brand"><img src="logo-white.png" alt="PLU"><div>PLUgranja</div></div>`+MODS.filter(m=>m.ok()).map(m=>`<button class="nb ${VIEW===m.id?'on':''}" onclick="go('${m.id}')"><span class="ic">${m.ic}</span>${t(m.id)}${m.id==='aigua'&&lv('aigua')>=2&&(B.aiguaPend||[]).length?`<span class="badge">${B.aiguaPend.length}</span>`:''}</button>`).join('')
  +`<div class="who"><b>${esc(B.me.name)}</b>${t(B.me.role)}<div class="row"><button class="btn sm" onclick="setLang('${lang==='ca'?'es':'ca'}')">${lang==='ca'?'ES':'CA'}</button><button class="btn sm" onclick="pinForm()">PIN</button><button class="btn sm" onclick="logout()">${t('logout')}</button></div><button class="btn sm w" style="margin-top:8px" onclick="shareModal()">📲 ${t('share')}</button></div>`;
  const fn={animals:vAnimals,gastos:vGastos,hidrolisi:vHidro,aigua:vAigua,granges:vGranges,config:vConfig}[VIEW];
  if(fn)fn().then(()=>{labelTables();const b=aiguaBanner();if(b)$('main').insertAdjacentHTML('afterbegin',b)}).catch(e=>{$('main').innerHTML=`<div class="card empty">${esc(errMsg(e))}</div>`})}
 function labelTables(){document.querySelectorAll('#main .tw table:not(.nort)').forEach(tb=>{const h=tb.querySelector('tr');if(!h||!h.querySelector('th'))return;tb.classList.add('rt');const L=[...h.children].map(x=>x.textContent.trim());tb.querySelectorAll('tr').forEach((tr,i)=>{if(!i)return;[...tr.children].forEach((td,j)=>{if(L[j])td.dataset.l=L[j]})})})}
 function go(v){
+ if(isGr()){if(!GF)GF=((B.aiguaPend||[])[0]||{}).farm||(grFarms()[0]||{}).id||null;if(v==='gastos'&&lv('gastos')>=2)$('cam').click();grNav(GF,v==='animals'?TAB:v);return}
  // Despeses: el granger obre directament la càmera en tocar la pestanya
  if(v==='gastos'&&isGr()&&lv('gastos')>=2&&farmsFor('gastos').length)$('cam').click();
  VIEW=v;render();window.scrollTo(0,0)}
@@ -282,7 +322,7 @@ const filterBar=(years)=>`${AF.length>1?`<div class="row" style="margin-bottom:1
 async function vAnimals(){
  const tabs=[lv('destete')&&farmsFor('destete').length&&'destete',lv('escorxador')&&farmsFor('escorxador').length&&'escorxador'].filter(Boolean);
  if(!tabs.includes(TAB))TAB=tabs[0];
- $('main').innerHTML=`<h1>🐖 ${t('animals')}</h1>${tabs.length>1?`<div class="tabs">${tabs.map(k=>`<button class="${TAB===k?'on':''}" onclick="TAB='${k}';render()">${k==='destete'?'🍼':'🚚'} ${t(k)}</button>`).join('')}</div>`:''}<div id="sub">${loadingHTML()}</div>`;
+ $('main').innerHTML=isGr()?`<h1>${TAB==='destete'?'🍼':'🚚'} ${t(TAB)}</h1><div id="sub">${loadingHTML()}</div>`:`<h1>🐖 ${t('animals')}</h1>${tabs.length>1?`<div class="tabs">${tabs.map(k=>`<button class="${TAB===k?'on':''}" onclick="TAB='${k}';render()">${k==='destete'?'🍼':'🚚'} ${t(k)}</button>`).join('')}</div>`:''}<div id="sub">${loadingHTML()}</div>`;
  if(!tabs.length){$('sub').innerHTML=`<div class="card empty">${t('e_forbidden_farm')}</div>`;return}
  AF=farmsFor(TAB);if(F.farm&&!AF.some(f=>f.id===F.farm))F.farm='';if(AF.length===1||(isGr()&&!F.farm))F.farm=AF[0].id;
  if(TAB==='destete')await vDestete();else await vEscorxador()}
@@ -560,6 +600,54 @@ async function shareModal(onlyInstall){
  if(!onlyInstall){try{await loadQR();const q=qrcode(0,'M');q.addData(url);q.make();$('qrBox')&&($('qrBox').innerHTML=q.createSvgTag({cellSize:6,margin:0,scalable:true}).replace('<svg','<svg style="width:200px;height:200px"'))}catch(e){}}}
 async function shareNative(){try{await navigator.share({title:'PLUgranja',text:t('shareTxt'),url:appURL()})}catch(e){}}
 async function copyLink(){try{await navigator.clipboard.writeText(appURL());toast(t('copied'))}catch(e){toast(appURL())}}
+
+/* ================= MODE GRANGER (senzill, lletra gran) ================= */
+const GR_FUNCS=[{m:'destete',ic:'🍼'},{m:'escorxador',ic:'🚚'},{m:'gastos',ic:'🧾'},{m:'hidrolisi',ic:'🛢️'},{m:'aigua',ic:'💧'}];
+const funcOnF=(f,m)=>!f.funcs||f.funcs[m]!==false;
+const grFarms=()=>B.farms.filter(f=>GR_FUNCS.some(x=>lv(x.m)>=1&&funcOnF(f,x.m)));
+const grFuncs=f=>GR_FUNCS.filter(x=>lv(x.m)>=1&&funcOnF(f,x.m));
+function grNav(gf,gv){GF=gf;GV=gv;try{history.pushState({gr:1,gf,gv},'')}catch(e){}renderGr();window.scrollTo(0,0)}
+function grBack(){if(history.state&&history.state.gr)history.back();else{if(GV)GV=null;else GF=null;renderGr()}}
+window.addEventListener('popstate',e=>{if(!B||!isGr())return;const s=e.state||{};GF=s.gf||null;GV=s.gv||null;closeModal();renderGr()});
+function grStatus(f){
+ const now=isoWeek(),out={};
+ if(D.destete){const r=D.destete.find(x=>x.farm===f.id&&x.year===now.y&&x.week===now.w);out.destete=!r?['warn',t('st_toDo')]:r.locked?['ok',t('st_valid')]:['',t('st_doneWait')]}
+ if(D.escorxador){const op=D.escorxador.filter(x=>x.farm===f.id&&!x.validated&&!x.exported).sort((a,b)=>a.year-b.year||a.week-b.week)[0];
+  out.escorxador=!op?['warn',t('st_escNew')]:(op.fem==null||op.masc==null)?['warn',t('st_escOpen',{w:op.week})]:['',t('st_escDone',{w:op.week})]}
+ const ap=(B.aiguaPend||[]).filter(p=>p.farm===f.id).length;
+ out.aigua=(f.meters||[]).length?(ap?['warn',t('aiguaToDo',{mes:mes(B.ym.m)})]:['ok',t('aiguaOk',{mes:mes(B.ym.m)})]):['',t('noMetersShort')];
+ out.gastos=['',lv('gastos')>=2?t('photoTile'):''];
+ out.hidrolisi=['',t('nConts',{n:(f.conts||[]).length})];
+ return out}
+const pendCount=(f,st)=>grFuncs(f).filter(x=>lv(x.m)>=2&&st[x.m]&&st[x.m][0]==='warn').length;
+async function grLoad(){const ps=[];if(lv('destete'))ps.push(need('destete').catch(()=>{}));if(lv('escorxador'))ps.push(need('escorxador').catch(()=>{}));await Promise.all(ps)}
+const grFoot=()=>`<div class="grfoot"><button class="btn sec w" onclick="shareModal()">📲 ${t('share')}</button><div class="row" style="flex-wrap:nowrap"><button class="btn sec grow" onclick="setLang('${lang==='ca'?'es':'ca'}')">${lang==='ca'?'Castellano':'Català'}</button><button class="btn sec grow" onclick="pinForm()">🔑 PIN</button></div><button class="btn red w" onclick="logout()">${t('logout')}</button></div>`;
+async function renderGr(){
+ applyT();document.body.classList.add('gr');
+ const farms=grFarms();
+ if(!farms.length){$('main').innerHTML=`<div class="card empty">${t('e_forbidden_farm')}</div>${grFoot()}`;return}
+ if(GF&&!farms.some(f=>f.id===GF)){GF=null;GV=null}
+ if(!GF&&farms.length===1)GF=farms[0].id;
+ if(!GF){
+  $('main').innerHTML=`<div class="hello">${t('hello',{n:esc(B.me.name)})}</div><h1>${t('chooseFarm')}</h1>${loadingHTML()}`;
+  await grLoad();
+  $('main').innerHTML=`<div class="hello">${t('hello',{n:esc(B.me.name)})}</div><h1>${t('chooseFarm')}</h1><div class="tiles">${farms.map(f=>{const n=pendCount(f,grStatus(f));
+   return `<button class="tile ${n?'warn':''}" onclick="grNav('${f.id}',null)"><span class="ti">🏠</span><span><span class="tt">${esc(f.name)}</span><span class="ts ${n?'warn':'ok'}">${n?t(n===1?'nPend1':'nPend',{n}):t('allOk')}</span></span><span class="arr">›</span></button>`}).join('')}</div>${grFoot()}`;
+  return}
+ const f=farms.find(x=>x.id===GF);
+ const back=`<button class="btn sec w backbtn" onclick="grBack()">← ${GV?esc(f.name):t('chooseFarm')}</button>`;
+ if(!GV){
+  $('main').innerHTML=`${farms.length>1?back:`<div class="hello">${t('hello',{n:esc(B.me.name)})}</div>`}<h1>🏠 ${esc(f.name)}</h1>${loadingHTML()}`;
+  await grLoad();const st=grStatus(f);
+  $('main').innerHTML=`${farms.length>1?back:`<div class="hello">${t('hello',{n:esc(B.me.name)})}</div>`}<h1>🏠 ${esc(f.name)}</h1><div class="tiles">${grFuncs(f).map(x=>{const s=st[x.m]||['',''];const warn=s[0]==='warn'&&lv(x.m)>=2;
+   return `<button class="tile ${warn?'warn':''}" onclick="grOpen('${x.m}')"><span class="ti">${x.ic}</span><span><span class="tt">${t(x.m)}</span>${s[1]?`<span class="ts ${warn?'warn':s[0]}">${s[1]}</span>`:''}</span><span class="arr">›</span></button>`}).join('')}</div>${farms.length>1?'':grFoot()}`;
+  return}
+ // pantalla d'una funció
+ F.farm=GF;F.year='';
+ if(GV==='destete'||GV==='escorxador'){VIEW='animals';TAB=GV}else VIEW=GV;
+ const fn={animals:vAnimals,gastos:vGastos,hidrolisi:vHidro,aigua:vAigua}[VIEW];
+ try{await fn();labelTables();$('main').insertAdjacentHTML('afterbegin',back)}catch(e){$('main').innerHTML=back+`<div class="card empty">${esc(errMsg(e))}</div>`}}
+function grOpen(m){if(m==='gastos'&&lv('gastos')>=2)$('cam').click();grNav(GF,m)}
 
 /* ================= GRANGES ================= */
 async function vGranges(){
