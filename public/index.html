@@ -120,39 +120,48 @@ th.tl,td.tl{text-align:left}tr.click{cursor:pointer}tr.click:hover{background:#f
 @keyframes up{to{opacity:1;transform:none}}@keyframes ld{0%{transform:translateX(-110%)}100%{transform:translateX(260%)}}
 @media(prefers-reduced-motion:reduce){#splash *{animation-duration:.01s!important;animation-delay:0s!important}}
 
+.stack{display:grid;gap:12px}.stack .l{text-align:left}
+.bxbox{margin-top:16px;padding-top:14px;border-top:1px dashed var(--bd)}
+.bxl{display:grid;gap:6px;margin-top:8px}.bx{display:flex;align-items:center;gap:10px;background:#fdf3f2;border-radius:10px;padding:6px 8px}
+.bxn{min-width:40px;height:40px;border-radius:10px;background:var(--red);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:1.1em}
+.stepper{display:grid;grid-template-columns:72px 1fr 72px;gap:10px;align-items:stretch}.stepper .btn{font-size:32px;font-weight:700;min-height:72px}.stepper .bigin{min-height:72px}
+.causes{display:flex;flex-wrap:wrap;gap:8px}.causes .btn{min-height:44px;font-weight:600}.causes .btn.on{background:var(--n);color:#fff}
+body.gr .stepper{grid-template-columns:84px 1fr 84px}body.gr .stepper .btn,body.gr .stepper .bigin{min-height:88px}body.gr .causes .btn{min-height:56px;font-size:20px}body.gr .bxn{min-width:48px;height:48px}
+.fchips{display:flex;flex-wrap:wrap;gap:8px}.fchip{border:2px solid var(--bd);background:#fff;border-radius:20px;padding:7px 14px;font-weight:600;color:var(--mu);min-height:40px}.fchip.on{background:var(--n);border-color:var(--n);color:#fff}
+.selbar{position:sticky;top:8px;z-index:20;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--n);color:#fff;border-radius:12px;padding:10px 12px;margin-bottom:12px;box-shadow:0 6px 18px rgba(0,0,0,.2)}.selbar .btn.sec{background:rgba(255,255,255,.15);color:#fff}
 /* ---- mode granger ---- */
-body.gr{font-size:19px}
+body.gr{font-size:21px}
 body.gr nav{display:none!important}
 body.gr header.top{display:flex;justify-content:space-between;align-items:center;background:var(--n);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;position:sticky;top:0;z-index:30}
-body.gr header.top img{height:34px}body.gr header.top .btn{background:rgba(255,255,255,.14);color:#fff;min-height:44px;font-size:16px}
+body.gr header.top img{height:36px}body.gr header.top .btn{background:rgba(255,255,255,.14);color:#fff;min-height:50px;font-size:19px}
 body.gr #app{flex-direction:column}
 body.gr main{max-width:680px;margin:0 auto;padding:18px 16px 50px}
-body.gr h1{font-size:28px;margin:6px 0 18px}body.gr h2{font-size:22px}body.gr h3{font-size:19px}
-body.gr .btn{min-height:58px;font-size:19px;border-radius:14px;padding:14px 18px}
-body.gr .btn.sm{min-height:50px;font-size:18px;padding:10px 16px}
-body.gr input,body.gr select,body.gr textarea{min-height:58px;font-size:20px;border-radius:12px;border-width:2px}
-body.gr label.l{font-size:17px;color:var(--tx)}
-body.gr .muted{font-size:16px}body.gr .tag{font-size:16px;padding:5px 11px}
-body.gr .bigin{font-size:36px;min-height:80px}
-body.gr .kpi .v{font-size:32px}body.gr .kpi .k{font-size:16px}
-body.gr .wk{font-size:17px;padding:6px 12px}
-body.gr table.rt td{font-size:18px}body.gr th,body.gr td{font-size:17px}
+body.gr h1{font-size:33px;margin:6px 0 18px}body.gr h2{font-size:26px}body.gr h3{font-size:22px}
+body.gr .btn{min-height:64px;font-size:22px;border-radius:14px;padding:14px 18px}
+body.gr .btn.sm{min-height:54px;font-size:20px;padding:10px 16px}
+body.gr input,body.gr select,body.gr textarea{min-height:64px;font-size:23px;border-radius:12px;border-width:2px}
+body.gr label.l{font-size:20px;color:var(--tx)}
+body.gr .muted{font-size:19px}body.gr .tag{font-size:19px;padding:6px 12px}
+body.gr .bigin{font-size:42px;min-height:88px}
+body.gr .kpi .v{font-size:36px}body.gr .kpi .k{font-size:19px}
+body.gr .wk{font-size:20px;padding:7px 14px}
+body.gr table.rt td{font-size:21px}body.gr th,body.gr td{font-size:20px}body.gr table.rt td[data-l]::before{font-size:17px}
 body.gr .card{padding:20px;border-radius:16px}
 body.gr .tabs{display:none}
-body.gr .cont .code{font-size:34px}body.gr .cont .stt{font-size:16px}
-body.gr .toast{font-size:18px;padding:14px 22px;bottom:30px}
-body.gr .alert{font-size:18px}
-.hello{font-size:20px;color:var(--mu);margin-top:4px}
+body.gr .cont .code{font-size:40px}body.gr .cont .stt{font-size:19px}body.gr .conts{grid-template-columns:1fr}
+body.gr .toast{font-size:21px;padding:14px 22px;bottom:30px}
+body.gr .alert{font-size:21px}body.gr .modal>.card{font-size:21px}body.gr .big3{grid-template-columns:1fr;gap:14px}body.gr .big3 .l{justify-content:flex-start;min-height:0}
+.hello{font-size:23px;color:var(--mu);margin-top:4px}
 .tiles{display:grid;gap:14px;margin-bottom:22px}
 .tile{display:flex;align-items:center;gap:16px;background:#fff;border:2px solid var(--bd);border-radius:18px;padding:18px 16px;text-align:left;width:100%;min-height:100px;box-shadow:0 2px 6px rgba(12,42,67,.06)}
 .tile:active{transform:scale(.98);background:var(--nl)}
-.tile .ti{font-size:42px;width:58px;text-align:center;flex-shrink:0}
-.tile .tt{display:block;font-size:24px;font-weight:800;color:var(--n);line-height:1.2}
-.tile .ts{display:block;font-size:17px;margin-top:5px;color:var(--mu)}
+.tile .ti{font-size:48px;width:62px;text-align:center;flex-shrink:0}
+.tile .tt{display:block;font-size:29px;font-weight:800;color:var(--n);line-height:1.2}
+.tile .ts{display:block;font-size:20px;margin-top:5px;color:var(--mu)}
 .tile .ts.warn{color:#b45309;font-weight:700}.tile .ts.ok{color:var(--grn);font-weight:700}
 .tile.warn{border-color:var(--org);background:#fff8ef}
 .tile .arr{margin-left:auto;font-size:36px;color:var(--mu);padding-left:6px}
-.backbtn{margin-bottom:14px;justify-content:flex-start;font-size:20px}
+.backbtn{margin-bottom:14px;justify-content:flex-start;font-size:23px!important}
 .grfoot{display:grid;gap:12px;margin-top:30px;padding-top:20px;border-top:2px solid var(--bd)}
 </style>
 </head>
@@ -210,7 +219,7 @@ naus:"Naus",newFarm:"Nova granja",add:"Afegir",noFarms:"No hi ha granges",
 users:"Usuaris",newUser:"Nou usuari",login:"Usuari (accés)",role:"Perfil",pinNew:"PIN (deixa'l buit per no canviar-lo)",assigned:"Granges assignades",assignedHint:"Si no en marques cap: el granger no en veu cap; la resta de perfils les veuen totes.",
 perms:"Permisos per perfil",lvl0:"—",lvl1:"Consulta",lvl2:"Edició",
 validar:"Validar",retornar:"Retornar escorxador",exportar:"Exportar llistats",gestHidro:"Gestionar historial hidròlisi",
-hello:"Hola, {n} 👋",chooseFarm:"Tria la granja",allOk:"✔ Tot al dia",nPend:"⚠ {n} coses per fer",nPend1:"⚠ 1 cosa per fer",st_toDo:"⚠ Aquesta setmana: pendent d'apuntar",st_doneWait:"Apuntat · pendent de validar",st_valid:"✔ Aquesta setmana validada",st_escOpen:"⚠ Setmana {w}: pendent d'apuntar",st_escDone:"Setmana {w}: apuntada",st_escNew:"⚠ Pendent d'apuntar",photoTile:"📷 Fer foto de l'albarà",aiguaToDo:"⚠ Falta la lectura de {mes}",aiguaOk:"✔ Lectura de {mes} feta",noMetersShort:"Sense comptadors",nConts:"{n} contenidors",aigua:"Aigua",meters:"Comptadors d'aigua",meter:"Comptador",lectura:"Lectura (m³)",consum:"Consum (m³)",month:"Mes",prev:"Anterior",aiguaPend1:"Falta 1 lectura del comptador d'aigua de {mes}",aiguaPend:"Falten {n} lectures dels comptadors d'aigua de {mes}",aiguaPendT:"Lectures d'aigua pendents",tapRecord:"Toca aquí per gravar-les",recordNow:"Gravar ara",later:"Més tard",readingOf:"Lectura de {mes}",recorded:"Gravada",noMeters:"Aquesta granja no té comptadors. Afegeix-los a Granges.",lowerQ:"La lectura és més baixa que l'anterior ({p} m³). És correcta (comptador canviat)?",e_past_month:"Només es pot modificar la lectura del mes actual",funcsFarm:"Funcions actives per granja",funcsHint:"Desmarca les funcions que una granja no fa servir. En aquella granja no sortiran ni per registrar ni per consultar.",quick:"Aplicar a…",q_all:"Totes",q_own:"Pròpies",q_notown:"No pròpies",q_none:"Cap",funcsOn:"Funcions",share:"Compartir i instal·lar",installHere:"Instal·lar en aquest dispositiu",installBtn:"Instal·lar PLUgranja",installed:"Ja tens l'app instal·lada en aquest dispositiu",iosSteps:"1. Obre l'enllaç amb <b>Safari</b><br>2. Prem el botó <b>Compartir</b> (quadrat amb fletxa ⬆️)<br>3. Tria <b>Afegir a la pantalla d'inici</b>",otherSteps:"Al menú del navegador (⋮ o ⋯) tria <b>Instal·lar aplicació</b> o <b>Afegir a la pantalla d'inici</b>.",sendOthers:"Enviar l'app a altres persones",scanQr:"Escaneja el codi amb la càmera del mòbil",shareBtn:"Compartir",copyLink:"Copiar",copied:"Enllaç copiat",shareTxt:"Hola! T'envio l'app PLUgranja de PLU. Obre l'enllaç i instal·la-la al mòbil:",installApp:"Instal·lar l'app",tancaExport:"Exportar i tancar escorxador",exported:"Exportat",farmFuncs:"Funcions per tipus de granja",farmFuncsHint:"Tria a quines granges s'aplica cada funció.",sc_all:"Totes les granges",sc_own:"Només granges pròpies",sc_notown:"Només granges no pròpies",thisWeek:"Aquesta setmana",lockedInfo:"Validat pel veterinari · només consulta",exportedInfo:"Exportat per logística · només consulta",otherWeek:"Corregir una altra setmana",expClose:"Exportar i tancar",confirmExp:"S'exportaran i es tancaran {n} setmanes (validades o no). Després ningú les podrà modificar si no es retornen. Continuar?",pendVal:"Pendent de validar",valEdit:"Validat (editable)",enterAnimals:"Apunta els animals d'aquesta setmana",waitVal:"Desat. Pendent que el veterinari el validi.",escEditHint:"Pots corregir-lo fins que logística l'exporti.",language:"Idioma",changePin:"Canviar PIN",oldPin:"PIN actual",newPin:"PIN nou",
+factura:"Núm. factura",optional:"opcional",setFactura:"Assignar factura",facturaHint:"Deixa-ho buit per treure el número",nSel:"{n} seleccionats",unvalidate:"Treure validació",confirmValG:"Validar {n} albarans? El granger ja no els podrà modificar.",validarGastos:"Validar despeses",addBaixa:"Apuntar baixa",howMany:"Quantes?",cause:"Causa (opcional)",noBaixes:"Cap baixa apuntada",baixaOk:"{n} baixa(es) apuntada(es)",baixDetail:"Detall baixes",m_aixafat:"Aixafat",m_diarrea:"Diarrea",m_resp:"Respiratori",m_debil:"Dèbil / petit",m_altres:"Altres",hello:"Hola, {n} 👋",chooseFarm:"Tria la granja",allOk:"✔ Tot al dia",nPend:"⚠ {n} coses per fer",nPend1:"⚠ 1 cosa per fer",st_toDo:"⚠ Aquesta setmana: pendent d'apuntar",st_doneWait:"Apuntat · pendent de validar",st_valid:"✔ Aquesta setmana validada",st_escOpen:"⚠ Setmana {w}: pendent d'apuntar",st_escDone:"Setmana {w}: apuntada",st_escNew:"⚠ Pendent d'apuntar",photoTile:"📷 Fer foto de l'albarà",aiguaToDo:"⚠ Falta la lectura de {mes}",aiguaOk:"✔ Lectura de {mes} feta",noMetersShort:"Sense comptadors",nConts:"{n} contenidors",aigua:"Aigua",meters:"Comptadors d'aigua",meter:"Comptador",lectura:"Lectura (m³)",consum:"Consum (m³)",month:"Mes",prev:"Anterior",aiguaPend1:"Falta 1 lectura del comptador d'aigua de {mes}",aiguaPend:"Falten {n} lectures dels comptadors d'aigua de {mes}",aiguaPendT:"Lectures d'aigua pendents",tapRecord:"Toca aquí per gravar-les",recordNow:"Gravar ara",later:"Més tard",readingOf:"Lectura de {mes}",recorded:"Gravada",noMeters:"Aquesta granja no té comptadors. Afegeix-los a Granges.",lowerQ:"La lectura és més baixa que l'anterior ({p} m³). És correcta (comptador canviat)?",e_past_month:"Només es pot modificar la lectura del mes actual",funcsFarm:"Funcions actives per granja",funcsHint:"Desmarca les funcions que una granja no fa servir. En aquella granja no sortiran ni per registrar ni per consultar.",quick:"Aplicar a…",q_all:"Totes",q_own:"Pròpies",q_notown:"No pròpies",q_none:"Cap",funcsOn:"Funcions",share:"Compartir i instal·lar",installHere:"Instal·lar en aquest dispositiu",installBtn:"Instal·lar PLUgranja",installed:"Ja tens l'app instal·lada en aquest dispositiu",iosSteps:"1. Obre l'enllaç amb <b>Safari</b><br>2. Prem el botó <b>Compartir</b> (quadrat amb fletxa ⬆️)<br>3. Tria <b>Afegir a la pantalla d'inici</b>",otherSteps:"Al menú del navegador (⋮ o ⋯) tria <b>Instal·lar aplicació</b> o <b>Afegir a la pantalla d'inici</b>.",sendOthers:"Enviar l'app a altres persones",scanQr:"Escaneja el codi amb la càmera del mòbil",shareBtn:"Compartir",copyLink:"Copiar",copied:"Enllaç copiat",shareTxt:"Hola! T'envio l'app PLUgranja de PLU. Obre l'enllaç i instal·la-la al mòbil:",installApp:"Instal·lar l'app",tancaExport:"Exportar i tancar escorxador",exported:"Exportat",farmFuncs:"Funcions per tipus de granja",farmFuncsHint:"Tria a quines granges s'aplica cada funció.",sc_all:"Totes les granges",sc_own:"Només granges pròpies",sc_notown:"Només granges no pròpies",thisWeek:"Aquesta setmana",lockedInfo:"Validat pel veterinari · només consulta",exportedInfo:"Exportat per logística · només consulta",otherWeek:"Corregir una altra setmana",expClose:"Exportar i tancar",confirmExp:"S'exportaran i es tancaran {n} setmanes (validades o no). Després ningú les podrà modificar si no es retornen. Continuar?",pendVal:"Pendent de validar",valEdit:"Validat (editable)",enterAnimals:"Apunta els animals d'aquesta setmana",waitVal:"Desat. Pendent que el veterinari el validi.",escEditHint:"Pots corregir-lo fins que logística l'exporti.",language:"Idioma",changePin:"Canviar PIN",oldPin:"PIN actual",newPin:"PIN nou",
 fill:"Omple els camps obligatoris",
 e_bad_login:"Usuari o PIN incorrecte",e_locked_out:"Massa intents. Torna-ho a provar d'aquí 10 minuts.",e_locked:"El registre està validat i bloquejat",e_locked_dup:"Aquesta setmana ja està validada i bloquejada",e_dup:"Ja hi ha un registre d'aquesta granja i setmana",e_dup_open:"Ja hi ha una setmana oberta per a aquesta granja",e_forbidden:"No tens permís",e_forbidden_farm:"No tens accés a aquesta granja",e_fill:"Omple els camps obligatoris",e_bad_number:"Hi ha un valor numèric incorrecte",e_pin_len:"El PIN ha de tenir de 4 a 8 xifres",e_login_taken:"Aquest usuari ja existeix",e_last_admin:"Ha d'haver-hi almenys un administrador",e_self:"No et pots eliminar a tu mateix",e_wrong_step:"Algú altre ja ha registrat aquest pas. Actualitzant…",e_bad_order:"Les dates no segueixen l'ordre del cicle",e_no_ai_key:"Falta configurar la clau d'Anthropic al servidor",e_conflict:"Conflicte d'escriptura, torna-ho a provar",e_net:"Sense connexió amb el servidor",e_server:"Error del servidor",e_auth:"Sessió caducada",e_exported:"Registre exportat: només consulta"},
 es:{user:"Usuario",pin:"PIN",enter:"Entrar",logout:"Salir",
@@ -239,7 +248,7 @@ naus:"Naves",newFarm:"Nueva granja",add:"Añadir",noFarms:"No hay granjas",
 users:"Usuarios",newUser:"Nuevo usuario",login:"Usuario (acceso)",role:"Perfil",pinNew:"PIN (déjalo vacío para no cambiarlo)",assigned:"Granjas asignadas",assignedHint:"Si no marcas ninguna: el granjero no ve ninguna; el resto de perfiles las ven todas.",
 perms:"Permisos por perfil",lvl0:"—",lvl1:"Consulta",lvl2:"Edición",
 validar:"Validar",retornar:"Retornar matadero",exportar:"Exportar listados",gestHidro:"Gestionar historial hidrólisis",
-hello:"Hola, {n} 👋",chooseFarm:"Elige la granja",allOk:"✔ Todo al día",nPend:"⚠ {n} cosas por hacer",nPend1:"⚠ 1 cosa por hacer",st_toDo:"⚠ Esta semana: pendiente de apuntar",st_doneWait:"Apuntado · pendiente de validar",st_valid:"✔ Esta semana validada",st_escOpen:"⚠ Semana {w}: pendiente de apuntar",st_escDone:"Semana {w}: apuntada",st_escNew:"⚠ Pendiente de apuntar",photoTile:"📷 Hacer foto del albarán",aiguaToDo:"⚠ Falta la lectura de {mes}",aiguaOk:"✔ Lectura de {mes} hecha",noMetersShort:"Sin contadores",nConts:"{n} contenedores",aigua:"Agua",meters:"Contadores de agua",meter:"Contador",lectura:"Lectura (m³)",consum:"Consumo (m³)",month:"Mes",prev:"Anterior",aiguaPend1:"Falta 1 lectura del contador de agua de {mes}",aiguaPend:"Faltan {n} lecturas de los contadores de agua de {mes}",aiguaPendT:"Lecturas de agua pendientes",tapRecord:"Toca aquí para grabarlas",recordNow:"Grabar ahora",later:"Más tarde",readingOf:"Lectura de {mes}",recorded:"Grabada",noMeters:"Esta granja no tiene contadores. Añádelos en Granjas.",lowerQ:"La lectura es más baja que la anterior ({p} m³). ¿Es correcta (contador cambiado)?",e_past_month:"Solo se puede modificar la lectura del mes actual",funcsFarm:"Funciones activas por granja",funcsHint:"Desmarca las funciones que una granja no usa. En esa granja no aparecerán ni para registrar ni para consultar.",quick:"Aplicar a…",q_all:"Todas",q_own:"Propias",q_notown:"No propias",q_none:"Ninguna",funcsOn:"Funciones",share:"Compartir e instalar",installHere:"Instalar en este dispositivo",installBtn:"Instalar PLUgranja",installed:"Ya tienes la app instalada en este dispositivo",iosSteps:"1. Abre el enlace con <b>Safari</b><br>2. Pulsa el botón <b>Compartir</b> (cuadrado con flecha ⬆️)<br>3. Elige <b>Añadir a pantalla de inicio</b>",otherSteps:"En el menú del navegador (⋮ o ⋯) elige <b>Instalar aplicación</b> o <b>Añadir a pantalla de inicio</b>.",sendOthers:"Enviar la app a otras personas",scanQr:"Escanea el código con la cámara del móvil",shareBtn:"Compartir",copyLink:"Copiar",copied:"Enlace copiado",shareTxt:"¡Hola! Te envío la app PLUgranja de PLU. Abre el enlace e instálala en el móvil:",installApp:"Instalar la app",tancaExport:"Exportar y cerrar matadero",exported:"Exportado",farmFuncs:"Funciones por tipo de granja",farmFuncsHint:"Elige a qué granjas se aplica cada función.",sc_all:"Todas las granjas",sc_own:"Solo granjas propias",sc_notown:"Solo granjas no propias",thisWeek:"Esta semana",lockedInfo:"Validado por el veterinario · solo consulta",exportedInfo:"Exportado por logística · solo consulta",otherWeek:"Corregir otra semana",expClose:"Exportar y cerrar",confirmExp:"Se exportarán y se cerrarán {n} semanas (validadas o no). Después nadie podrá modificarlas si no se retornan. ¿Continuar?",pendVal:"Pendiente de validar",valEdit:"Validado (editable)",enterAnimals:"Apunta los animales de esta semana",waitVal:"Guardado. Pendiente de que el veterinario lo valide.",escEditHint:"Puedes corregirlo hasta que logística lo exporte.",language:"Idioma",changePin:"Cambiar PIN",oldPin:"PIN actual",newPin:"PIN nuevo",
+factura:"Nº factura",optional:"opcional",setFactura:"Asignar factura",facturaHint:"Déjalo vacío para quitar el número",nSel:"{n} seleccionados",unvalidate:"Quitar validación",confirmValG:"¿Validar {n} albaranes? El granjero ya no podrá modificarlos.",validarGastos:"Validar gastos",addBaixa:"Apuntar baja",howMany:"¿Cuántas?",cause:"Causa (opcional)",noBaixes:"Ninguna baja apuntada",baixaOk:"{n} baja(s) apuntada(s)",baixDetail:"Detalle bajas",m_aixafat:"Aplastado",m_diarrea:"Diarrea",m_resp:"Respiratorio",m_debil:"Débil / pequeño",m_altres:"Otros",hello:"Hola, {n} 👋",chooseFarm:"Elige la granja",allOk:"✔ Todo al día",nPend:"⚠ {n} cosas por hacer",nPend1:"⚠ 1 cosa por hacer",st_toDo:"⚠ Esta semana: pendiente de apuntar",st_doneWait:"Apuntado · pendiente de validar",st_valid:"✔ Esta semana validada",st_escOpen:"⚠ Semana {w}: pendiente de apuntar",st_escDone:"Semana {w}: apuntada",st_escNew:"⚠ Pendiente de apuntar",photoTile:"📷 Hacer foto del albarán",aiguaToDo:"⚠ Falta la lectura de {mes}",aiguaOk:"✔ Lectura de {mes} hecha",noMetersShort:"Sin contadores",nConts:"{n} contenedores",aigua:"Agua",meters:"Contadores de agua",meter:"Contador",lectura:"Lectura (m³)",consum:"Consumo (m³)",month:"Mes",prev:"Anterior",aiguaPend1:"Falta 1 lectura del contador de agua de {mes}",aiguaPend:"Faltan {n} lecturas de los contadores de agua de {mes}",aiguaPendT:"Lecturas de agua pendientes",tapRecord:"Toca aquí para grabarlas",recordNow:"Grabar ahora",later:"Más tarde",readingOf:"Lectura de {mes}",recorded:"Grabada",noMeters:"Esta granja no tiene contadores. Añádelos en Granjas.",lowerQ:"La lectura es más baja que la anterior ({p} m³). ¿Es correcta (contador cambiado)?",e_past_month:"Solo se puede modificar la lectura del mes actual",funcsFarm:"Funciones activas por granja",funcsHint:"Desmarca las funciones que una granja no usa. En esa granja no aparecerán ni para registrar ni para consultar.",quick:"Aplicar a…",q_all:"Todas",q_own:"Propias",q_notown:"No propias",q_none:"Ninguna",funcsOn:"Funciones",share:"Compartir e instalar",installHere:"Instalar en este dispositivo",installBtn:"Instalar PLUgranja",installed:"Ya tienes la app instalada en este dispositivo",iosSteps:"1. Abre el enlace con <b>Safari</b><br>2. Pulsa el botón <b>Compartir</b> (cuadrado con flecha ⬆️)<br>3. Elige <b>Añadir a pantalla de inicio</b>",otherSteps:"En el menú del navegador (⋮ o ⋯) elige <b>Instalar aplicación</b> o <b>Añadir a pantalla de inicio</b>.",sendOthers:"Enviar la app a otras personas",scanQr:"Escanea el código con la cámara del móvil",shareBtn:"Compartir",copyLink:"Copiar",copied:"Enlace copiado",shareTxt:"¡Hola! Te envío la app PLUgranja de PLU. Abre el enlace e instálala en el móvil:",installApp:"Instalar la app",tancaExport:"Exportar y cerrar matadero",exported:"Exportado",farmFuncs:"Funciones por tipo de granja",farmFuncsHint:"Elige a qué granjas se aplica cada función.",sc_all:"Todas las granjas",sc_own:"Solo granjas propias",sc_notown:"Solo granjas no propias",thisWeek:"Esta semana",lockedInfo:"Validado por el veterinario · solo consulta",exportedInfo:"Exportado por logística · solo consulta",otherWeek:"Corregir otra semana",expClose:"Exportar y cerrar",confirmExp:"Se exportarán y se cerrarán {n} semanas (validadas o no). Después nadie podrá modificarlas si no se retornan. ¿Continuar?",pendVal:"Pendiente de validar",valEdit:"Validado (editable)",enterAnimals:"Apunta los animales de esta semana",waitVal:"Guardado. Pendiente de que el veterinario lo valide.",escEditHint:"Puedes corregirlo hasta que logística lo exporte.",language:"Idioma",changePin:"Cambiar PIN",oldPin:"PIN actual",newPin:"PIN nuevo",
 fill:"Rellena los campos obligatorios",
 e_bad_login:"Usuario o PIN incorrecto",e_locked_out:"Demasiados intentos. Vuelve a probar en 10 minutos.",e_locked:"El registro está validado y bloqueado",e_locked_dup:"Esta semana ya está validada y bloqueada",e_dup:"Ya existe un registro de esta granja y semana",e_dup_open:"Ya hay una semana abierta para esta granja",e_forbidden:"No tienes permiso",e_forbidden_farm:"No tienes acceso a esta granja",e_fill:"Rellena los campos obligatorios",e_bad_number:"Hay un valor numérico incorrecto",e_pin_len:"El PIN debe tener de 4 a 8 cifras",e_login_taken:"Este usuario ya existe",e_last_admin:"Debe haber al menos un administrador",e_self:"No puedes eliminarte a ti mismo",e_wrong_step:"Otra persona ya ha registrado este paso. Actualizando…",e_bad_order:"Las fechas no siguen el orden del ciclo",e_no_ai_key:"Falta configurar la clave de Anthropic en el servidor",e_conflict:"Conflicto de escritura, vuelve a intentarlo",e_net:"Sin conexión con el servidor",e_server:"Error del servidor",e_auth:"Sesión caducada",e_exported:"Registro exportado: solo consulta"}};
 let lang='ca';try{lang=localStorage.getItem('plug_lang')||'ca'}catch(e){}
@@ -290,7 +299,7 @@ async function doLogin(){$('lErr').textContent='';$('lBtn').disabled=true;
  catch(e){$('lErr').textContent=errMsg(e)}finally{$('lBtn').disabled=false}}
 function logout(){TOKEN='';B=null;GF=null;GV=null;document.body.classList.remove('gr');for(const k in D)D[k]=null;try{localStorage.removeItem('plug_tok')}catch(e){}closeModal();$('app').classList.add('hidden');$('login').classList.remove('hidden');applyT()}
 $('lPin').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
-const MODS=[{id:'animals',ic:'🐖',ok:()=>(lv('destete')&&farmsFor('destete').length)||(lv('escorxador')&&farmsFor('escorxador').length)},{id:'gastos',ic:'🧾',ok:()=>lv('gastos')&&farmsFor('gastos').length},{id:'hidrolisi',ic:'🛢️',ok:()=>lv('hidrolisi')&&farmsFor('hidrolisi').length},{id:'aigua',ic:'💧',ok:()=>lv('aigua')&&farmsFor('aigua').length},{id:'granges',ic:'🏠',ok:()=>lv('granges')},{id:'config',ic:'⚙️',ok:()=>isAdmin()}];
+const MODS=[{id:'animals',ic:'🐖',ok:()=>(lv('destete')&&farmsFor('destete').length)||(lv('escorxador')&&farmsFor('escorxador').length)},{id:'gastos',ic:'🧾',ok:()=>lv('gastos')&&farmsFor('gastos').length},{id:'hidrolisi',ic:'🛢️',ok:()=>lv('hidrolisi')&&farmsFor('hidrolisi').length},{id:'aigua',ic:'💧',ok:()=>lv('aigua')&&farmsFor('aigua').length},{id:'granges',ic:'🐷',ok:()=>lv('granges')},{id:'config',ic:'⚙️',ok:()=>isAdmin()}];
 async function start(){
  B=await api('boot');for(const k in D)D[k]=null;
  $('login').classList.add('hidden');$('app').classList.remove('hidden');
@@ -306,7 +315,7 @@ function render(){applyT();
  $('nav').innerHTML=`<div class="brand"><img src="logo-white.png" alt="PLU"><div>PLUgranja</div></div>`+MODS.filter(m=>m.ok()).map(m=>`<button class="nb ${VIEW===m.id?'on':''}" onclick="go('${m.id}')"><span class="ic">${m.ic}</span>${t(m.id)}${m.id==='aigua'&&lv('aigua')>=2&&(B.aiguaPend||[]).length?`<span class="badge">${B.aiguaPend.length}</span>`:''}</button>`).join('')
  +`<div class="who"><b>${esc(B.me.name)}</b>${t(B.me.role)}<div class="row"><button class="btn sm" onclick="setLang('${lang==='ca'?'es':'ca'}')">${lang==='ca'?'ES':'CA'}</button><button class="btn sm" onclick="pinForm()">PIN</button><button class="btn sm" onclick="logout()">${t('logout')}</button></div><button class="btn sm w" style="margin-top:8px" onclick="shareModal()">📲 ${t('share')}</button></div>`;
  const fn={animals:vAnimals,gastos:vGastos,hidrolisi:vHidro,aigua:vAigua,granges:vGranges,config:vConfig}[VIEW];
- if(fn)fn().then(()=>{labelTables();const b=aiguaBanner();if(b)$('main').insertAdjacentHTML('afterbegin',b)}).catch(e=>{$('main').innerHTML=`<div class="card empty">${esc(errMsg(e))}</div>`})}
+ if(fn)return fn().then(()=>{labelTables();const b=aiguaBanner();if(b)$('main').insertAdjacentHTML('afterbegin',b)}).catch(e=>{$('main').innerHTML=`<div class="card empty">${esc(errMsg(e))}</div>`})}
 function labelTables(){document.querySelectorAll('#main .tw table:not(.nort)').forEach(tb=>{const h=tb.querySelector('tr');if(!h||!h.querySelector('th'))return;tb.classList.add('rt');const L=[...h.children].map(x=>x.textContent.trim());tb.querySelectorAll('tr').forEach((tr,i)=>{if(!i)return;[...tr.children].forEach((td,j)=>{if(L[j])td.dataset.l=L[j]})})})}
 function go(v){
  if(isGr()){if(!GF)GF=((B.aiguaPend||[])[0]||{}).farm||(grFarms()[0]||{}).id||null;if(v==='gastos'&&lv('gastos')>=2)$('cam').click();grNav(GF,v==='animals'?TAB:v);return}
@@ -322,26 +331,36 @@ const filterBar=(years)=>`${AF.length>1?`<div class="row" style="margin-bottom:1
 async function vAnimals(){
  const tabs=[lv('destete')&&farmsFor('destete').length&&'destete',lv('escorxador')&&farmsFor('escorxador').length&&'escorxador'].filter(Boolean);
  if(!tabs.includes(TAB))TAB=tabs[0];
- $('main').innerHTML=isGr()?`<h1>${TAB==='destete'?'🍼':'🚚'} ${t(TAB)}</h1><div id="sub">${loadingHTML()}</div>`:`<h1>🐖 ${t('animals')}</h1>${tabs.length>1?`<div class="tabs">${tabs.map(k=>`<button class="${TAB===k?'on':''}" onclick="TAB='${k}';render()">${k==='destete'?'🍼':'🚚'} ${t(k)}</button>`).join('')}</div>`:''}<div id="sub">${loadingHTML()}</div>`;
+ $('main').innerHTML=isGr()?`<h1>${TAB==='destete'?'🐖':'🚚'} ${t(TAB)}</h1><div id="sub">${loadingHTML()}</div>`:`<h1>🐖 ${t('animals')}</h1>${tabs.length>1?`<div class="tabs">${tabs.map(k=>`<button class="${TAB===k?'on':''}" onclick="TAB='${k}';render()">${k==='destete'?'🐖':'🚚'} ${t(k)}</button>`).join('')}</div>`:''}<div id="sub">${loadingHTML()}</div>`;
  if(!tabs.length){$('sub').innerHTML=`<div class="card empty">${t('e_forbidden_farm')}</div>`;return}
  AF=farmsFor(TAB);if(F.farm&&!AF.some(f=>f.id===F.farm))F.farm='';if(AF.length===1||(isGr()&&!F.farm))F.farm=AF[0].id;
  if(TAB==='destete')await vDestete();else await vEscorxador()}
 
 /* ---- Deslletament ---- */
+const CAUSES=['aixafat','diarrea','resp','debil','altres'];
+const val0=x=>x||0;
+function balances(all){const bal={};[...all].sort((a,b)=>a.year-b.year||a.week-b.week).forEach(r=>{bal[r.farm]=(bal[r.farm]||0)+val0(r.dest)-val0(r.baix)-val0(r.carr);r._bal=bal[r.farm]});return bal}
+function baixesList(r,canDel){const L=(r&&r.baixes)||[];if(!L.length)return `<div class="muted">${t('noBaixes')}</div>`;
+ return `<div class="bxl">${[...L].reverse().map(b=>`<div class="bx"><span class="bxn">${b.n}</span><span class="grow">${b.data?fmtD(b.data).slice(0,5):''}${b.motiu?` · ${esc(t('m_'+b.motiu))}`:''}${b.byName?` <span class="muted">${esc(b.byName)}</span>`:''}</span>${canDel&&b.by!==''?`<button class="btn sm red" onclick="delBaixa('${r.id}','${b.id}')" aria-label="${t('del')}">✕</button>`:''}</div>`).join('')}</div>`}
 async function vDestete(){
  const all=await need('destete');const now=isoWeek();
- // saldo acumulat per granja
- const bal={};[...all].sort((a,b)=>a.year-b.year||a.week-b.week).forEach(r=>{bal[r.farm]=(bal[r.farm]||0)+r.dest-r.baix-r.carr;r._bal=bal[r.farm]});
+ const bal=balances(all);
  let rows=all.filter(r=>AF.some(f=>f.id===r.farm)&&(!F.farm||r.farm===F.farm)&&(!F.year||r.year==F.year)).sort((a,b)=>b.year-a.year||b.week-a.week||farmName(a.farm).localeCompare(farmName(b.farm)));
  const years=[...new Set(all.map(r=>r.year))].sort((a,b)=>b-a);
- const sum=k=>rows.reduce((s,r)=>s+(r[k]||0),0);
+ const sum=k=>rows.reduce((s,r)=>s+val0(r[k]),0);
  const stockTot=F.farm?(bal[F.farm]||0):AF.reduce((a,f)=>a+(bal[f.id]||0),0);
  const canEd=lv('destete')>=2,canVal=P().validar;
  const cur=F.farm?all.find(r=>r.farm===F.farm&&r.year===now.y&&r.week===now.w):null;
+ const locked=cur&&cur.locked;
  const quick=canEd&&F.farm?`<div class="card open"><div class="row sp" style="margin-bottom:12px"><span class="wk">${t('thisWeek')} · S${now.w}</span><span class="muted">${weekRange(now.y,now.w)}</span></div>
-  ${cur&&cur.locked?`<div class="row" style="justify-content:space-around;text-align:center">${['dest','baix','carr'].map(k=>`<div><div style="font-size:26px;font-weight:800;color:var(--n)">${fmtN(cur[k])}</div><div class="muted">${t(k)}</div></div>`).join('')}</div><div style="margin-top:12px"><span class="tag lock">🔒 ${t('lockedInfo')}</span></div>`
-  :`${cur?'':`<div class="muted" style="margin-bottom:10px">${t('enterAnimals')}</div>`}<div class="big3">${['dest','baix','carr'].map(k=>`<div><label class="l">${t(k)}</label><input class="bigin" id="q_${k}" type="number" inputmode="numeric" min="0" value="${cur?cur[k]:''}"></div>`).join('')}</div>
-  <button class="btn w ok" style="margin-top:14px;padding:15px;font-size:17px" onclick="saveQuick('${cur?cur.id:''}')">✔ ${t('save')}</button>${cur?`<div style="margin-top:10px"><span class="tag pend">${t('pendVal')}</span></div>`:''}`}</div>`:'';
+  ${locked?`<div class="row" style="justify-content:space-around;text-align:center">${['dest','baix','carr'].map(k=>`<div><div style="font-size:1.6em;font-weight:800;color:var(--n)">${fmtN(val0(cur[k]))}</div><div class="muted">${t(k)}</div></div>`).join('')}</div><div style="margin-top:12px"><span class="tag lock">🔒 ${t('lockedInfo')}</span></div>`
+  :`<div class="stack"><div><label class="l">${t('dest')}</label><input class="bigin" id="q_dest" type="number" inputmode="numeric" min="0" value="${cur&&cur.dest!=null?cur.dest:''}"></div>
+   <div><label class="l">${t('carr')}</label><input class="bigin" id="q_carr" type="number" inputmode="numeric" min="0" value="${cur&&cur.carr!=null?cur.carr:''}"></div></div>
+   <button class="btn w ok" style="margin-top:14px" onclick="saveQuick('${cur?cur.id:''}')">✔ ${t('save')}</button>`}
+  <div class="bxbox"><div class="row sp"><h3 style="margin:0">${t('baix')}: <span style="font-size:1.3em;color:var(--red)">${fmtN(val0(cur&&cur.baix))}</span></h3></div>
+   ${baixesList(cur,!locked)}
+   ${locked?'':`<button class="btn w red" style="margin-top:12px" onclick="baixaForm({farm:'${F.farm}',year:${now.y},week:${now.w}})">＋ ${t('addBaixa')}</button>`}</div>
+  ${!locked&&cur&&(cur.dest!=null||cur.carr!=null)?`<div style="margin-top:12px"><span class="tag pend">${t('pendVal')}</span></div>`:''}</div>`:'';
  $('sub').innerHTML=`${filterBar(years)}
  ${quick}
  <div class="kpis"><div class="kpi hl"><div class="v">${fmtN(stockTot)}</div><div class="k">${t('stock')}</div></div>
@@ -350,30 +369,52 @@ async function vDestete(){
  ${canEd?`<button class="btn sec w" style="margin-bottom:14px" onclick="desteteForm()">✎ ${F.farm?t('otherWeek'):t('newEntry')}</button>`:''}
  <div class="card"><div class="row sp" style="margin-bottom:6px"><h2 style="margin:0">${t('records')}</h2>${P().exportar&&rows.length?`<button class="btn sm sec" onclick="expDestete()">⬇ ${t('exportCsv')}</button>`:''}</div>
  ${rows.length?`<div class="tw"><table><tr><th class="tl">${t('week')}</th>${F.farm?'':`<th class="tl">${t('farm')}</th>`}<th>${t('dest')}</th><th>${t('baix')}</th><th>${t('carr')}</th><th>${t('balance')}</th><th class="tl">${t('status')}</th><th></th></tr>
- ${rows.map(r=>`<tr><td class="tl"><b>S${r.week}</b> <span class="muted">${r.year} · ${weekRange(r.year,r.week)}</span></td>${F.farm?'':`<td class="tl">${esc(farmName(r.farm))}</td>`}<td>${fmtN(r.dest)}</td><td>${fmtN(r.baix)}</td><td>${fmtN(r.carr)}</td><td><b>${fmtN(r._bal)}</b></td>
+ ${rows.map(r=>`<tr><td class="tl"><b>S${r.week}</b> <span class="muted">${r.year} · ${weekRange(r.year,r.week)}</span></td>${F.farm?'':`<td class="tl">${esc(farmName(r.farm))}</td>`}<td>${r.dest==null?'—':fmtN(r.dest)}</td><td>${fmtN(val0(r.baix))}</td><td>${r.carr==null?'—':fmtN(r.carr)}</td><td><b>${fmtN(r._bal)}</b></td>
  <td class="tl">${r.locked?`<span class="tag lock" title="${esc(r.lock?uName(r.lock.by)+' · '+fmtDT(r.lock.at):'')}">🔒 ${t('validated')}</span>`:`<span class="tag pend">${t('pendVal')}</span>`}</td>
- <td><div class="row" style="flex-wrap:nowrap;justify-content:flex-end">${canEd&&!r.locked?`<button class="btn sm sec" onclick="desteteForm('${r.id}')">✎</button>`:''}${canVal?(r.locked?`<button class="btn sm sec" onclick="lockDestete('${r.id}',false)" title="${t('unlock')}">🔓</button>`:`<button class="btn sm ok" onclick="lockDestete('${r.id}',true)">✔ ${t('validate')}</button>`):''}</div></td></tr>`).join('')}</table></div>`:`<div class="empty">${t('noRecords')}</div>`}</div>`}
+ <td><div class="row" style="flex-wrap:nowrap;justify-content:flex-end">${canEd&&!r.locked?`<button class="btn sm sec" onclick="desteteForm('${r.id}')">✎</button>`:(r.baixes&&r.baixes.length?`<button class="btn sm sec" onclick="desteteForm('${r.id}')">👁</button>`:'')}${canVal?(r.locked?`<button class="btn sm sec" onclick="lockDestete('${r.id}',false)" title="${t('unlock')}">🔓</button>`:`<button class="btn sm ok" onclick="lockDestete('${r.id}',true)">✔ ${t('validate')}</button>`):''}</div></td></tr>`).join('')}</table></div>`:`<div class="empty">${t('noRecords')}</div>`}</div>`}
+let REOPEN=null;
 function desteteForm(id){
  const r=id?D.destete.find(x=>x.id===id):null;const now=isoWeek();let y=r?r.year:now.y,w=r?r.week:now.w;if(!r&&F.farm&&D.destete.some(x=>x.farm===F.farm&&x.year===y&&x.week===w)){w--;if(w<1){y--;w=52}}
- modal(`<h2>🍼 ${t('destete')} · ${r?t('edit'):t('newEntry')}</h2>
- <div class="f"><label class="l">${t('farm')}</label>${farmSel(r?r.farm:(F.farm||AF[0].id),'',false,'dFarm',AF)}</div>
+ const ro=r&&(r.locked||lv('destete')<2);
+ modal(`<h2>🐖 ${t('destete')} · ${r?`S${r.week} ${r.year}`:t('newEntry')}</h2>
+ ${r?`<div class="muted" style="margin-bottom:12px">${esc(farmName(r.farm))} · ${weekRange(r.year,r.week)}</div><input type="hidden" id="dFarm" value="${r.farm}"><input type="hidden" id="dYear" value="${r.year}"><input type="hidden" id="dWeek" value="${r.week}">`
+ :`<div class="f"><label class="l">${t('farm')}</label>${farmSel(F.farm||AF[0].id,'',false,'dFarm',AF)}</div>
  <div class="row f" style="flex-wrap:nowrap"><div class="grow"><label class="l">${t('week')}</label><select id="dWeek" onchange="$('wkH').textContent=weekRange(+$('dYear').value,+this.value)">${wkOpts(w,now)}</select></div><div class="grow"><label class="l">${t('year')}</label><select id="dYear" onchange="$('wkH').textContent=weekRange(+this.value,+$('dWeek').value)">${yrOpts(y,now)}</select></div></div>
- <div class="muted" id="wkH" style="margin:-6px 0 12px">${weekRange(y,w)}</div>
- ${['dest','baix','carr'].map(k=>`<div class="f"><label class="l">${t(k)}</label><input id="d_${k}" type="number" inputmode="numeric" min="0" value="${r?r[k]:''}"></div>`).join('')}
+ <div class="muted" id="wkH" style="margin:-6px 0 12px">${weekRange(y,w)}</div>`}
+ ${['dest','carr'].map(k=>`<div class="f"><label class="l">${t(k)}</label><input id="d_${k}" type="number" inputmode="numeric" min="0" value="${r&&r[k]!=null?r[k]:''}" ${ro?'disabled':''}></div>`).join('')}
+ <div class="bxbox" style="margin:4px 0 14px"><h3 style="margin:0 0 6px">${t('baix')}: <span style="color:var(--red)">${fmtN(val0(r&&r.baix))}</span></h3>${baixesList(r,!ro)}
+ ${ro?'':`<button class="btn w red" style="margin-top:10px" onclick="baixaForm(${r?`{id:'${r.id}'}`:`{farm:$('dFarm').value,year:+$('dYear').value,week:+$('dWeek').value}`},true)">＋ ${t('addBaixa')}</button>`}</div>
  <div class="err" id="mErr"></div>
- <button class="btn w" onclick="saveDestete('${id||''}')">${t('save')}</button>
- <div class="row" style="margin-top:10px;flex-wrap:nowrap"><button class="btn sec grow" onclick="closeModal()">${t('cancel')}</button>${r?`<button class="btn red grow" onclick="delDestete('${id}')">${t('del')}</button>`:''}</div>`)}
+ ${ro?`<button class="btn sec w" onclick="closeModal()">${t('close')}</button>`:`<button class="btn w ok" onclick="saveDestete('${id||''}')">✔ ${t('save')}</button>
+ <div class="row" style="margin-top:10px;flex-wrap:nowrap"><button class="btn sec grow" onclick="closeModal()">${t('cancel')}</button>${r?`<button class="btn red grow" onclick="delDestete('${id}')">${t('del')}</button>`:''}</div>`}`)}
 async function saveDestete(id){
- const rec={id:id||undefined,farm:$('dFarm').value,year:$('dYear').value,week:$('dWeek').value,dest:$('d_dest').value,baix:$('d_baix').value,carr:$('d_carr').value};
- if([rec.dest,rec.baix,rec.carr].some(v=>v==='')){$('mErr').textContent=t('fill');return}
+ const rec={id:id||undefined,farm:$('dFarm').value,year:$('dYear').value,week:$('dWeek').value,dest:$('d_dest').value,carr:$('d_carr').value};
+ if(rec.dest===''&&rec.carr===''){$('mErr').textContent=t('fill');return}
  try{await api('destete.save',{rec});closeModal();toast(t('saved'));refresh('destete')}catch(e){$('mErr').textContent=errMsg(e)}}
-async function saveQuick(id){const v={};for(const k of ['dest','baix','carr']){v[k]=$('q_'+k).value;if(v[k]===''){toast(t('fill'));$('q_'+k).focus();return}}
- const now=isoWeek();await run(()=>api('destete.save',{rec:{id:id||undefined,farm:F.farm,year:now.y,week:now.w,...v}}),isGr()?t('waitVal'):t('saved')).catch(()=>{});refresh('destete')}
+async function saveQuick(id){const dest=$('q_dest').value,carr=$('q_carr').value;if(dest===''&&carr===''){toast(t('fill'));$('q_dest').focus();return}
+ const now=isoWeek();await run(()=>api('destete.save',{rec:{id:id||undefined,farm:F.farm,year:now.y,week:now.w,dest,carr}}),isGr()?t('waitVal'):t('saved')).catch(()=>{});refresh('destete')}
+let BX=null;
+function baixaForm(ctx,reopen){BX={ctx,reopen,motiu:''};
+ modal(`<h2>🐖 ${t('addBaixa')}</h2>
+ <label class="l">${t('howMany')}</label>
+ <div class="stepper"><button class="btn sec" onclick="stp(-1)">−</button><input id="bxN" class="bigin" type="number" inputmode="numeric" min="1" value="1"><button class="btn sec" onclick="stp(1)">＋</button></div>
+ <label class="l" style="margin-top:14px">${t('cause')}</label>
+ <div class="causes">${CAUSES.map(c=>`<button class="btn sec" data-c="${c}" onclick="pickCause('${c}')">${t('m_'+c)}</button>`).join('')}</div>
+ <div class="f" style="margin-top:14px"><label class="l">${t('data')}</label><input id="bxD" type="date" value="${new Date().toISOString().slice(0,10)}"></div>
+ <div class="err" id="mErr"></div>
+ <button class="btn w red" onclick="saveBaixa()">✔ ${t('addBaixa')}</button>
+ <button class="btn sec w" style="margin-top:10px" onclick="closeModal();${reopen&&ctx.id?`desteteForm('${ctx.id}')`:''}">${t('cancel')}</button>`)}
+function stp(d){const i=$('bxN');i.value=Math.max(1,(+i.value||0)+d)}
+function pickCause(c){BX.motiu=BX.motiu===c?'':c;document.querySelectorAll('.causes .btn').forEach(b=>b.classList.toggle('on',b.dataset.c===BX.motiu))}
+async function saveBaixa(){const n=$('bxN').value;if(!(+n>=1)){$('mErr').textContent=t('fill');return}
+ try{const r=(await api('destete.baixa.add',{rec:{...BX.ctx,n,motiu:BX.motiu,data:$('bxD').value}})).rec;closeModal();toast(t('baixaOk',{n}));D.destete=null;await render();if(BX.reopen){await need('destete');desteteForm(r.id)}}catch(e){$('mErr').textContent=errMsg(e)}}
+async function delBaixa(id,bid){if(!confirm(t('confirmDel')))return;const inModal=!!document.querySelector('.modal');
+ await run(()=>api('destete.baixa.del',{id,bid}),t('deleted')).catch(()=>{});D.destete=null;await render();if(inModal){await need('destete');desteteForm(id)}}
 async function lockDestete(id,locked){if(!confirm(t(locked?'confirmVal':'confirmUnlock')))return;await run(()=>api('destete.lock',{id,locked}),t('saved'));refresh('destete')}
 async function delDestete(id){if(!confirm(t('confirmDel')))return;try{await api('destete.delete',{id});closeModal();toast(t('deleted'));refresh('destete')}catch(e){$('mErr').textContent=errMsg(e)}}
-function expDestete(){const bal={};const all=[...D.destete].sort((a,b)=>a.year-b.year||a.week-b.week);all.forEach(r=>{bal[r.farm]=(bal[r.farm]||0)+r.dest-r.baix-r.carr;r._bal=bal[r.farm]});
+function expDestete(){const all=[...D.destete];balances(all);all.sort((a,b)=>a.year-b.year||a.week-b.week);
  const rows=all.filter(r=>AF.some(f=>f.id===r.farm)&&(!F.farm||r.farm===F.farm)&&(!F.year||r.year==F.year));
- csv([[t('farm'),t('year'),t('week'),t('dest'),t('baix'),t('carr'),t('balance'),t('status'),t('by'),t('data')],...rows.map(r=>[farmName(r.farm),r.year,r.week,r.dest,r.baix,r.carr,r._bal,r.locked?t('validated'):t('pending'),r.lock?uName(r.lock.by):'',r.lock?fmtDT(r.lock.at):''])],'PLUgranja_'+t('destete'))}
+ csv([[t('farm'),t('year'),t('week'),t('dest'),t('baix'),t('baixDetail'),t('carr'),t('balance'),t('status'),t('by'),t('data')],...rows.map(r=>[farmName(r.farm),r.year,r.week,r.dest??'',val0(r.baix),(r.baixes||[]).map(b=>`${b.n}${b.motiu?' '+t('m_'+b.motiu):''}${b.data?' ('+fmtD(b.data)+')':''}`).join(' | '),r.carr??'',r._bal,r.locked?t('validated'):t('pending'),r.lock?uName(r.lock.by):'',r.lock?fmtDT(r.lock.at):''])],'PLUgranja_'+t('destete'))}
 
 /* ---- Escorxador ---- */
 async function vEscorxador(){
@@ -425,20 +466,36 @@ async function expEsc(close){
  if(close)refresh('escorxador')}
 
 /* ================= DESPESES ================= */
+F.farms=[];F.gst='';const SEL=new Set();
+function gastosFiltered(){const q=F.q.toLowerCase();const fs=F.farms.filter(id=>AF.some(f=>f.id===id));
+ return D.gastos.filter(r=>AF.some(f=>f.id===r.farm)&&(!fs.length||fs.includes(r.farm))&&(!F.cat||r.categoria===F.cat)&&(!F.gst||(F.gst==='val'?!!r.validated:!r.validated))&&(!F.from||(r.data||'')>=F.from)&&(!F.to||(r.data||'')<=F.to)&&(!q||(r.empresa+' '+r.albara+' '+r.concepte+' '+(r.factura||'')).toLowerCase().includes(q))).sort((a,b)=>(b.data||'').localeCompare(a.data||'')||b.created.at-a.created.at)}
+function toggleFarmF(id){if(id==='*')F.farms=[];else{const i=F.farms.indexOf(id);if(i>=0)F.farms.splice(i,1);else F.farms.push(id)}SEL.clear();render()}
 async function vGastos(){
  $('main').innerHTML=`<h1>🧾 ${t('gastos')}</h1><div id="sub">${loadingHTML()}</div>`;
- const all=await need('gastos');const canEd=lv('gastos')>=2;AF=farmsFor('gastos');if(F.farm&&!AF.some(f=>f.id===F.farm))F.farm='';
- const q=F.q.toLowerCase();
- const rows=all.filter(r=>(!F.farm||r.farm===F.farm)&&(!F.cat||r.categoria===F.cat)&&(!F.from||(r.data||'')>=F.from)&&(!F.to||(r.data||'')<=F.to)&&(!q||(r.empresa+' '+r.albara+' '+r.concepte).toLowerCase().includes(q))).sort((a,b)=>(b.data||'').localeCompare(a.data||'')||b.created.at-a.created.at);
- const tot=rows.reduce((s,r)=>s+(r.import||0),0);
- const byCat={};rows.forEach(r=>byCat[r.categoria]=(byCat[r.categoria]||0)+(r.import||0));
+ await need('gastos');const canEd=lv('gastos')>=2,canVal=!!P().validarGastos;AF=farmsFor('gastos');
+ const rows=gastosFiltered();[...SEL].forEach(id=>{if(!rows.some(r=>r.id===id))SEL.delete(id)});
+ const tot=rows.reduce((s,r)=>s+(r.import||0),0),totV=rows.filter(r=>r.validated).reduce((s,r)=>s+(r.import||0),0);
+ const fs=F.farms.filter(id=>AF.some(f=>f.id===id));
  $('sub').innerHTML=`${canEd&&AF.length?`<button class="btn w ok" style="margin-bottom:14px;padding:18px;font-size:18px" onclick="$('cam').click()">📷 ${t('photoAlb')}</button>`:''}
- <div class="card"><div class="row">${AF.length>1?farmSel(F.farm,"F.farm=this.value;render()",true,'',AF):''}<select class="grow" onchange="F.cat=this.value;render()"><option value="">${t('categoria')}: ${t('all')}</option>${B.cats.map(c=>`<option value="${c}" ${F.cat===c?'selected':''}>${t('c_'+c)}</option>`).join('')}</select></div>
- <div class="row" style="margin-top:10px"><div class="grow"><label class="l">${t('from')}</label><input type="date" value="${F.from}" onchange="F.from=this.value;render()"></div><div class="grow"><label class="l">${t('to')}</label><input type="date" value="${F.to}" onchange="F.to=this.value;render()"></div><div class="grow" style="align-self:flex-end"><input placeholder="${t('search')}" value="${esc(F.q)}" onchange="F.q=this.value;render()"></div></div></div>
- <div class="kpis"><div class="kpi hl"><div class="v">${fmtE(tot)}</div><div class="k">${t('total')} · ${rows.length}</div></div>${Object.entries(byCat).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([c,v])=>`<div class="kpi"><div class="v" style="font-size:19px">${fmtE(v)}</div><div class="k">${t('c_'+c)}</div></div>`).join('')}</div>
+ <div class="card">
+  ${AF.length>1?`<label class="l">${t('farms')}</label><div class="fchips"><button class="fchip ${fs.length?'':'on'}" onclick="toggleFarmF('*')">${t('allF')}</button>${AF.map(f=>`<button class="fchip ${fs.includes(f.id)?'on':''}" onclick="toggleFarmF('${f.id}')">${fs.includes(f.id)?'✓ ':''}${esc(f.name)}</button>`).join('')}</div>`:''}
+  <div class="row" style="margin-top:10px"><select class="grow" onchange="F.cat=this.value;render()"><option value="">${t('categoria')}: ${t('all')}</option>${B.cats.map(c=>`<option value="${c}" ${F.cat===c?'selected':''}>${t('c_'+c)}</option>`).join('')}</select>
+  <select class="grow" onchange="F.gst=this.value;render()"><option value="">${t('status')}: ${t('all')}</option><option value="pend" ${F.gst==='pend'?'selected':''}>${t('pendVal')}</option><option value="val" ${F.gst==='val'?'selected':''}>${t('validated')}</option></select></div>
+  <div class="row" style="margin-top:10px"><div class="grow"><label class="l">${t('from')}</label><input type="date" value="${F.from}" onchange="F.from=this.value;render()"></div><div class="grow"><label class="l">${t('to')}</label><input type="date" value="${F.to}" onchange="F.to=this.value;render()"></div><div class="grow" style="align-self:flex-end"><input placeholder="${t('search')}" value="${esc(F.q)}" onchange="F.q=this.value;render()"></div></div></div>
+ <div class="kpis"><div class="kpi hl"><div class="v">${fmtE(tot)}</div><div class="k">${t('total')} · ${rows.length}</div></div><div class="kpi"><div class="v" style="font-size:19px;color:var(--grn)">${fmtE(totV)}</div><div class="k">${t('validated')} · ${rows.filter(r=>r.validated).length}</div></div><div class="kpi"><div class="v" style="font-size:19px;color:var(--org)">${fmtE(tot-totV)}</div><div class="k">${t('pendVal')} · ${rows.filter(r=>!r.validated).length}</div></div></div>
+ ${canVal&&SEL.size?`<div class="selbar"><b>${t('nSel',{n:SEL.size})}</b><button class="btn sm ok" onclick="valGastos([...SEL],true)">✔ ${t('validate')}</button><button class="btn sm" onclick="facturaForm([...SEL])">🧾 ${t('setFactura')}</button><button class="btn sm sec" onclick="valGastos([...SEL],false)">↩ ${t('unvalidate')}</button><button class="btn sm sec" onclick="SEL.clear();render()">✕</button></div>`:''}
  <div class="card"><div class="row sp" style="margin-bottom:6px"><h2 style="margin:0">${t('records')}</h2>${P().exportar&&rows.length?`<button class="btn sm sec" onclick="expGastos()">⬇ ${t('exportCsv')}</button>`:''}</div>
- ${rows.length?`<div class="tw"><table><tr><th class="tl">${t('data')}</th><th class="tl">${t('empresa')}</th><th class="tl">${t('albara')}</th><th class="tl">${t('explotacio')}</th><th class="tl">${t('categoria')}</th><th>${t('import')}</th></tr>
- ${rows.map(r=>`<tr class="click" onclick="gastoView('${r.id}')"><td class="tl">${fmtD(r.data)}</td><td class="tl"><b>${esc(r.empresa)}</b>${r.concepte?`<div class="muted">${esc(r.concepte)}</div>`:''}</td><td class="tl">${esc(r.albara)}</td><td class="tl">${esc(farmName(r.farm))}</td><td class="tl"><span class="tag">${t('c_'+r.categoria)}</span></td><td><b>${fmtE(r.import)}</b></td></tr>`).join('')}</table></div>`:`<div class="empty">${t('noRecords')}</div>`}</div>`}
+ ${rows.length?`<div class="tw"><table><tr>${canVal?`<th class="tl" style="width:34px"><input type="checkbox" ${rows.every(r=>SEL.has(r.id))?'checked':''} onclick="event.stopPropagation();selAll(this.checked)"></th>`:''}<th class="tl">${t('data')}</th><th class="tl">${t('empresa')}</th><th class="tl">${t('albara')}</th><th class="tl">${t('factura')}</th><th class="tl">${t('explotacio')}</th><th class="tl">${t('categoria')}</th><th>${t('import')}</th><th class="tl">${t('status')}</th></tr>
+ ${rows.map(r=>`<tr class="click" onclick="gastoView('${r.id}')">${canVal?`<td class="tl" onclick="event.stopPropagation()"><input type="checkbox" ${SEL.has(r.id)?'checked':''} onchange="selOne('${r.id}',this.checked)"></td>`:''}<td class="tl">${fmtD(r.data)}</td><td class="tl"><b>${esc(r.empresa)}</b>${r.concepte?`<div class="muted">${esc(r.concepte)}</div>`:''}</td><td class="tl">${esc(r.albara)}</td><td class="tl">${r.factura?`<b>${esc(r.factura)}</b>`:'—'}</td><td class="tl">${esc(farmName(r.farm))}</td><td class="tl"><span class="tag">${t('c_'+r.categoria)}</span></td><td><b>${fmtE(r.import)}</b></td><td class="tl">${r.validated?`<span class="tag lock">✔ ${t('validated')}</span>`:`<span class="tag pend">${t('pendVal')}</span>`}</td></tr>`).join('')}</table></div>`:`<div class="empty">${t('noRecords')}</div>`}</div>`}
+function selOne(id,on){on?SEL.add(id):SEL.delete(id);render()}
+function selAll(on){gastosFiltered().forEach(r=>on?SEL.add(r.id):SEL.delete(r.id));render()}
+async function valGastos(ids,validated){if(!ids.length)return;if(validated&&!confirm(t('confirmValG',{n:ids.length})))return;
+ await run(()=>api('gastos.validate',{ids,validated}),validated?t('validated'):t('saved')).catch(()=>{});SEL.clear();closeModal();refresh('gastos')}
+function facturaForm(ids){const cur=ids.length===1?(D.gastos.find(x=>x.id===ids[0])||{}).factura||'':'';
+ modal(`<h2>🧾 ${t('setFactura')}</h2><div class="muted" style="margin-bottom:12px">${t('nSel',{n:ids.length})} · ${t('facturaHint')}</div>
+ <div class="f"><label class="l">${t('factura')}</label><input id="fcN" value="${esc(cur)}" placeholder="F-2026/0123"></div>
+ <div class="err" id="mErr"></div><button class="btn w" onclick='saveFactura(${JSON.stringify(ids)})'>✔ ${t('save')}</button><button class="btn sec w" style="margin-top:10px" onclick="closeModal()">${t('cancel')}</button>`);setTimeout(()=>$('fcN')&&$('fcN').focus(),50)}
+async function saveFactura(ids){try{await api('gastos.factura',{ids,factura:$('fcN').value});closeModal();toast(t('saved'));SEL.clear();refresh('gastos')}catch(e){$('mErr').textContent=errMsg(e)}}
 function compress(file){return new Promise((res,rej)=>{const img=new Image();img.onload=()=>{const M=1600;let{width:w,height:h}=img;if(Math.max(w,h)>M){const s=M/Math.max(w,h);w=Math.round(w*s);h=Math.round(h*s)}const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);URL.revokeObjectURL(img.src);res(c.toDataURL('image/jpeg',.82).split(',')[1])};img.onerror=rej;img.src=URL.createObjectURL(file)})}
 async function onPhoto(inp){
  const file=inp.files[0];inp.value='';if(!file)return;
@@ -447,9 +504,9 @@ async function onPhoto(inp){
  try{b64=await compress(file);photoId=(await api('gastos.upload',{image:b64})).photoId}catch(e){closeModal();toast(errMsg(e));return}
  $('phSt')&&($('phSt').textContent=t('reading'));
  try{fields=(await api('gastos.analyze',{photoId})).fields;aiOk=true}catch(e){}
- gastoForm({...fields,photo:photoId,ai:aiOk?{...fields}:null,farm:F.farm||farmsFor('gastos')[0].id},b64,!aiOk)}
+ const GF=farmsFor('gastos');gastoForm({...fields,photo:photoId,ai:aiOk?{...fields}:null,farm:(F.farms.length===1&&GF.some(f=>f.id===F.farms[0])?F.farms[0]:(F.farm||GF[0].id))},b64,!aiOk)}
 function gastoForm(r,b64,aiFail){
- const GF=farmsFor('gastos');const myFarm=GF.length===1;
+ const GF=farmsFor('gastos');const myFarm=GF.length===1;const canVal=!!P().validarGastos;
  modal(`<h2>🧾 ${r.id?t('edit'):t('newEntry')}</h2>
  ${aiFail?`<div class="err">${t('aiFail')}</div>`:''}
  ${b64?`<img class="photo" style="max-height:220px;object-fit:contain;margin-bottom:12px" src="data:image/jpeg;base64,${b64}">`:''}
@@ -458,28 +515,32 @@ function gastoForm(r,b64,aiFail){
  <div class="row f" style="flex-wrap:nowrap"><div class="grow"><label class="l">${t('albara')}</label><input id="gAlb" value="${esc(r.albara||'')}"></div><div class="grow"><label class="l">${t('data')}</label><input id="gData" type="date" value="${r.data||new Date().toISOString().slice(0,10)}"></div></div>
  <div class="row f" style="flex-wrap:nowrap"><div class="grow"><label class="l">${t('import')} *</label><input id="gImp" type="number" step="0.01" inputmode="decimal" value="${r.import??''}"></div><div class="grow"><label class="l">${t('categoria')}</label><select id="gCat">${B.cats.map(c=>`<option value="${c}" ${(r.categoria||'altres')===c?'selected':''}>${t('c_'+c)}</option>`).join('')}</select></div></div>
  <div class="f"><label class="l">${t('concepte')}</label><input id="gCon" value="${esc(r.concepte||'')}"></div>
+ ${canVal?`<div class="f"><label class="l">${t('factura')} <span class="muted">(${t('optional')})</span></label><input id="gFac" value="${esc(r.factura||'')}"></div>`:''}
  <div class="err" id="mErr"></div>
  <button class="btn w" onclick='saveGasto(${JSON.stringify({id:r.id||null,photo:r.photo||null,ai:r.ai||null})})'>${t('save')}</button>
  <button class="btn sec w" style="margin-top:10px" onclick="closeModal()">${t('cancel')}</button>`)}
 async function saveGasto(x){
  const rec={id:x.id||undefined,photo:x.photo,ai:x.ai,farm:$('gFarm').value,empresa:$('gEmp').value,albara:$('gAlb').value,data:$('gData').value,import:$('gImp').value,categoria:$('gCat').value,concepte:$('gCon').value};
+ if($('gFac'))rec.factura=$('gFac').value;
  if(!rec.empresa.trim()||rec.import===''){$('mErr').textContent=t('fill');return}
  try{await api('gastos.save',{rec});closeModal();toast(t('saved'));refresh('gastos')}catch(e){$('mErr').textContent=errMsg(e)}}
 async function gastoView(id){
- const r=D.gastos.find(x=>x.id===id);const canEd=lv('gastos')>=2&&(B.me.role!=='granger'||r.created.by===B.me.id);
- modal(`<div class="row sp"><h2 style="margin:0">${esc(r.empresa)}</h2><span class="tag">${t('c_'+r.categoria)}</span></div>
+ const r=D.gastos.find(x=>x.id===id);const canVal=!!P().validarGastos;const canEd=lv('gastos')>=2&&(B.me.role!=='granger'||r.created.by===B.me.id)&&(!r.validated||canVal);
+ modal(`<div class="row sp"><h2 style="margin:0">${esc(r.empresa)}</h2>${r.validated?`<span class="tag lock">✔ ${t('validated')}</span>`:`<span class="tag pend">${t('pendVal')}</span>`}</div>
  <div id="phBox" style="margin:12px 0">${r.photo?`<div class="loading"><div class="spin"></div></div>`:''}</div>
  <div class="tw"><table>
- <tr><td class="tl muted">${t('albara')}</td><td>${esc(r.albara)}</td></tr><tr><td class="tl muted">${t('data')}</td><td>${fmtD(r.data)}</td></tr>
- <tr><td class="tl muted">${t('explotacio')}</td><td>${esc(farmName(r.farm))}</td></tr><tr><td class="tl muted">${t('import')}</td><td><b>${fmtE(r.import)}</b></td></tr>
- <tr><td class="tl muted">${t('concepte')}</td><td style="white-space:normal">${esc(r.concepte)}</td></tr><tr><td class="tl muted">${t('by')}</td><td>${esc(r.created.byName)} · ${fmtDT(new Date(r.created.at))}</td></tr></table></div>
+ <tr><td class="tl muted">${t('albara')}</td><td>${esc(r.albara)}</td></tr><tr><td class="tl muted">${t('factura')}</td><td>${r.factura?`<b>${esc(r.factura)}</b>`:'—'}</td></tr><tr><td class="tl muted">${t('data')}</td><td>${fmtD(r.data)}</td></tr>
+ <tr><td class="tl muted">${t('explotacio')}</td><td>${esc(farmName(r.farm))}</td></tr><tr><td class="tl muted">${t('categoria')}</td><td>${t('c_'+r.categoria)}</td></tr><tr><td class="tl muted">${t('import')}</td><td><b>${fmtE(r.import)}</b></td></tr>
+ <tr><td class="tl muted">${t('concepte')}</td><td style="white-space:normal">${esc(r.concepte)}</td></tr><tr><td class="tl muted">${t('by')}</td><td>${esc(r.created.byName)} · ${fmtDT(new Date(r.created.at))}</td></tr>
+ ${r.validated?`<tr><td class="tl muted">${t('validated')}</td><td>${esc(uName(r.validated.by)||r.validated.byName)} · ${fmtDT(new Date(r.validated.at))}</td></tr>`:''}</table></div>
  <div class="err" id="mErr"></div>
- <div class="row" style="margin-top:12px;flex-wrap:nowrap">${canEd?`<button class="btn sec grow" onclick="gastoForm(D.gastos.find(x=>x.id==='${id}'))">✎ ${t('edit')}</button><button class="btn red grow" onclick="delGasto('${id}')">${t('del')}</button>`:''}<button class="btn grow" onclick="closeModal()">${t('close')}</button></div>`);
+ ${canVal?`<div class="row" style="margin-top:12px;flex-wrap:nowrap">${r.validated?`<button class="btn sec grow" onclick="valGastos(['${id}'],false)">↩ ${t('unvalidate')}</button>`:`<button class="btn ok grow" onclick="valGastos(['${id}'],true)">✔ ${t('validate')}</button>`}<button class="btn grow" onclick="facturaForm(['${id}'])">🧾 ${t('factura')}</button></div>`:''}
+ <div class="row" style="margin-top:10px;flex-wrap:nowrap">${canEd?`<button class="btn sec grow" onclick="gastoForm(D.gastos.find(x=>x.id==='${id}'))">✎ ${t('edit')}</button>${r.validated?'':`<button class="btn red grow" onclick="delGasto('${id}')">${t('del')}</button>`}`:''}<button class="btn sec grow" onclick="closeModal()">${t('close')}</button></div>`);
  if(r.photo){try{const im=(await api('gastos.photo',{id})).image;const src='data:image/jpeg;base64,'+im;$('phBox')&&($('phBox').innerHTML=`<a href="#" onclick="openImg(this.firstChild.src);return false"><img class="photo" src="${src}"></a>`)}catch(e){$('phBox')&&($('phBox').innerHTML=`<div class="muted">${esc(errMsg(e))}</div>`)}}}
 function openImg(src){fetch(src).then(r=>r.blob()).then(b=>window.open(URL.createObjectURL(b),'_blank'))}
 async function delGasto(id){if(!confirm(t('confirmDel')))return;try{await api('gastos.delete',{id});closeModal();toast(t('deleted'));refresh('gastos')}catch(e){$('mErr').textContent=errMsg(e)}}
-function expGastos(){const q=F.q.toLowerCase();const rows=D.gastos.filter(r=>(!F.farm||r.farm===F.farm)&&(!F.cat||r.categoria===F.cat)&&(!F.from||(r.data||'')>=F.from)&&(!F.to||(r.data||'')<=F.to)&&(!q||(r.empresa+' '+r.albara+' '+r.concepte).toLowerCase().includes(q))).sort((a,b)=>(a.data||'').localeCompare(b.data||''));
- csv([[t('data'),t('empresa'),t('albara'),t('explotacio'),t('categoria'),t('concepte'),t('import'),t('by')],...rows.map(r=>[fmtD(r.data),r.empresa,r.albara,farmName(r.farm),t('c_'+r.categoria),r.concepte,String(r.import).replace('.',','),r.created.byName])],'PLUgranja_'+t('gastos'))}
+function expGastos(){const rows=gastosFiltered().reverse();
+ csv([[t('data'),t('empresa'),t('albara'),t('factura'),t('explotacio'),t('categoria'),t('concepte'),t('import'),t('status'),t('by')],...rows.map(r=>[fmtD(r.data),r.empresa,r.albara,r.factura||'',farmName(r.farm),t('c_'+r.categoria),r.concepte,String(r.import).replace('.',','),r.validated?t('validated'):t('pendVal'),r.created.byName])],'PLUgranja_'+t('gastos'))}
 
 /* ================= HIDRÒLISI ================= */
 function contState(all,farm,cont){const c=all.filter(x=>x.farm===farm&&x.cont===cont).sort((a,b)=>a.ini<b.ini?1:-1)[0];
@@ -602,7 +663,7 @@ async function shareNative(){try{await navigator.share({title:'PLUgranja',text:t
 async function copyLink(){try{await navigator.clipboard.writeText(appURL());toast(t('copied'))}catch(e){toast(appURL())}}
 
 /* ================= MODE GRANGER (senzill, lletra gran) ================= */
-const GR_FUNCS=[{m:'destete',ic:'🍼'},{m:'escorxador',ic:'🚚'},{m:'gastos',ic:'🧾'},{m:'hidrolisi',ic:'🛢️'},{m:'aigua',ic:'💧'}];
+const GR_FUNCS=[{m:'destete',ic:'🐖'},{m:'escorxador',ic:'🚚'},{m:'gastos',ic:'🧾'},{m:'hidrolisi',ic:'🛢️'},{m:'aigua',ic:'💧'}];
 const funcOnF=(f,m)=>!f.funcs||f.funcs[m]!==false;
 const grFarms=()=>B.farms.filter(f=>GR_FUNCS.some(x=>lv(x.m)>=1&&funcOnF(f,x.m)));
 const grFuncs=f=>GR_FUNCS.filter(x=>lv(x.m)>=1&&funcOnF(f,x.m));
@@ -611,7 +672,7 @@ function grBack(){if(history.state&&history.state.gr)history.back();else{if(GV)G
 window.addEventListener('popstate',e=>{if(!B||!isGr())return;const s=e.state||{};GF=s.gf||null;GV=s.gv||null;closeModal();renderGr()});
 function grStatus(f){
  const now=isoWeek(),out={};
- if(D.destete){const r=D.destete.find(x=>x.farm===f.id&&x.year===now.y&&x.week===now.w);out.destete=!r?['warn',t('st_toDo')]:r.locked?['ok',t('st_valid')]:['',t('st_doneWait')]}
+ if(D.destete){const r=D.destete.find(x=>x.farm===f.id&&x.year===now.y&&x.week===now.w);out.destete=(!r||r.dest==null)&&!(r&&r.locked)?['warn',t('st_toDo')]:r.locked?['ok',t('st_valid')]:['',t('st_doneWait')]}
  if(D.escorxador){const op=D.escorxador.filter(x=>x.farm===f.id&&!x.validated&&!x.exported).sort((a,b)=>a.year-b.year||a.week-b.week)[0];
   out.escorxador=!op?['warn',t('st_escNew')]:(op.fem==null||op.masc==null)?['warn',t('st_escOpen',{w:op.week})]:['',t('st_escDone',{w:op.week})]}
  const ap=(B.aiguaPend||[]).filter(p=>p.farm===f.id).length;
@@ -632,14 +693,14 @@ async function renderGr(){
   $('main').innerHTML=`<div class="hello">${t('hello',{n:esc(B.me.name)})}</div><h1>${t('chooseFarm')}</h1>${loadingHTML()}`;
   await grLoad();
   $('main').innerHTML=`<div class="hello">${t('hello',{n:esc(B.me.name)})}</div><h1>${t('chooseFarm')}</h1><div class="tiles">${farms.map(f=>{const n=pendCount(f,grStatus(f));
-   return `<button class="tile ${n?'warn':''}" onclick="grNav('${f.id}',null)"><span class="ti">🏠</span><span><span class="tt">${esc(f.name)}</span><span class="ts ${n?'warn':'ok'}">${n?t(n===1?'nPend1':'nPend',{n}):t('allOk')}</span></span><span class="arr">›</span></button>`}).join('')}</div>${grFoot()}`;
+   return `<button class="tile ${n?'warn':''}" onclick="grNav('${f.id}',null)"><span class="ti">🐷</span><span><span class="tt">${esc(f.name)}</span><span class="ts ${n?'warn':'ok'}">${n?t(n===1?'nPend1':'nPend',{n}):t('allOk')}</span></span><span class="arr">›</span></button>`}).join('')}</div>${grFoot()}`;
   return}
  const f=farms.find(x=>x.id===GF);
  const back=`<button class="btn sec w backbtn" onclick="grBack()">← ${GV?esc(f.name):t('chooseFarm')}</button>`;
  if(!GV){
-  $('main').innerHTML=`${farms.length>1?back:`<div class="hello">${t('hello',{n:esc(B.me.name)})}</div>`}<h1>🏠 ${esc(f.name)}</h1>${loadingHTML()}`;
+  $('main').innerHTML=`${farms.length>1?back:`<div class="hello">${t('hello',{n:esc(B.me.name)})}</div>`}<h1>🐷 ${esc(f.name)}</h1>${loadingHTML()}`;
   await grLoad();const st=grStatus(f);
-  $('main').innerHTML=`${farms.length>1?back:`<div class="hello">${t('hello',{n:esc(B.me.name)})}</div>`}<h1>🏠 ${esc(f.name)}</h1><div class="tiles">${grFuncs(f).map(x=>{const s=st[x.m]||['',''];const warn=s[0]==='warn'&&lv(x.m)>=2;
+  $('main').innerHTML=`${farms.length>1?back:`<div class="hello">${t('hello',{n:esc(B.me.name)})}</div>`}<h1>🐷 ${esc(f.name)}</h1><div class="tiles">${grFuncs(f).map(x=>{const s=st[x.m]||['',''];const warn=s[0]==='warn'&&lv(x.m)>=2;
    return `<button class="tile ${warn?'warn':''}" onclick="grOpen('${x.m}')"><span class="ti">${x.ic}</span><span><span class="tt">${t(x.m)}</span>${s[1]?`<span class="ts ${warn?'warn':s[0]}">${s[1]}</span>`:''}</span><span class="arr">›</span></button>`}).join('')}</div>${farms.length>1?'':grFoot()}`;
   return}
  // pantalla d'una funció
@@ -652,7 +713,7 @@ function grOpen(m){if(m==='gastos'&&lv('gastos')>=2)$('cam').click();grNav(GF,m)
 /* ================= GRANGES ================= */
 async function vGranges(){
  const farms=B.allFarms||B.farms;const canEd=lv('granges')>=2;
- $('main').innerHTML=`<h1>🏠 ${t('granges')}</h1>${canEd?`<button class="btn w" style="margin-bottom:14px" onclick="farmForm()">＋ ${t('newFarm')}</button>`:''}
+ $('main').innerHTML=`<h1>🐷 ${t('granges')}</h1>${canEd?`<button class="btn w" style="margin-bottom:14px" onclick="farmForm()">＋ ${t('newFarm')}</button>`:''}
  ${farms.length?`<div class="flist">${farms.map(f=>`<div class="card" style="margin:0"><div class="row sp"><h2 style="margin:0">${esc(f.name)}</h2><span class="tag ${f.own?'lock':''}">${f.own?t('own'):t('notOwn')}</span></div>
  <div class="muted" style="margin:8px 0;line-height:1.6">${f.ref?`${t('ref')}: <b>${esc(f.ref)}</b><br>`:''}${f.rega?`REGA: <b>${esc(f.rega)}</b><br>`:''}${f.marca?`${t('marca')}: <b>${esc(f.marca)}</b><br>`:''}${f.address?`📍 ${esc(f.address)}`:''}</div>
  <div class="muted">${t('naus')}: ${(f.naus||[]).map(n=>esc(n.name)).join(', ')||'—'}</div><div class="muted">${t('conts')}: ${(f.conts||[]).map(n=>esc(n.code)).join(', ')||'—'}</div><div class="muted">${t('meters')}: ${(f.meters||[]).map(n=>esc(n.code)).join(', ')||'—'}</div>
@@ -661,7 +722,7 @@ async function vGranges(){
 let FT=null;
 function farmForm(id){const f=id?(B.allFarms||B.farms).find(x=>x.id===id):{name:'',ref:'',rega:'',marca:'',address:'',own:true,naus:[],conts:[],meters:[]};
  FT={naus:structuredClone(f.naus||[]),conts:structuredClone(f.conts||[]),meters:structuredClone(f.meters||[])};
- modal(`<h2>🏠 ${id?t('edit'):t('newFarm')}</h2>
+ modal(`<h2>🐷 ${id?t('edit'):t('newFarm')}</h2>
  <div class="row f" style="flex-wrap:nowrap"><div style="flex:1"><label class="l">${t('ref')}</label><input id="fRef" value="${esc(f.ref)}"></div><div style="flex:2"><label class="l">${t('name')} *</label><input id="fName" value="${esc(f.name)}"></div></div>
  <div class="row f" style="flex-wrap:nowrap"><div class="grow"><label class="l">${t('rega')}</label><input id="fRega" value="${esc(f.rega)}"></div><div class="grow"><label class="l">${t('marca')}</label><input id="fMarca" value="${esc(f.marca)}"></div></div>
  <div class="f"><label class="l">${t('address')}</label><textarea id="fAddr" rows="2">${esc(f.address)}</textarea></div>
@@ -680,7 +741,7 @@ async function saveFarm(id){const rec={id:id||undefined,ref:$('fRef').value,name
 async function delFarm(id){if(!confirm(t('confirmDel')))return;try{await api('farms.delete',{id});closeModal();toast(t('deleted'));await start()}catch(e){$('mErr').textContent=errMsg(e)}}
 
 /* ================= CONFIGURACIÓ ================= */
-const ROLES=['admin','enginyer','vetlog','vet','granger'];const PM=['destete','escorxador','gastos','hidrolisi','aigua','granges'];const PF=['validar','retornar','exportar','tancaExport','gestHidro'];const FUNCS=['destete','escorxador','gastos','hidrolisi','aigua'];
+const ROLES=['admin','enginyer','vetlog','vet','granger'];const PM=['destete','escorxador','gastos','hidrolisi','aigua','granges'];const PF=['validar','retornar','exportar','tancaExport','gestHidro','validarGastos'];const FUNCS=['destete','escorxador','gastos','hidrolisi','aigua'];
 async function vConfig(){
  const ap=B.allPerms;
  $('main').innerHTML=`<h1>⚙️ ${t('config')}</h1>

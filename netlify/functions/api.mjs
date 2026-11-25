@@ -8,14 +8,14 @@ export const config = { path: "/api" };
 const ROLES = ["admin", "enginyer", "vetlog", "vet", "granger"];
 const MODS = ["destete", "escorxador", "gastos", "hidrolisi", "aigua", "granges"];
 const FUNCS = ["destete", "escorxador", "gastos", "hidrolisi", "aigua"];
-const FLAGS = ["validar", "retornar", "exportar", "tancaExport", "gestHidro"];
+const FLAGS = ["validar", "retornar", "exportar", "tancaExport", "gestHidro", "validarGastos"];
 const CATS = ["electricitat", "lampisteria", "recanvis", "gasoil", "pellet", "pinso", "veterinari", "neteja", "manteniment", "transport", "altres"];
 const DEF_PERMS = {
-  admin:    { destete: 2, escorxador: 2, gastos: 2, hidrolisi: 2, aigua: 2, granges: 2, validar: true,  retornar: true,  exportar: true,  tancaExport: true,  gestHidro: true },
-  enginyer: { destete: 1, escorxador: 1, gastos: 2, hidrolisi: 2, aigua: 2, granges: 2, validar: false, retornar: false, exportar: true,  tancaExport: false, gestHidro: true },
-  vetlog:   { destete: 2, escorxador: 2, gastos: 1, hidrolisi: 1, aigua: 0, granges: 1, validar: true,  retornar: true,  exportar: true,  tancaExport: true,  gestHidro: false },
-  vet:      { destete: 2, escorxador: 2, gastos: 0, hidrolisi: 1, aigua: 0, granges: 1, validar: true,  retornar: false, exportar: true,  tancaExport: false, gestHidro: false },
-  granger:  { destete: 2, escorxador: 2, gastos: 2, hidrolisi: 2, aigua: 2, granges: 0, validar: false, retornar: false, exportar: false, tancaExport: false, gestHidro: false },
+  admin:    { destete: 2, escorxador: 2, gastos: 2, hidrolisi: 2, aigua: 2, granges: 2, validar: true,  retornar: true,  exportar: true,  tancaExport: true,  gestHidro: true, validarGastos: true },
+  enginyer: { destete: 1, escorxador: 1, gastos: 2, hidrolisi: 2, aigua: 2, granges: 2, validar: false, retornar: false, exportar: true,  tancaExport: false, gestHidro: true, validarGastos: true },
+  vetlog:   { destete: 2, escorxador: 2, gastos: 1, hidrolisi: 1, aigua: 0, granges: 1, validar: true,  retornar: true,  exportar: true,  tancaExport: true,  gestHidro: false, validarGastos: false },
+  vet:      { destete: 2, escorxador: 2, gastos: 0, hidrolisi: 1, aigua: 0, granges: 1, validar: true,  retornar: false, exportar: true,  tancaExport: false, gestHidro: false, validarGastos: false },
+  granger:  { destete: 2, escorxador: 2, gastos: 2, hidrolisi: 2, aigua: 2, granges: 0, validar: false, retornar: false, exportar: false, tancaExport: false, gestHidro: false, validarGastos: false },
 };
 
 /* ---------- helpers ---------- */
@@ -187,8 +187,8 @@ export default async (req) => {
         need("destete", 2);
         const r = body.rec || {};
         needFarm(r.farm, "destete");
-        const v = { farm: r.farm, year: +r.year, week: +r.week, dest: num(r.dest), baix: num(r.baix), carr: num(r.carr) };
-        if (!v.year || !(v.week >= 1 && v.week <= 53) || [v.dest, v.baix, v.carr].some((x) => x === null)) fail("fill");
+        const v = { farm: r.farm, year: +r.year, week: +r.week, dest: num(r.dest), carr: num(r.carr) };
+        if (!v.year || !(v.week >= 1 && v.week <= 53) || (v.dest === null && v.carr === null)) fail("fill");
         const res = await update("destete", (rows) => {
           const ex = r.id ? rows.find((x) => x.id === r.id) : null;
           if (r.id && !ex) fail("not_found", 404);
@@ -197,7 +197,41 @@ export default async (req) => {
           const dup = rows.find((x) => x.farm === v.farm && x.year === v.year && x.week === v.week && x.id !== r.id);
           if (dup) fail(dup.locked ? "locked_dup" : "dup");
           if (ex) { Object.assign(ex, v, { upd: stamp() }); return ex; }
-          const n = { id: uid(), ...v, locked: false, created: stamp() }; rows.push(n); return n;
+          const n = { id: uid(), ...v, baix: 0, baixes: [], locked: false, created: stamp() }; rows.push(n); return n;
+        });
+        return json({ rec: res });
+      }
+      case "destete.baixa.add": {
+        need("destete", 2);
+        const r = body.rec || {};
+        const n = num(r.n); if (!n || n < 1 || n > 10000 || !Number.isInteger(n)) fail("bad_number");
+        const when = /^\d{4}-\d{2}-\d{2}$/.test(r.data || "") ? r.data : new Date().toISOString().slice(0, 10);
+        const res = await update("destete", (rows) => {
+          let ex = r.id ? rows.find((x) => x.id === r.id) : rows.find((x) => x.farm === r.farm && x.year === +r.year && x.week === +r.week);
+          if (r.id && !ex) fail("not_found", 404);
+          if (!ex) {
+            needFarm(r.farm, "destete");
+            const y = +r.year, w = +r.week; if (!y || !(w >= 1 && w <= 53)) fail("fill");
+            ex = { id: uid(), farm: r.farm, year: y, week: w, dest: null, carr: null, baix: 0, baixes: [], locked: false, created: stamp() }; rows.push(ex);
+          }
+          if (!farmOk("destete", ex.farm)) fail("forbidden_farm", 403);
+          if (ex.locked) fail("locked");
+          if (!ex.baixes) ex.baixes = ex.baix ? [{ id: uid(), n: ex.baix, data: "", motiu: "", by: "", byName: "" }] : [];
+          ex.baixes.push({ id: uid(), n, data: when, motiu: str(r.motiu, 60), ...stamp() });
+          ex.baix = ex.baixes.reduce((a, b) => a + b.n, 0); ex.upd = stamp();
+          return ex;
+        });
+        return json({ rec: res });
+      }
+      case "destete.baixa.del": {
+        need("destete", 2);
+        const res = await update("destete", (rows) => {
+          const ex = rows.find((x) => x.id === body.id); if (!ex) fail("not_found", 404);
+          if (!farmOk("destete", ex.farm)) fail("forbidden_farm", 403);
+          if (ex.locked) fail("locked");
+          const i = (ex.baixes || []).findIndex((b) => b.id === body.bid); if (i < 0) fail("not_found", 404);
+          ex.baixes.splice(i, 1); ex.baix = ex.baixes.reduce((a, b) => a + b.n, 0); ex.upd = stamp();
+          return ex;
         });
         return json({ rec: res });
       }
@@ -319,17 +353,29 @@ export default async (req) => {
         const res = await update("gastos", (rows) => {
           const ex = r.id ? rows.find((x) => x.id === r.id) : null;
           if (r.id && !ex) fail("not_found", 404);
-          if (ex) { if (!farmOk("gastos", ex.farm)) fail("forbidden_farm", 403); if (me.role === "granger" && ex.created.by !== me.id) fail("forbidden", 403); Object.assign(ex, v, { upd: stamp() }); return ex; }
-          const n = { id: uid(), ...v, photo: str(r.photo, 60) || null, ai: r.ai || null, created: stamp() }; rows.push(n); return n;
+          if (P.validarGastos && r.factura !== undefined) v.factura = str(r.factura, 60);
+          if (ex) { if (!farmOk("gastos", ex.farm)) fail("forbidden_farm", 403); if (me.role === "granger" && ex.created.by !== me.id) fail("forbidden", 403); if (ex.validated && !P.validarGastos) fail("locked"); Object.assign(ex, v, { upd: stamp() }); return ex; }
+          const n = { id: uid(), ...v, validated: null, photo: str(r.photo, 60) || null, ai: r.ai || null, created: stamp() }; rows.push(n); return n;
         });
         return json({ rec: res });
       }
       case "gastos.delete": {
         need("gastos", 2);
         let photo = null;
-        await update("gastos", (rows) => { const i = rows.findIndex((x) => x.id === body.id); if (i < 0) fail("not_found", 404); needFarm(rows[i].farm, "gastos"); if (me.role === "granger" && rows[i].created.by !== me.id) fail("forbidden", 403); photo = rows[i].photo; rows.splice(i, 1); });
+        await update("gastos", (rows) => { const i = rows.findIndex((x) => x.id === body.id); if (i < 0) fail("not_found", 404); needFarm(rows[i].farm, "gastos"); if (me.role === "granger" && rows[i].created.by !== me.id) fail("forbidden", 403); if (rows[i].validated) fail("locked"); photo = rows[i].photo; rows.splice(i, 1); });
         if (photo) await st().delete("photo/" + photo).catch(() => {});
         return json({ ok: true });
+      }
+
+      case "gastos.validate":
+      case "gastos.factura": {
+        need("gastos", 1); needFlag("validarGastos");
+        const ids = new Set(Array.isArray(body.ids) ? body.ids : []);
+        const fac = str(body.factura, 60);
+        let n = 0;
+        await update("gastos", (rows) => { const s0 = stamp(); rows.forEach((x) => { if (!ids.has(x.id) || !farmOk("gastos", x.farm)) return; n++;
+          if (action === "gastos.validate") x.validated = body.validated ? s0 : null; else { x.factura = fac; x.upd = s0; } }); });
+        return json({ n });
       }
 
       /* ---- HIDRÒLISI ---- */
