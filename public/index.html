@@ -43,7 +43,7 @@ nav .brand{padding:0 8px 22px}nav .brand img{width:150px;display:block}nav .bran
 .nb.on{background:rgba(255,255,255,.14);color:#fff}.nb .ic{font-size:20px;width:24px;text-align:center}
 .who{margin-top:auto;padding:12px 8px;font-size:13px;color:#b9cde0;border-top:1px solid rgba(255,255,255,.15)}.who b{color:#fff;display:block;font-size:15px}
 .who .row{margin-top:10px}.who .btn{background:rgba(255,255,255,.14);color:#fff}
-main{flex:1;padding:26px;max-width:1100px;width:100%;min-width:0}
+main{flex:1;padding:clamp(14px,2.2vw,34px);max-width:1680px;width:100%;min-width:0;margin:0 auto;container-type:inline-size}
 header.top{display:none}
 h1{font-size:24px;margin-bottom:16px;color:var(--n)}h2{font-size:17px;margin-bottom:12px;color:var(--n)}h3{font-size:15px;margin-bottom:8px}
 .card{background:#fff;border-radius:var(--r);padding:16px;margin-bottom:16px;border:1px solid var(--bd)}
@@ -103,9 +103,6 @@ th.tl,td.tl{text-align:left}tr.click{cursor:pointer}tr.click:hover{background:#f
  nav .brand,nav .who{display:none}
  .nb{flex-direction:column;gap:2px;font-size:10.5px;padding:6px 2px;text-align:center;flex:1;justify-content:center}
  main{padding:14px 12px 100px}h1{font-size:21px}
- table.rt tr:first-child{display:none}table.rt tr{display:flex;flex-wrap:wrap;gap:4px 16px;padding:11px 2px;border-bottom:1px solid var(--bd);align-items:center}
- table.rt td{border:0;padding:0;text-align:left;white-space:normal;font-size:15px}table.rt td[data-l]::before{content:attr(data-l)': ';color:var(--mu);font-size:12px}
- table.rt td:first-child{width:100%;font-size:16px}table.rt td:first-child::before,table.rt td:last-child::before{display:none}table.rt td:last-child{margin-left:auto}
  .conts{grid-template-columns:1fr 1fr}.cont .code{font-size:24px}
 }
 #splash{position:fixed;inset:0;z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(120% 90% at 30% 20%,#1d4f7c 0%,#0c2a43 45%,#06151f 100%);transition:opacity .6s ease,transform .6s ease}
@@ -128,6 +125,7 @@ th.tl,td.tl{text-align:left}tr.click{cursor:pointer}tr.click:hover{background:#f
 .causes{display:flex;flex-wrap:wrap;gap:8px}.causes .btn{min-height:44px;font-weight:600}.causes .btn.on{background:var(--n);color:#fff}
 body.gr .stepper{grid-template-columns:84px 1fr 84px}body.gr .stepper .btn,body.gr .stepper .bigin{min-height:88px}body.gr .causes .btn{min-height:56px;font-size:20px}body.gr .bxn{min-width:48px;height:48px}
 .fchips{display:flex;flex-wrap:wrap;gap:8px}.fchip{border:2px solid var(--bd);background:#fff;border-radius:20px;padding:7px 14px;font-weight:600;color:var(--mu);min-height:40px}.fchip.on{background:var(--n);border-color:var(--n);color:#fff}
+.rowbtn{min-height:34px;padding:5px 12px;white-space:nowrap}
 .selbar{position:sticky;top:8px;z-index:20;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--n);color:#fff;border-radius:12px;padding:10px 12px;margin-bottom:12px;box-shadow:0 6px 18px rgba(0,0,0,.2)}.selbar .btn.sec{background:rgba(255,255,255,.15);color:#fff}
 .lnl{display:grid;gap:8px}.ln{display:flex;align-items:center;gap:10px;background:#eef6ee;border:1px solid #cfe5cf;border-radius:12px;padding:10px 12px}.lnt{font-weight:800;color:var(--n)}.lns{font-size:.92em;color:var(--mu);margin-top:2px}
 .salas .btn,.bxlots .btn,.bxsala .btn{min-width:70px}
@@ -140,13 +138,30 @@ body.gr .np{font-size:19px;padding:13px 20px}
 #updbar{position:fixed;top:0;left:0;right:0;z-index:300;background:var(--grn);color:#fff;text-align:center;padding:calc(10px + env(safe-area-inset-top)) 12px 10px;font-size:16px;cursor:pointer}
 #updscreen{position:fixed;inset:0;z-index:600;background:var(--n);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;font-size:18px}#updscreen img{width:200px}
 #updscreen .bar{width:140px;height:3px;border-radius:3px;background:rgba(255,255,255,.15);overflow:hidden}#updscreen .bar i{display:block;width:40%;height:100%;background:#7cc4ff;animation:ld 1.1s ease-in-out infinite}
+/* taules: en pantalles estretes (o columna de contingut estreta) es mostren com a fitxes */
+@container (max-width:900px){
+ table.rt tr:first-child{display:none}table.rt tr{display:flex;flex-wrap:wrap;gap:4px 16px;padding:11px 2px;border-bottom:1px solid var(--bd);align-items:center}
+ table.rt td{border:0;padding:0;text-align:left;white-space:normal;font-size:15px}table.rt td[data-l]::before{content:attr(data-l)': ';color:var(--mu);font-size:12px}
+ table.rt td:first-child{width:100%;font-size:16px}table.rt td:first-child::before,table.rt td:last-child::before{display:none}table.rt td:last-child{margin-left:auto}
+ table.rt td.cb{width:auto!important}table.rt td.cb+td{flex:1}table.rt td.cb+td::before{display:none}
+}
+@container (min-width:901px){th,td{white-space:normal}td.tl b{white-space:nowrap}.tag{white-space:nowrap}}
+/* tauleta / PC petit: menú lateral compacte */
+@media(min-width:801px) and (max-width:1180px){
+ nav{width:104px;padding:16px 6px}nav .brand{padding:0 4px 16px;text-align:center}nav .brand img{width:76px;margin:0 auto}nav .brand div{font-size:11px}
+ .nb{flex-direction:column;gap:3px;font-size:12px;text-align:center;padding:10px 4px;justify-content:center}.nb .ic{width:auto;font-size:22px}
+ .nb .badge{position:absolute;top:4px;right:14px;margin:0}
+ .who{padding:10px 2px;font-size:11px;text-align:center}.who b{font-size:12px}.who .row{flex-direction:column;gap:6px}.who .btn{width:100%;font-size:12px;padding:6px 4px;min-height:32px}
+}
+/* finestres: més amples al PC per veure la foto al costat de les dades */
+.modal>.card.wide{max-width:1040px}.split{display:grid;gap:16px}@media(min-width:900px){.split{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:start}.split .photo{max-height:70vh!important}}
 /* ---- mode granger ---- */
 body.gr{font-size:21px}
 body.gr nav{display:none!important}
 body.gr header.top{display:flex;justify-content:space-between;align-items:center;background:var(--n);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;position:sticky;top:0;z-index:30}
 body.gr header.top img{height:36px}body.gr header.top .btn{background:rgba(255,255,255,.14);color:#fff;min-height:50px;font-size:19px}
 body.gr #app{flex-direction:column}
-body.gr main{max-width:680px;margin:0 auto;padding:18px 16px 110px}
+body.gr main{max-width:1100px;margin:0 auto;padding:18px clamp(16px,3vw,40px) 110px}
 body.gr h1{font-size:33px;margin:6px 0 18px}body.gr h2{font-size:26px}body.gr h3{font-size:22px}
 body.gr .btn{min-height:64px;font-size:22px;border-radius:14px;padding:14px 18px}
 body.gr .btn.sm{min-height:54px;font-size:20px;padding:10px 16px}
@@ -165,6 +180,7 @@ body.gr .alert{font-size:21px}body.gr .modal>.card{font-size:21px}body.gr .big3{
 .hello{font-size:23px;color:var(--mu);margin-top:4px}
 .tiles{display:grid;gap:14px;margin-bottom:22px}
 .tile{display:flex;align-items:center;gap:16px;background:#fff;border:2px solid var(--bd);border-radius:18px;padding:18px 16px;text-align:left;width:100%;min-height:100px;box-shadow:0 2px 6px rgba(12,42,67,.06)}
+@media(min-width:900px){body.gr .tiles{grid-template-columns:1fr 1fr}body.gr .conts{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}body.gr .stack{grid-template-columns:1fr 1fr}}
 .tile:active{transform:scale(.98);background:var(--nl)}
 .tile .ti{font-size:48px;width:62px;text-align:center;flex-shrink:0}
 .tile .tt{display:block;font-size:29px;font-weight:800;color:var(--n);line-height:1.2}
@@ -374,7 +390,7 @@ window.addEventListener('offline',()=>setOffline(true));
 setInterval(()=>{syncNow()},45000);
 
 /* ================= VERSIÓ: agafar sempre l'última ================= */
-const APP_VERSION='202611261242';
+const APP_VERSION='202611261516';
 let UPD_AVAIL=false;
 async function checkUpdate(force){if(!navigator.onLine)return;
  try{const r=await fetch('/version.json?t='+Date.now(),{cache:'no-store'});const j=await r.json();
@@ -394,7 +410,7 @@ setInterval(()=>checkUpdate(),10*60000);
 function errMsg(e){return t('e_'+e.message)!=='e_'+e.message?t('e_'+e.message):e.message}
 function toast(m){const e=$('toast');e.textContent=m;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),2300)}
 async function run(fn,okMsg){try{const r=await fn();if(okMsg&&!(r&&r.queued))toast(okMsg);return r}catch(e){toast(errMsg(e));if(e.message==='wrong_step'){D.hidrolisi=null;render()}throw e}}
-function modal(h){$('modalRoot').innerHTML=`<div class="modal" onclick="if(event.target===this)closeModal()"><div class="card">${h}</div></div>`}
+function modal(h,wide){$('modalRoot').innerHTML=`<div class="modal" onclick="if(event.target===this)closeModal()"><div class="card ${wide?'wide':''}">${h}</div></div>`}
 function closeModal(){$('modalRoot').innerHTML=''}
 function applyT(){document.documentElement.lang=lang;document.querySelectorAll('[data-t]').forEach(e=>e.textContent=t(e.dataset.t));document.querySelectorAll('[data-lang]').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));if($('hLang'))$('hLang').textContent=lang==='ca'?'ES':'CA'}
 function setLang(l){lang=l;try{localStorage.setItem('plug_lang',l)}catch(e){}applyT();if(B)render()}
@@ -650,10 +666,10 @@ async function vGastos(){
  ${canVal&&SEL.size?`<div class="selbar"><b>${t('nSel',{n:SEL.size})}</b><button class="btn sm ok" onclick="valGastos([...SEL],true)">✔ ${t('validate')}</button><button class="btn sm" onclick="facturaForm([...SEL])">🧾 ${t('setFactura')}</button><button class="btn sm sec" onclick="valGastos([...SEL],false)">↩ ${t('unvalidate')}</button><button class="btn sm sec" onclick="SEL.clear();render()">✕</button></div>`:''}
  <div class="card"><div class="row sp" style="margin-bottom:6px"><h2 style="margin:0">${t('records')}</h2>${P().exportar&&rows.length?`<button class="btn sm sec" onclick="expGastos()">⬇ ${t('exportCsv')}</button>`:''}</div>
  ${rows.length?`<div class="tw"><table><tr>${canVal?`<th class="tl" style="width:34px"><input type="checkbox" ${rows.every(r=>SEL.has(r.id))?'checked':''} onclick="event.stopPropagation();selAll(this.checked)"></th>`:''}<th class="tl">${t('data')}</th><th class="tl">${t('empresa')}</th><th class="tl">${t('albara')}</th><th class="tl">${t('factura')}</th><th class="tl">${t('explotacio')}</th><th class="tl">${t('categoria')}</th><th>${t('import')}</th><th class="tl">${t('status')}</th></tr>
- ${rows.map(r=>`<tr class="click" onclick="gastoView('${r.id}')">${canVal?`<td class="tl" onclick="event.stopPropagation()"><input type="checkbox" ${SEL.has(r.id)?'checked':''} onchange="selOne('${r.id}',this.checked)"></td>`:''}<td class="tl">${fmtD(r.data)}</td><td class="tl"><b>${esc(r.empresa)}</b>${r.concepte?`<div class="muted">${esc(r.concepte)}</div>`:''}</td><td class="tl">${esc(r.albara)}</td><td class="tl">${r.factura?`<b>${esc(r.factura)}</b>`:'—'}</td><td class="tl">${esc(farmName(r.farm))}</td><td class="tl"><span class="tag">${t('c_'+r.categoria)}</span></td><td><b>${fmtE(r.import)}</b></td><td class="tl">${r.validated?`<span class="tag lock">✔ ${t('validated')}</span>`:`<span class="tag pend">${t('pendVal')}</span>`}</td></tr>`).join('')}</table></div>`:`<div class="empty">${t('noRecords')}</div>`}</div>`}
+ ${rows.map(r=>`<tr class="click" onclick="gastoView('${r.id}')">${canVal?`<td class="tl cb" onclick="event.stopPropagation()"><input type="checkbox" ${SEL.has(r.id)?'checked':''} onchange="selOne('${r.id}',this.checked)"></td>`:''}<td class="tl">${fmtD(r.data)}</td><td class="tl"><b>${esc(r.empresa)}</b>${r.concepte?`<div class="muted">${esc(r.concepte)}</div>`:''}</td><td class="tl">${esc(r.albara)}</td><td class="tl">${r.factura?`<b>${esc(r.factura)}</b>`:'—'}</td><td class="tl">${esc(farmName(r.farm))}</td><td class="tl"><span class="tag">${t('c_'+r.categoria)}</span></td><td><b>${fmtE(r.import)}</b></td><td class="tl" onclick="event.stopPropagation()">${r.validated?`<span class="tag lock">✔ ${t('validated')}</span>${canVal?` <button class="btn sm sec rowbtn" title="${t('unvalidate')}" onclick="valGastos(['${r.id}'],false,true)">↩</button>`:''}`:canVal?`<button class="btn sm ok rowbtn" onclick="valGastos(['${r.id}'],true,true)">✔ ${t('validate')}</button>`:`<span class="tag pend">${t('pendVal')}</span>`}</td></tr>`).join('')}</table></div>`:`<div class="empty">${t('noRecords')}</div>`}</div>`}
 function selOne(id,on){on?SEL.add(id):SEL.delete(id);render()}
 function selAll(on){gastosFiltered().forEach(r=>on?SEL.add(r.id):SEL.delete(r.id));render()}
-async function valGastos(ids,validated){if(!ids.length)return;if(validated&&!confirm(t('confirmValG',{n:ids.length})))return;
+async function valGastos(ids,validated,quick){if(!ids.length)return;if(validated&&!quick&&!confirm(t('confirmValG',{n:ids.length})))return;
  await run(()=>api('gastos.validate',{ids,validated}),validated?t('validated'):t('saved')).catch(()=>{});SEL.clear();closeModal();refresh('gastos')}
 function facturaForm(ids){const cur=ids.length===1?(D.gastos.find(x=>x.id===ids[0])||{}).factura||'':'';
  modal(`<h2>🧾 ${t('setFactura')}</h2><div class="muted" style="margin-bottom:12px">${t('nSel',{n:ids.length})} · ${t('facturaHint')}</div>
@@ -712,15 +728,15 @@ async function saveGasto(){const x=GX||{};
 async function gastoView(id){
  const r=D.gastos.find(x=>x.id===id);const canVal=!!P().validarGastos;const canEd=lv('gastos')>=2&&(B.me.role!=='granger'||r.created.by===B.me.id)&&(!r.validated||canVal);
  modal(`<div class="row sp"><h2 style="margin:0">${esc(r.empresa)}</h2>${r.validated?`<span class="tag lock">✔ ${t('validated')}</span>`:`<span class="tag pend">${t('pendVal')}</span>`}</div>
- <div id="phBox" style="margin:12px 0">${r.photo?`<div class="loading"><div class="spin"></div></div>`:''}</div>
+ <div class="${r.photo?'split':''}" style="margin-top:12px">${r.photo?`<div id="phBox"><div class="loading"><div class="spin"></div></div></div>`:''}<div style="min-width:0">
  <div class="tw"><table>
  <tr><td class="tl muted">${t('albara')}</td><td>${esc(r.albara)}</td></tr><tr><td class="tl muted">${t('factura')}</td><td>${r.factura?`<b>${esc(r.factura)}</b>`:'—'}</td></tr><tr><td class="tl muted">${t('data')}</td><td>${fmtD(r.data)}</td></tr>
  <tr><td class="tl muted">${t('explotacio')}</td><td>${esc(farmName(r.farm))}</td></tr><tr><td class="tl muted">${t('categoria')}</td><td>${t('c_'+r.categoria)}</td></tr><tr><td class="tl muted">${t('import')}</td><td><b>${fmtE(r.import)}</b></td></tr>
  <tr><td class="tl muted">${t('concepte')}</td><td style="white-space:normal">${esc(r.concepte)}</td></tr><tr><td class="tl muted">${t('by')}</td><td>${esc(r.created.byName)} · ${fmtDT(new Date(r.created.at))}</td></tr>
  ${r.validated?`<tr><td class="tl muted">${t('validated')}</td><td>${esc(uName(r.validated.by)||r.validated.byName)} · ${fmtDT(new Date(r.validated.at))}</td></tr>`:''}</table></div>
  <div class="err" id="mErr"></div>
- ${canVal?`<div class="row" style="margin-top:12px;flex-wrap:nowrap">${r.validated?`<button class="btn sec grow" onclick="valGastos(['${id}'],false)">↩ ${t('unvalidate')}</button>`:`<button class="btn ok grow" onclick="valGastos(['${id}'],true)">✔ ${t('validate')}</button>`}<button class="btn grow" onclick="facturaForm(['${id}'])">🧾 ${t('factura')}</button></div>`:''}
- <div class="row" style="margin-top:10px;flex-wrap:nowrap">${canEd?`<button class="btn sec grow" onclick="gastoForm(D.gastos.find(x=>x.id==='${id}'))">✎ ${t('edit')}</button>${r.validated?'':`<button class="btn red grow" onclick="delGasto('${id}')">${t('del')}</button>`}`:''}<button class="btn sec grow" onclick="closeModal()">${t('close')}</button></div>`);
+ ${canVal?`<div class="row" style="margin-top:12px">${r.validated?`<button class="btn sec grow" onclick="valGastos(['${id}'],false)">↩ ${t('unvalidate')}</button>`:`<button class="btn ok grow" onclick="valGastos(['${id}'],true)">✔ ${t('validate')}</button>`}<button class="btn grow" onclick="facturaForm(['${id}'])">🧾 ${t('factura')}</button></div>`:''}
+ <div class="row" style="margin-top:10px">${canEd?`<button class="btn sec grow" onclick="gastoForm(D.gastos.find(x=>x.id==='${id}'))">✎ ${t('edit')}</button>${r.validated?'':`<button class="btn red grow" onclick="delGasto('${id}')">${t('del')}</button>`}`:''}<button class="btn sec grow" onclick="closeModal()">${t('close')}</button></div></div></div>`,!!r.photo);
  if(r.photo){try{const im=(await api('gastos.photo',{id})).image;const src='data:image/jpeg;base64,'+im;$('phBox')&&($('phBox').innerHTML=`<a href="#" onclick="openImg(this.firstChild.src);return false"><img class="photo" src="${src}"></a>`)}catch(e){$('phBox')&&($('phBox').innerHTML=`<div class="muted">${esc(errMsg(e))}</div>`)}}}
 function openImg(src){fetch(src).then(r=>r.blob()).then(b=>window.open(URL.createObjectURL(b),'_blank'))}
 async function delGasto(id){if(!confirm(t('confirmDel')))return;try{await api('gastos.delete',{id});closeModal();toast(t('deleted'));refresh('gastos')}catch(e){$('mErr').textContent=errMsg(e)}}
@@ -875,8 +891,26 @@ function detectPaper(img){const W0=img.width,H0=img.height,sc=Math.min(1,420/Mat
  const cands=[quadOf(m1),quadOf(m2)].filter(Boolean).sort((a,b)=>a.score-b.score);
  if(!cands.length)return null;
  return cands[0].q.map(([x,y])=>[(x+.5)/sc,(y+.5)/sc])}
+/* treure dits i objectes que entren per la vora del full (els pinta del color del paper) */
+function removeObstructions(img){const W=img.width,H=img.height,P=img.data,sc=Math.min(1,520/Math.max(W,H)),w=Math.max(2,Math.round(W*sc)),h=Math.max(2,Math.round(H*sc)),N=w*h;
+ const L=new Float32Array(N),S=new Float32Array(N);
+ for(let y=0;y<h;y++){const yy=Math.min(H-1,(y/sc)|0);for(let x=0;x<w;x++){const i=(yy*W+Math.min(W-1,(x/sc)|0))*4,r=P[i],g=P[i+1],b=P[i+2],mx=Math.max(r,g,b),mn=Math.min(r,g,b);L[y*w+x]=.3*r+.59*g+.11*b;S[y*w+x]=mx?(mx-mn)/mx:0}}
+ const srt=Float32Array.from(L).sort(),pl=srt[(N*.85)|0];
+ let m=new Uint8Array(N);for(let i=0;i<N;i++)m[i]=((S[i]>.16&&L[i]>35)||L[i]<pl*.42)?1:0;
+ const pass=(a,r,isMax,horiz)=>{const o=new Uint8Array(N);for(let j=0;j<(horiz?h:w);j++){for(let k=0;k<(horiz?w:h);k++){let v=isMax?0:1;for(let d=-r;d<=r;d++){const kk=k+d;let q;if(kk<0||kk>=(horiz?w:h))q=isMax?0:1;else q=horiz?a[j*w+kk]:a[kk*w+j];if(isMax?q:!q){v=isMax?1:0;break}}o[horiz?j*w+k:k*w+j]=v}}return o};
+ const ero=(a,r)=>pass(pass(a,r,false,true),r,false,false),dil=(a,r)=>pass(pass(a,r,true,true),r,true,false);
+ const op=dil(ero(m,4),4);
+ const lab=new Int32Array(N).fill(-1),keep=new Uint8Array(N),st=[];let id=0;
+ for(let i=0;i<N;i++){if(!op[i]||lab[i]>=0)continue;const pix=[];let edge=false;st.push(i);lab[i]=id;
+  while(st.length){const k=st.pop();pix.push(k);const x=k%w,y=(k/w)|0;if(x===0||y===0||x===w-1||y===h-1)edge=true;
+   for(const n of [x>0?k-1:-1,x<w-1?k+1:-1,y>0?k-w:-1,y<h-1?k+w:-1])if(n>=0&&op[n]&&lab[n]<0){lab[n]=id;st.push(n)}}
+  if(edge&&pix.length>N*.003)for(const k of pix)keep[k]=1;id++}
+ let any=0;for(let i=0;i<N;i++)any|=keep[i];if(!any)return img;
+ img._obs={msk:dil(keep,6),w,h,sc};return img}
+function paintObs(img){const o=img._obs;if(!o)return img;const W=img.width,H=img.height,P=img.data;
+ for(let y=0;y<H;y++){const my=Math.min(o.h-1,(y*o.sc)|0);for(let x=0;x<W;x++){if(o.msk[my*o.w+Math.min(o.w-1,(x*o.sc)|0)]){const i=(y*W+x)*4;P[i]=P[i+1]=P[i+2]=252}}}return img}
 async function scanDoc(b64,corners){const img=await b64Img(b64);const c=document.createElement('canvas');c.width=img.width;c.height=img.height;const cx=c.getContext('2d');cx.drawImage(img,0,0);
- const src=cx.getImageData(0,0,c.width,c.height);let q=null;try{const lp=detectPaper(img);q=lp&&validQuad(lp,c.width,c.height,1.0)}catch(e){}if(!q)q=validQuad(corners,c.width,c.height,1.01);const out=enhanceDoc(q?warpQuad(src,q):src);
+ const src=cx.getImageData(0,0,c.width,c.height);let q=null;try{const lp=detectPaper(img);q=lp&&validQuad(lp,c.width,c.height,1.0)}catch(e){}if(!q)q=validQuad(corners,c.width,c.height,1.01);const out=paintObs(enhanceDoc(removeObstructions(q?warpQuad(src,q):src)));
  const o=document.createElement('canvas');o.width=out.width;o.height=out.height;o.getContext('2d').putImageData(out,0,0);return o.toDataURL('image/jpeg',.85).split(',')[1]}
 
 let AQ=null;
