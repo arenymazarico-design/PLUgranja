@@ -9,8 +9,10 @@ Aquesta app té servidor (Netlify Functions + Netlify Blobs), per tant **no serv
 ```
 npm install
 npx netlify-cli login
-npx netlify-cli deploy --prod
+npx netlify-cli deploy --prod --build
 ```
+⚠️ Posa sempre `--build`: així s'executa `tools/stamp.mjs`, que dona un número de versió nou a l'app. Amb aquest número, els mòbils detecten que hi ha una versió nova i s'actualitzen sols en obrir l'app.
+(Amb GitHub es fa sol a cada desplegament.)
 
 ## 2. Variables d'entorn (Site configuration → Environment variables)
 | Variable | Valor |
@@ -32,3 +34,9 @@ Obre l'adreça a Safari (iPhone) → Compartir → *Afegir a pantalla d'inici*. 
 ## Estructura
 - `public/` – app (index.html, logo, icones)
 - `netlify/functions/api.mjs` – servidor: usuaris, permisos, dades, fotos d'albarans i lectura amb IA
+
+## Actualitzacions
+Cada desplegament genera un número de versió nou (`public/version.json`). L'app el comprova en obrir-se i cada cop que es torna a ella; si n'hi ha un de nou, es recarrega sola. La versió es veu a Configuració i a la pantalla inicial del granger.
+
+## Sense cobertura
+El deslletament, les baixes, l'escorxador, els passos d'hidròlisi, les lectures d'aigua (amb foto) i les fotos d'albarans es guarden al mòbil si no hi ha cobertura i s'envien sols quan torna. Una barra a baix indica què queda per enviar.

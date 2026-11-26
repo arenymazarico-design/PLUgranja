@@ -100,6 +100,9 @@ async function askClaude(b64, prompt, maxTokens = 600) {
   return JSON.parse(m[0]);
 }
 const toNum = (v) => (typeof v === "number" ? v : v ? Number(String(v).replace(/\s/g, "").replace(/\.(?=\d{3}(\D|$))/g, "").replace(",", ".")) || null : null);
+const normTxt = (x) => String(x || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/\b(s\.?\s?l\.?\s?u?|s\.?\s?a\.?\s?u?|s\.?\s?c\.?\s?c\.?\s?l?)\.?$/g, "").replace(/[^a-z0-9]/g, "");
+const normNum = (x) => String(x || "").toLowerCase().replace(/[^a-z0-9]/g, "").replace(/^0+(?=\d)/, "");
+function isDupGasto(a, b) { return normNum(a.albara) && normNum(a.albara) === normNum(b.albara) && a.data === b.data && normTxt(a.empresa) === normTxt(b.empresa); }
 function cleanCorners(c, w, h) {
   if (!Array.isArray(c) || c.length !== 4 || !w || !h) return null;
   const pts = c.map((p) => (Array.isArray(p) ? p : [p && p.x, p && p.y]).map(Number));
@@ -178,6 +181,11 @@ export default async (req) => {
     const isAdmin = me.role === "admin";
     const stamp = () => ({ by: me.id, byName: me.name, at: Date.now() });
 
+    const IDEMP = ["destete.save", "destete.line.save", "destete.baixa.add", "escorxador.save", "hidrolisi.step", "aigua.save"];
+    const opId = IDEMP.includes(action) && /^[a-z0-9_-]{8,60}$/i.test(String(body.opId || "")) ? "op/" + me.id + "/" + body.opId : null;
+    if (opId) { const prev = await st().get(opId, { type: "json" }).catch(() => null); if (prev) return json(prev); }
+    const UP = !!body.upsert;
+    const act = async () => {
     switch (action) {
       /* ---- session ---- */
       case "boot": {
@@ -209,11 +217,12 @@ export default async (req) => {
         const v = { farm: r.farm, year: +r.year, week: +r.week, dest: num(r.dest), carr: num(r.carr) };
         if (!v.year || !(v.week >= 1 && v.week <= 53) || (v.dest === null && v.carr === null)) fail("fill");
         const res = await update("destete", (rows) => {
-          const ex = r.id ? rows.find((x) => x.id === r.id) : null;
+          let ex = r.id ? rows.find((x) => x.id === r.id) : null;
           if (r.id && !ex) fail("not_found", 404);
+          if (!ex && UP) ex = rows.find((x) => x.farm === v.farm && x.year === v.year && x.week === v.week) || null;
           if (ex && ex.locked) fail("locked");
           if (ex && !farmOk("destete", ex.farm)) fail("forbidden_farm", 403);
-          const dup = rows.find((x) => x.farm === v.farm && x.year === v.year && x.week === v.week && x.id !== r.id);
+          const dup = rows.find((x) => x.farm === v.farm && x.year === v.year && x.week === v.week && x.id !== (ex ? ex.id : r.id));
           if (dup) fail(dup.locked ? "locked_dup" : "dup");
           if (ex && ex.lines && ex.lines.length) fail("has_lines");
           if (ex) { Object.assign(ex, v, { upd: stamp() }); return ex; }
@@ -237,6 +246,7 @@ export default async (req) => {
             ex = { id: uid(), farm: farmId, year: y, week: w, dest: null, carr: null, baix: 0, baixes: [], lines: [], locked: false, created: stamp() }; rows.push(ex); }
           if (ex.locked) fail("locked");
           ex.lines ||= [];
+          if (!L.id && UP) { const m = ex.lines.find((x) => x.lot === lot && x.sala === sala); if (m) L.id = m.id; }
           if (ex.lines.some((x) => x.id !== L.id && x.lot === lot && x.sala === sala)) fail("dup_line");
           const ln = L.id ? ex.lines.find((x) => x.id === L.id) : null;
           if (L.id && !ln) fail("not_found", 404);
@@ -321,6 +331,7 @@ export default async (req) => {
           if (ex && ex.exported) fail("exported");
           if (ex && ex.validated && me.role === "granger") fail("locked");
           if (ex && !farmOk("escorxador", ex.farm)) fail("forbidden_farm", 403);
+          if (!ex && UP) { ex = rows.find((x) => x.farm === r.farm && x.year === +r.year && x.week === +r.week) || null; if (ex && ex.exported) fail("exported"); if (ex && ex.validated && me.role === "granger") fail("locked"); }
           if (!ex) {
             if (rows.some((x) => x.farm === r.farm && !x.validated && !x.exported)) fail("dup_open");
             const y = +r.year, w = +r.week; if (!y || !(w >= 1 && w <= 53)) fail("fill");
@@ -398,6 +409,13 @@ export default async (req) => {
         await st().set("photo/" + id, Buffer.from(b64, "base64"));
         return json({ photoId: id });
       }
+      case "photo.discard": {
+        const id = str(body.id, 60);
+        if (!((P.gastos || 0) >= 2 || (P.aigua || 0) >= 2)) fail("forbidden", 403);
+        const used = (await get("gastos")).some((x) => x.photo === id) || (await get("aigua")).some((x) => x.photo === id);
+        if (!used) await st().delete("photo/" + id).catch(() => {});
+        return json({ ok: true });
+      }
       case "gastos.analyze": {
         need("gastos", 2);
         const buf = await st().get("photo/" + str(body.photoId, 60), { type: "arrayBuffer" });
@@ -436,6 +454,9 @@ export default async (req) => {
           const ex = r.id ? rows.find((x) => x.id === r.id) : null;
           if (r.id && !ex) fail("not_found", 404);
           if (P.validarGastos && r.factura !== undefined) v.factura = str(r.factura, 60);
+          const owner = ex ? ex.created.by : me.id;
+          const dup = rows.find((x) => x.id !== (ex && ex.id) && x.created.by === owner && isDupGasto(x, v));
+          if (dup) throw Object.assign(new HttpErr("dup_albara", 409), { extra: { dup: { id: dup.id, empresa: dup.empresa, albara: dup.albara, data: dup.data, import: dup.import, farm: dup.farm } } });
           if (ex) { if (!farmOk("gastos", ex.farm)) fail("forbidden_farm", 403); if (me.role === "granger" && ex.created.by !== me.id) fail("forbidden", 403); if (ex.validated && !P.validarGastos) fail("locked"); Object.assign(ex, v, { upd: stamp() }); return ex; }
           const n = { id: uid(), ...v, validated: null, photo: str(r.photo, 60) || null, ai: r.ai || null, created: stamp() }; rows.push(n); return n;
         });
@@ -518,6 +539,7 @@ export default async (req) => {
           if (me.role === "granger" && !(year === nowM.y && month === nowM.m)) fail("past_month");
           const lectura = num(r.lectura); if (lectura === null) fail("fill");
           const data = /^\d{4}-\d{2}-\d{2}$/.test(r.data || "") ? r.data : new Date().toISOString().slice(0, 10);
+          if (!ex && UP) { const m = rows.find((x) => x.farm === farm && x.meter === meter && x.year === year && x.month === month); if (m) { Object.assign(m, { lectura, data, obs: str(r.obs, 200) }, str(r.photo, 60) ? { photo: str(r.photo, 60) } : {}, { upd: stamp() }); return m; } }
           if (!ex && rows.some((x) => x.farm === farm && x.meter === meter && x.year === year && x.month === month)) fail("dup");
           const v = { lectura, data, obs: str(r.obs, 200) };
           const photo = str(r.photo, 60);
@@ -613,8 +635,12 @@ export default async (req) => {
       }
       default: fail("bad_action");
     }
+    };
+    const res = await act();
+    if (opId && res.status === 200) { try { await st().setJSON(opId, await res.clone().json()); } catch (e) {} }
+    return res;
   } catch (e) {
-    if (e instanceof HttpErr) return json({ error: e.message }, e.status);
+    if (e instanceof HttpErr) return json({ error: e.message, ...(e.extra || {}) }, e.status);
     console.error(e);
     return json({ error: "server" }, 500);
   }

@@ -1,6 +1,29 @@
 [build]
   publish = "public"
   functions = "netlify/functions"
+  command = "node tools/stamp.mjs"
 
 [functions]
   node_bundler = "esbuild"
+
+# La pàgina, el service worker i la versió no s'han de guardar mai en memòria cau
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+[[headers]]
+  for = "/version.json"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Cache-Control = "no-cache"
