@@ -80,25 +80,15 @@ async function ensureAdmin() {
 }
 
 /* ---------- Anthropic ---------- */
-async function analyzeAlbara(b64) {
+async function askClaude(b64, prompt, maxTokens = 600) {
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) fail("no_ai_key", 500);
-  const prompt = `Ets un assistent que llegeix albarans i factures d'una empresa ramadera porcina a Catalunya/Espanya.
-Llegeix el document de la imatge i retorna NOMÉS un objecte JSON (sense cap text més) amb aquestes claus:
-{"empresa": nom del proveïdor que emet l'albarà,
- "albara": número d'albarà o factura (string),
- "data": data del document en format YYYY-MM-DD o null,
- "import": import TOTAL del document (número amb punt decimal, IVA inclòs si apareix; null si no n'hi ha),
- "categoria": una d'aquestes: ${CATS.join(", ")},
- "concepte": resum molt breu del que s'ha subministrat o fet (màx 12 paraules, en català)}
-Guia categories: hores o treballs d'electricista → electricitat; fontaneria/aigua → lampisteria; peces o recanvis → recanvis; gasoil/gasoli/combustible → gasoil; pellet/biomassa → pellet; pinso/alimentació animal → pinso; medicaments/vacunes/serveis veterinaris → veterinari; desinfectants/neteja → neteja; reparacions generals/obres → manteniment; transport de mercaderies o animals → transport; si no és clar → altres.
-Si un camp no es pot llegir, posa null.`;
   const r = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: { "x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json" },
     body: JSON.stringify({
       model: process.env.ANTHROPIC_MODEL || "claude-haiku-5-5",
-      max_tokens: 500,
+      max_tokens: maxTokens,
       messages: [{ role: "user", content: [{ type: "image", source: { type: "base64", media_type: "image/jpeg", data: b64 } }, { type: "text", text: prompt }] }],
     }),
   });
@@ -107,12 +97,41 @@ Si un camp no es pot llegir, posa null.`;
   const txt = (d.content || []).map((c) => c.text || "").join("");
   const m = txt.match(/\{[\s\S]*\}/);
   if (!m) fail("ai_parse", 502);
-  const o = JSON.parse(m[0]);
+  return JSON.parse(m[0]);
+}
+const toNum = (v) => (typeof v === "number" ? v : v ? Number(String(v).replace(/\s/g, "").replace(/\.(?=\d{3}(\D|$))/g, "").replace(",", ".")) || null : null);
+function cleanCorners(c, w, h) {
+  if (!Array.isArray(c) || c.length !== 4 || !w || !h) return null;
+  const pts = c.map((p) => (Array.isArray(p) ? p : [p && p.x, p && p.y]).map(Number));
+  if (pts.some((p) => p.length !== 2 || p.some((v) => !isFinite(v)))) return null;
+  return pts.map(([x, y]) => [Math.max(0, Math.min(w, x)), Math.max(0, Math.min(h, y))]);
+}
+async function analyzeAlbara(b64, w, h) {
+  const prompt = `Ets un assistent que llegeix albarans i factures d'una empresa ramadera porcina a Catalunya/Espanya.
+La imatge fa ${w || "?"}×${h || "?"} píxels (amplada×alçada).
+Llegeix el document i retorna NOMÉS un objecte JSON (sense cap text més) amb aquestes claus:
+{"empresa": nom del proveïdor que emet l'albarà,
+ "albara": número d'albarà o factura (string),
+ "data": data del document en format YYYY-MM-DD o null,
+ "import": import TOTAL del document (número amb punt decimal, IVA inclòs si apareix; null si no n'hi ha),
+ "categoria": una d'aquestes: ${CATS.join(", ")},
+ "concepte": resum molt breu del que s'ha subministrat o fet (màx 12 paraules, en català),
+ "corners": les 4 cantonades del full de paper dins la imatge, en píxels, en aquest ordre: superior-esquerra, superior-dreta, inferior-dreta, inferior-esquerra, com [[x,y],[x,y],[x,y],[x,y]]; null si el full ja ocupa tota la imatge o no es veuen les vores}
+Guia categories: hores o treballs d'electricista → electricitat; fontaneria/aigua → lampisteria; peces o recanvis → recanvis; gasoil/gasoli/combustible → gasoil; pellet/biomassa → pellet; pinso/alimentació animal → pinso; medicaments/vacunes/serveis veterinaris → veterinari; desinfectants/neteja → neteja; reparacions generals/obres → manteniment; transport de mercaderies o animals → transport; si no és clar → altres.
+Si un camp no es pot llegir, posa null.`;
+  const o = await askClaude(b64, prompt, 700);
   return {
     empresa: str(o.empresa), albara: str(o.albara, 60), data: /^\d{4}-\d{2}-\d{2}$/.test(o.data || "") ? o.data : "",
-    import: typeof o.import === "number" ? o.import : o.import ? Number(String(o.import).replace(/\./g, "").replace(",", ".")) || null : null,
-    categoria: CATS.includes(o.categoria) ? o.categoria : "altres", concepte: str(o.concepte, 120),
+    import: toNum(o.import), categoria: CATS.includes(o.categoria) ? o.categoria : "altres", concepte: str(o.concepte, 120),
+    corners: cleanCorners(o.corners, w, h),
   };
+}
+async function readMeter(b64) {
+  const o = await askClaude(b64, `La imatge és la foto d'un comptador d'aigua.
+Llegeix la xifra del totalitzador principal en metres cúbics (m³): normalment són els dígits negres sobre fons blanc. Si hi ha dígits vermells (litres o decimals), posa'ls com a decimals només si es llegeixen amb claredat.
+Retorna NOMÉS un objecte JSON: {"lectura": número amb punt decimal, o null si no es pot llegir}`, 100);
+  const v = typeof o.lectura === "number" ? o.lectura : o.lectura != null ? Number(String(o.lectura).replace(/\s/g, "").replace(",", ".")) : NaN;
+  return { lectura: isFinite(v) && v >= 0 ? v : null };
 }
 
 /* ---------- handler ---------- */
@@ -363,11 +382,19 @@ export default async (req) => {
       }
 
       /* ---- DESPESES ---- */
-      case "gastos.upload": {
-        need("gastos", 2);
+      case "gastos.upload":
+      case "photo.upload": {
+        const mod = action === "gastos.upload" ? "gastos" : body.mod;
+        if (!["gastos", "aigua"].includes(mod)) fail("bad_col");
+        need(mod, 2);
         const b64 = String(body.image || "");
         if (b64.length < 100 || b64.length > 5_500_000) fail("bad_image");
-        const id = uid();
+        let id = uid();
+        if (body.replace) { // només es pot substituir una foto encara no desada en cap registre
+          id = str(body.replace, 60);
+          const used = (await get("gastos")).some((x) => x.photo === id) || (await get("aigua")).some((x) => x.photo === id);
+          if (used || !(await st().get("photo/" + id, { type: "arrayBuffer" }))) fail("forbidden", 403);
+        }
         await st().set("photo/" + id, Buffer.from(b64, "base64"));
         return json({ photoId: id });
       }
@@ -375,7 +402,21 @@ export default async (req) => {
         need("gastos", 2);
         const buf = await st().get("photo/" + str(body.photoId, 60), { type: "arrayBuffer" });
         if (!buf) fail("not_found", 404);
-        return json({ fields: await analyzeAlbara(Buffer.from(buf).toString("base64")) });
+        return json({ fields: await analyzeAlbara(Buffer.from(buf).toString("base64"), +body.w || 0, +body.h || 0) });
+      }
+      case "aigua.analyze": {
+        need("aigua", 2);
+        const buf = await st().get("photo/" + str(body.photoId, 60), { type: "arrayBuffer" });
+        if (!buf) fail("not_found", 404);
+        return json(await readMeter(Buffer.from(buf).toString("base64")));
+      }
+      case "aigua.photo": {
+        need("aigua", 1);
+        const a = (await get("aigua")).find((x) => x.id === body.id);
+        if (!a || !farmOk("aigua", a.farm) || !a.photo) fail("not_found", 404);
+        const buf = await st().get("photo/" + a.photo, { type: "arrayBuffer" });
+        if (!buf) fail("not_found", 404);
+        return json({ image: Buffer.from(buf).toString("base64") });
       }
       case "gastos.photo": {
         need("gastos", 1);
@@ -479,6 +520,9 @@ export default async (req) => {
           const data = /^\d{4}-\d{2}-\d{2}$/.test(r.data || "") ? r.data : new Date().toISOString().slice(0, 10);
           if (!ex && rows.some((x) => x.farm === farm && x.meter === meter && x.year === year && x.month === month)) fail("dup");
           const v = { lectura, data, obs: str(r.obs, 200) };
+          const photo = str(r.photo, 60);
+          if (photo) v.photo = photo;
+          if (!ex && !photo) fail("need_photo");
           if (ex) { Object.assign(ex, v, { upd: stamp() }); return ex; }
           const n = { id: uid(), farm, meter, year, month, ...v, created: stamp() }; rows.push(n); return n;
         });
